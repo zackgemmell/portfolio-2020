@@ -1,0 +1,10 @@
+@keyframes scrollWheel {
+  from {
+     transform: translateY(0px) scale(1.0);
+     opacity: 1;
+  }
+  to {
+     transform: translateY(25px) scale(0.5);
+     opacity: 0;
+  }
+}

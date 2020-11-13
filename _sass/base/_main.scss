@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  overflow: auto;
+  transition: all $durationLong ease;
+  font-family: $font, sans-serif;
+}
+
+html {
+  color:$black;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}
+
+button:focus {
+  outline: none;
+}
+
+p a {
+  color: $indigo;
+}
+
+a {
+  text-decoration: none;
+  color: $black;
+}
+
+li {
+  list-style: none;
+}
+
+
+.wrapper-home {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+@media (max-width: $breakpointLarge) {
+  padding: 0 16%;
+}
+
+@media (max-width: $breakpointMedium) {
+  padding: 0 12.5%;
+}
+
+@media (max-width: $breakpointSmall) {
+  padding: 0 8%;
+}

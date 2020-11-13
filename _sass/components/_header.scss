@@ -1,0 +1,48 @@
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    opacity: 0;
+    background: #fff;
+    transition: opacity 1.5s ease, box-shadow $durationShort ease;
+    .header-center{
+      max-width: 780px;
+      margin:0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height:64px;
+    }
+}
+
+.header-loaded {
+    opacity: 1;
+}
+
+.header-loaded-instant {
+   opacity: 1;
+   transition: opacity 0s, box-shadow 0s;
+   box-shadow: $shadow;
+
+}
+
+.header-scrolled {
+   box-shadow: $shadow;
+}
+
+.header-nav {
+   display: block;
+   > a {
+     color:$grey400;
+     font-weight: 500;
+     font-size:20px;
+     margin-left: 35px;
+   }
+}
+
+.logo{
+  color:$grey400;
+  font-weight: 700;
+  font-size:20px;
+}
