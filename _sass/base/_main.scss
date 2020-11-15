@@ -15,7 +15,8 @@ body {
 }
 
 html {
-  color:$black;
+  font-size:24px;
+  color: $grey400;
 }
 
 button {
@@ -27,33 +28,107 @@ button:focus {
   outline: none;
 }
 
+p{
+  margin-bottom:10px;
+}
+
 p a {
   color: $indigo;
 }
 
 a {
-  text-decoration: none;
   color: $black;
 }
 
 li {
-  list-style: none;
+  list-style: inside;
 }
 
-
-.wrapper-home {
-  max-width: 1024px;
+.wrapper {
+  max-width: 1064px;
   margin: 0 auto;
+  padding: 0 20px;
 }
 
-@media (max-width: $breakpointLarge) {
-  padding: 0 16%;
+h1,h2,h3,h4{
+  color:$grey400;
 }
 
-@media (max-width: $breakpointMedium) {
-  padding: 0 12.5%;
+h5,h6{
+  color:$grey150;
 }
 
-@media (max-width: $breakpointSmall) {
-  padding: 0 8%;
+h1,h2,h3,h4,h5,h6{
+  font-weight: 700;
+}
+
+h1{
+  font-size:48px;
+}
+
+h2{
+  font-size:36px;
+}
+
+h3{
+  font-size:28px;
+}
+
+h4{
+  font-size:24px;
+}
+
+h5{
+  font-size:20px;
+}
+
+h6{
+  font-size:16px;
+}
+
+mark{
+  background: $yellow;
+}
+
+table{
+  border-spacing: 0;
+  border-radius: 4px;
+  border:1px solid $grey100;
+  th{
+    background: #f2f2f5;
+    &:first-child{
+      border-radius:4px 0 0 0;
+    }
+    &:last-child{
+      border-radius:0 4px 0 0;
+    }
+  }
+  tr:last-child td{
+    &:first-child{
+      border-radius: 0 0 0 4px;
+    }
+    &:last-child{
+      border-radius:0 0 4px 0;
+    }
+  }
+  td,
+  th{
+    border:1px solid $grey100;
+    padding:16px;
+    font-weight: 600;
+  }
+}
+
+blockquote{
+  border-left:8px solid $grey100;
+  padding-left:22px;
+  p{
+    color:$grey150;
+  }
+}
+
+hr{
+  background: $grey100;
+  height: 2px;
+  border: none;
 }

@@ -3,61 +3,11 @@
 <html lang="en">
     {% include head.html %}
     <body>
-        <header class="header">
-            <div class="header-center">
-                <a href="{{site.url}}{{site.baseurl}}" class="logo">
-                    <p>Zack Gemmell</p>
-                </a>
-                <nav class="header-nav">
-                    <a href="{{site.url}}{{site.baseurl}}#projects">Work</a>
-                    <a href="{{site.url}}{{site.baseurl}}#about">About</a>
-                </nav>
-            </div>
-        </header>
-
-    {% if page.heroMedia contains ".mp4" %}
-
-
-            <video id="post-hero" src="{{ page.heroMedia }}" autoplay="true" loop="true"></video>
-        {% else %}
-            <img id="post-hero" src="{{ page.heroMedia }}" />
-        {% endif %}
-        <div class="wrapper-post">
-            <section class="story">
-               <span class="tile-work-description-company-large">{{ page.company}}</span>
-                <h1 class="story-title">{{ page.title }}</h2>
-                <section class="story-section">
-                    <h3 class="story-section-label">Date</h3>
-                    <p class="story-section-paragraph">{{ page.shippedDate }}</p>
-                </section>
-                <section class="story-section">
-                    <h3 class="story-section-label">Overview</h3>
-                    {% for paragraph in page.overview %}
-                        <p class="story-section-paragraph">{{ paragraph | textilize }}</p>
-                    {% endfor %}
-                </section>
-                {% if page.outcome %}
-                <section class="story-section">
-                    <h3 class="story-section-label">Outcome</h3>
-                    {% for paragraph in page.outcome %}
-                        <p class="story-section-paragraph">{{ paragraph | textilize }}</p>
-                    {% endfor %}
-                </section>
-                {% else %}
-                {% endif %}
-                <section class="story-section">
-                    <h3 class="story-section-label">Tools</h3>
-                    {% for paragraph in page.tools %}
-                        <p class="story-section-paragraph">{{ paragraph | textilize }}</p>
-                    {% endfor %}
-                </section>
-            </section>
-            <section id="post-visuals">
-                <h3>{{ page.title }} Visuals</h3>
-                {{ content }}
-            </section>
+        {% include header-post.html %}
+        <div class="wrapper wrapper-post">
+            {{ content }}
             {% include footer.html %}
         </div>
-        {% include scripts.html %}
     </body>
+    {% include scripts.html %}
 </html>
