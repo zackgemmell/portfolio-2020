@@ -24,16 +24,16 @@ summary: Zack Gemmell is product designer living and working in San Diego, Calif
             </div>
             <section id="projects" class="projects">
                <h2 class="home-section-title">Selected Work</h2>
-               {% for post in site.posts limit: 10 %}
-                   {% if post.categories contains 'work' %}
-                    <a href="{{site.baseurl}}{{ post.url }}" class="tile-work">
-                        <img class="tile-work-thumbnail" src="{{site.baseurl}}{{ post.thumbnail }}" alt="{{ post.thumbnailDesc }}">
-                        <div class="tile-work-description">
-                            <span class="tile-work-description-company">{{ post.company}}</span>
-                            <h2 class="tile-work-description-title">{{ post.title }}</h2>
-                            <p class="tile-work-description-summary">{{ post.summary }}</p>
-                        </div>
-                    </a>
+                {% for post in site.posts limit: 10 %}
+                    {% if post.categories contains 'work' %}
+                        <a href="{{site.baseurl}}{{ post.url }}" class="tile-work">
+                            <img class="tile-work-thumbnail" src="{{site.baseurl}}{{ post.thumbnail }}" alt="{{ post.thumbnailDesc }}">
+                            <div class="tile-work-description">
+                                <span class="tile-work-description-company">{{ post.company}}</span>
+                                <h2 class="tile-work-description-title">{{ post.title }}</h2>
+                                <p class="tile-work-description-summary">{{ post.summary }}</p>
+                            </div>
+                        </a>
                    {% endif %}
                {% endfor %}
             </section>

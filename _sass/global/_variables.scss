@@ -15,11 +15,12 @@ $yellow: #fff7c1;
 $font: 'SF';
 
 // all spacing
+$spaceMega: 16em; // space between homepage sections
+$spaceExtraLarge: 4em; // 128px
 $spaceLarge: 2em; // 32px
 $spaceMedium: 1.5em; // 24px
-$spaceSmall: 29px;
+$spaceSmall: 1em; // 16px
 $spaceExtraSmall: .5em; // 8px
-
 
 // breakpoints
 $breakpointLarge: 1680px; // 15 inch mbp
