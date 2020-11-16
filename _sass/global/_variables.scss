@@ -1,0 +1,39 @@
+// levers
+$rotationSpeed: 20s;
+
+// all colors
+$grey400: #2C2C2F;
+$grey300: #5B5B61;
+$grey200: #727279;
+$grey150: #8E8E93;
+$grey100: #E5E5EA;
+$white: #ffffff;
+$black: #000000;
+$indigo: #6b6bff;
+$yellow: #fff7c1;
+
+$font: 'SF';
+
+// all spacing
+$spaceLarge: 2em; // 32px
+$spaceMedium: 1.5em; // 24px
+$spaceSmall: 29px;
+$spaceExtraSmall: .5em; // 8px
+
+
+// breakpoints
+$breakpointLarge: 1680px; // 15 inch mbp
+$breakpointMedium: 944px; // 13 inch mbp
+$breakpointSmall: 696px; // mobile device
+
+// curves
+$bezierEaseOut: cubic-bezier(.3,0,0,1);
+$bezierLogo: cubic-bezier(0.25, 0.10, 0.00, 1.00);
+
+// timing
+$durationExtraLong: .9s;
+$durationLong: .6s;
+$durationMedium: .4s;
+$durationShort: .2s;
+
+$shadow: 0px 2px 120px rgba(0, 0, 0, 0.1);

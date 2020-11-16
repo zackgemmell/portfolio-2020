@@ -1,8 +1,25 @@
 ---
 layout: post
-title:  "Architecting for Growth"
-date:   2020-11-08 21:51:25 -0500
-categories: Raken
+category: work
+type: Regular
+permalink: /mobile-design-system/
+
+# Home
+company: Raken
+title: Architecting
+summary: Laying the foundation for a design system to support the future of the Raken app.
+thumbnail: /images/thumbnails/sl-thumbnail.png
+thumbnailDesc: Architecting For Growth
+
+# Post
+heroMedia: "../images/rk-header.png"
+shippedDate: Shipping January 2020
+overview:
+    - Part of my work on the new Raken app includes a group of projects that can be categorized as platform design.
+    - This project included rethinking the IA of Raken's mobile app to focus more on the correct persona.
+
+tools:
+    - Sketch, ProtoPie, InVision, Atomic Design Principles
 ---
 
 <mark>When I first joined Raken, features in our web application were painfully fragmented.</mark>
