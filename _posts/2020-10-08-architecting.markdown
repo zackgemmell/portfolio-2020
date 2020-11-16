@@ -2,11 +2,11 @@
 layout: post
 category: work
 type: Regular
-permalink: /mobile-design-system/
+permalink: /architecting-for-growth/
 
 # Home
 company: Raken
-title: Architecting
+title: Architecting for Growth
 summary: Laying the foundation for a design system to support the future of the Raken app.
 thumbnail: /images/thumbnails/sl-thumbnail.png
 thumbnailDesc: Architecting For Growth
