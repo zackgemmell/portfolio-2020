@@ -37,7 +37,7 @@ This was partially symptomatic of where Raken found product market fit initially
 
 ![Mixpanel data showing feature usage](../images/ia-1.png){: .post-image}
 Mixpanel data showing feature usage.
-{: .post-caption}
+{: .post-caption .img-120}
 
 From production tracking, timecards, and safety talks, to checklists. Users had to navigate away from the daily report in order to discover them.
 {: .post-paragraph-embedded}
@@ -65,7 +65,7 @@ This is something
 Using atomic design principles ensures that every component in the library has all the necessary overrides as self contained symbols. 
 {: .post-paragraph-embedded-last}
 
-![Support for iOS 13 dark mode](../images/rk-1.png){: .post-image}
+![Support for iOS 13 dark mode](../images/rk-1.png){: .post-image .img-120}
 The design system will support the new iOS 13 dark mode.
 {: .post-caption}
 

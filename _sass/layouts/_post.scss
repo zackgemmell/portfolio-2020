@@ -8,3 +8,14 @@
 .header-empty{
   height:80px;
 }
+
+.img-120{
+  width:120%;
+  margin-left:-10%;
+  max-width:initial;
+  @media only screen and (max-width: 1278px) {
+    margin-left:0;
+    width:100%;
+    max-width:initial;
+  }
+}
