@@ -2,17 +2,17 @@
 layout: post
 category: No category
 type: Regular
-permalink: /architecting-for-growth/
+permalink: /architecting-for-growth-old/
 
 # Home
 company: Raken
 title: Architecting for Growth
 summary: Laying the foundation for a design system to support the future of the Raken app.
-thumbnail: /images/thumbnails/rk-thumbnail.png
+thumbnail: /assets/images/thumbnails/rk-thumbnail.png
 thumbnailDesc: Architecting for Growth
 
 # Post
-heroMedia: "../images/rk-header.png"
+heroMedia: "../assets/images/rk-header.png"
 shippedDate: Shipping January 2020
 overview:
     - Part of my work on the new Raken app includes a group of projects that can be categorized as platform design.
@@ -35,7 +35,7 @@ This was partially symptomatic of where Raken found product market fit initially
 {: .post-paragraph-embedded-last}
 
 
-![Mixpanel data showing feature usage](../images/ia-1.png){: .post-image}
+![Mixpanel data showing feature usage](.../assets/images/ia-1.png){: .post-image}
 Mixpanel data showing feature usage.
 {: .post-caption .img-120}
 
@@ -52,10 +52,10 @@ All of this highlighted the fundamental problem with how Raken’s information a
 {: .post-paragraph-embedded-last}
 
 <video autoplay loop>
-  <source src="../images/project-and-company.mp4" type="video/mp4">
-  <source src="../images/project-and-company.webm" type="video/webm">
+  <source src="../assets/images/project-and-company.mp4" type="video/mp4">
+  <source src="../assets/images/project-and-company.webm" type="video/webm">
   <p>Your browser doesn't support HTML5 video. Here is
-     a <a href="../images/project-and-company.mp4">link to the video</a> instead.</p>
+     a <a href="../assets/images/project-and-company.mp4">link to the video</a> instead.</p>
 </video>
 {: .post-image}
 
@@ -65,7 +65,7 @@ This is something
 Using atomic design principles ensures that every component in the library has all the necessary overrides as self contained symbols. 
 {: .post-paragraph-embedded-last}
 
-![Support for iOS 13 dark mode](../images/rk-1.png){: .post-image .img-120}
+![Support for iOS 13 dark mode](../assets/images/rk-1.png){: .post-image .img-120}
 The design system will support the new iOS 13 dark mode.
 {: .post-caption}
 
