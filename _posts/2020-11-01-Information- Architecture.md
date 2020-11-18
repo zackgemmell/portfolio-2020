@@ -51,7 +51,7 @@ Due to the nature of the application, there was a need to distinguish between Co
   <source src="../assets/img/raken/project-and-company.webm" type="video/webm">
   <p>Your browser doesn't support HTML5 video. Here is
      a <a href="../assets/img/raken/project-and-company.mp4">link to the video</a> instead.</p>
-</video>
+</video>{:.img-120}
 
 In order to flatten the navigation we needed to surface features and settings that had long been buried deep within settings. Not only did the change create more visibility for these features but it also provided an opportunity for new feature announcements and upgrade prompts when the user was on a basic plan.
 {: .post-paragraph-embedded-last}
