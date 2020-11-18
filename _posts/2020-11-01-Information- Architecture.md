@@ -63,7 +63,7 @@ Even though this project was primarily an improvement to the Raken web experienc
 Since Raken’s native mobile apps act as a bridge between office admins and workers out in the field, we needed to make sure that the new architecture would continue to be intuitive for those users while matching the new pattern. 
 {: .post-paragraph-embedded-last}
 
-![Project tools on iOS](../assets/img/raken/mobile-tools.png)
+![Project tools on iOS](../assets/img/raken/mobile-tools.png){:.img-50}
 
 I needed a layout that was straight-forward and easy to understand: I landed on the layout above because it offered simplicity and the flexibility to add or remove features based on plan type, user type, or company customization.
 
