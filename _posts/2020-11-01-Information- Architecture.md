@@ -20,6 +20,7 @@ Through customer feedback and event tracking, the team had come to learn that ex
 Engineering teams were spending months on new features only to find that adoption was incredibly low even though these were highly asked-for features.
 
 This was partially symptomatic of where Raken found product market fit initially: people knew us as a daily reporting solution and nothing more.
+{: .post-paragraph-embedded-last}
 
 ![Mixpanel data showing feature usage](../assets/img/raken/mixpanel.png){:.img-120}
 
@@ -31,6 +32,7 @@ My role was to work with stakeholders across the organization in order to unders
 We knew from research that user’s who were taught about our extended features were much more likely to continue using them after their training period ended. We also knew that the needs of companies using these features was highly variable; there was no single flow that could work for everyone.
 
 All of this highlighted the fundamental problem with how Raken’s information architecture was set up: having a highly nested navigation hierarchy meant that user’s rarely ventured out of the features that they were familiar with.
+{: .post-paragraph-embedded-last}
 
 <mark>We asked: what would happen if we consolidated the project feature navigation into a single menu?</mark>
 
@@ -42,6 +44,7 @@ All of this highlighted the fundamental problem with how Raken’s information a
 </video>
 
 Due to the nature of the application, there was a need to distinguish between Company level and Project level features. This duality presented an opportunity to organize features according to whether or not the user is inside a project.
+{: .post-paragraph-embedded-last}
 
 <video autoplay loop width="100%">
   <source src="../assets/img/raken/project-and-company.mp4" type="video/mp4">
@@ -51,12 +54,14 @@ Due to the nature of the application, there was a need to distinguish between Co
 </video>
 
 In order to flatten the navigation we needed to surface features and settings that had long been buried deep within settings. Not only did the change create more visibility for these features but it also provided an opportunity for new feature announcements and upgrade prompts when the user was on a basic plan.
+{: .post-paragraph-embedded-last}
 
 ![New feature announcements](../assets/img/raken/upgrade-mega-menu.png)
 
 Even though this project was primarily an improvement to the Raken web experience, our mobile apps also needed to be updated to follow the same patterns. Since
 
 Since Raken’s native mobile apps act as a bridge between office admins and workers out in the field, we needed to make sure that the new architecture would continue to be intuitive for those users while matching the new pattern. 
+{: .post-paragraph-embedded-last}
 
 ![Project tools on iOS](../assets/img/raken/mobile-tools.png)
 
