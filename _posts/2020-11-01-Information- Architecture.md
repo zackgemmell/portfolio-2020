@@ -56,7 +56,7 @@ Due to the nature of the application, there was a need to distinguish between Co
 In order to flatten the navigation we needed to surface features and settings that had long been buried deep within settings. Not only did the change create more visibility for these features but it also provided an opportunity for new feature announcements and upgrade prompts when the user was on a basic plan.
 {: .post-paragraph-embedded-last}
 
-![New feature announcements](../assets/img/raken/upgrade-mega-menu.png)
+![New feature announcements](../assets/img/raken/upgrade-mega-menu.png){:.img-120}
 
 Even though this project was primarily an improvement to the Raken web experience, our mobile apps also needed to be updated to follow the same patterns. Since
 
