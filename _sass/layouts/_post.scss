@@ -13,8 +13,6 @@
 .img-120{
   width:120%;
   margin-left:-10%;
-  margin-top: 4em;
-  margin-bottom: 4em;
   max-width:initial;
   box-shadow: 0 0 44px rgba($color: #000000, $alpha: 0.1);
   @media only screen and (max-width: 1278px) {
@@ -27,8 +25,6 @@
 .img-50{
   width:50%;
   margin-left:25%;
-  margin-top: 4em;
-  margin-bottom: 4em;
   max-width:initial;
   @media only screen and (max-width: 1278px) {
     margin-left:20%;
@@ -37,15 +33,25 @@
   }
 }
 
-.img-post{
-  margin-top: 4em;
-  margin-bottom: 4em;
-}
 
-video{
-  margin: 4em 0 4em 0;
-}
+
+
 
 .story-title{
   margin-bottom: 1em;
+}
+
+.post-caption {
+  font-size: 20px;
+  color: #8E8E93;
+  text-align: center;
+  padding-bottom: 2em;
+}
+
+.mb {
+  margin-bottom: 2em;
+}
+
+.mt {
+  margin-top: 2em;
 }

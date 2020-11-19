@@ -19,10 +19,10 @@ Through customer feedback and event tracking, the team had come to learn that ex
 
 Engineering teams were spending months on new features only to find that adoption was incredibly low even though these were highly asked-for features.
 
-This was partially symptomatic of where Raken found product market fit initially: people knew us as a daily reporting solution and nothing more.
+This was partially symmtomatic of where Raken found product market fit initially: people knew us as a daily reporting solution and nothing more.
 {: .post-paragraph-embedded-last}
 
-![Mixpanel data showing feature usage](../assets/img/raken/mixpanel.png){:.img-120}
+![Mixpanel data showing feature usage](../assets/img/raken/mixpanel.png){:.img-120 .mb .mt}
 
 From production tracking, timecards, and safety talks, to checklists. Users had to navigate away from the daily report in order to discover them.
 
@@ -41,7 +41,7 @@ All of this highlighted the fundamental problem with how Raken’s information a
   <source src="../assets/img/raken/information-architecture.webm" type="video/webm">
   <p>Your browser doesn't support HTML5 video. Here is
      a <a href="../assets/img/raken/information-architecture.mp4">link to the video</a> instead.</p>
-</video>{:.img-post}
+</video>{:.img-post .mb .mt}
 
 Due to the nature of the application, there was a need to distinguish between Company level and Project level features. This duality presented an opportunity to organize features according to whether or not the user is inside a project.
 {: .post-paragraph-embedded-last}
@@ -51,19 +51,19 @@ Due to the nature of the application, there was a need to distinguish between Co
   <source src="../assets/img/raken/project-and-company.webm" type="video/webm">
   <p>Your browser doesn't support HTML5 video. Here is
      a <a href="../assets/img/raken/project-and-company.mp4">link to the video</a> instead.</p>
-</video>{:.img-120}
+</video>{:.img-120 .mb .mt}
 
-In order to flatten the navigation we needed to surface features and settings that had long been buried deep within settings. Not only did the change create more visibility for these features but it also provided an opportunity for new feature announcements and upgrade prompts when the user was on a basic plan.
+In order to flatten the navigation we needed to surface features and settings that had long been buried deep within settings. Not only did the change create more visibility for these features but it also provided an opportunity for new feature announcements and upgrade prommts when the user was on a basic plan.
 {: .post-paragraph-embedded-last}
 
-![New feature announcements](../assets/img/raken/upgrade-mega-menu.png){:.img-120}
+![New feature announcements](../assets/img/raken/upgrade-mega-menu.png){:.img-120 .mt .mb}
 
 Even though this project was primarily an improvement to the Raken web experience, our mobile apps also needed to be updated to follow the same patterns. Since
 
 Since Raken’s native mobile apps act as a bridge between office admins and workers out in the field, we needed to make sure that the new architecture would continue to be intuitive for those users while matching the new pattern. 
 {: .post-paragraph-embedded-last}
 
-![Project tools on iOS](../assets/img/raken/mobile-tools.png){:.img-50}
+![Project tools on iOS](../assets/img/raken/mobile-tools.png){:.img-50 .mt .mb}
 
 I needed a layout that was straight-forward and easy to understand: I landed on the layout above because it offered simplicity and the flexibility to add or remove features based on plan type, user type, or company customization.
 
