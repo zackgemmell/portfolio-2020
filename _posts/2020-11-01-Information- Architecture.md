@@ -41,7 +41,7 @@ All of this highlighted the fundamental problem with how Raken’s information a
   <source src="../assets/img/raken/information-architecture.webm" type="video/webm">
   <p>Your browser doesn't support HTML5 video. Here is
      a <a href="../assets/img/raken/information-architecture.mp4">link to the video</a> instead.</p>
-</video>
+</video>{:.img-post}
 
 Due to the nature of the application, there was a need to distinguish between Company level and Project level features. This duality presented an opportunity to organize features according to whether or not the user is inside a project.
 {: .post-paragraph-embedded-last}
