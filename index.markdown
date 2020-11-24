@@ -5,5 +5,5 @@
 layout: home
 ---
 
-# Hi I'm Zack.
-# A product designer working on design systems.
+# Zack Gemmell
+## A product designer focused on growth through design.
