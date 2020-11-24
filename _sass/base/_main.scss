@@ -11,7 +11,7 @@ body {
   height: 100%;
   overflow: auto;
   transition: all $durationLong ease;
-  font-family: $font, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif;
 }
 
 html {
@@ -46,7 +46,7 @@ li {
 }
 
 .wrapper {
-  max-width: 960px;
+  max-width: 860px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -98,6 +98,7 @@ table{
   border:1px solid $grey100;
   th{
     background: #f2f2f5;
+    font-weight: 600;
     &:first-child{
       border-radius:4px 0 0 0;
     }
@@ -117,7 +118,7 @@ table{
   th{
     border:1px solid $grey100;
     padding:16px;
-    font-weight: 600;
+    
   }
 }
 

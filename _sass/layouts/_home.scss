@@ -15,7 +15,7 @@
    opacity: 0;
    font-weight: 600;
    font-size: 80px;
-   letter-spacing: 0.2px;
+   // letter-spacing: 0.2px;
    line-height: 120%;
    transition: all 1.5s ease;
    color: transparent;
@@ -40,22 +40,22 @@
    opacity: 0;
    padding: 0 0 20px 0;
    font-weight: 600;
-   letter-spacing: 0.2px;
-   font-size: 80px;
-   line-height: 0.9;
+   // letter-spacing: 0.2px;
+   font-size: 90px;
+   line-height: 1;
    transition: all 1.5s ease;
    color: transparent;
    background-image: url("../images/text-bg-5.gif");
    background-clip: text;
    -webkit-background-clip: text;
    @media only screen and (max-width: $breakpointLarge) {
-      font-size: 60px;
+      font-size: 64px;
    }
    @media only screen and (max-width: $breakpointMedium) {
       font-size: 50px;
    }
    @media only screen and (max-width: $breakpointSmall) {
-      font-size: 40px;
+      font-size: 44px;
    }
 }
 
