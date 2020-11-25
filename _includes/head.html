@@ -1,12 +1,4 @@
 <head>
-   <!-- Global site tag (gtag.js) - Google Analytics -->
-   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-53057933-2"></script>
-<!--   <script>-->
-<!--      window.dataLayer = window.dataLayer || [];-->
-<!--      function gtag(){dataLayer.push(arguments);}-->
-<!--      gtag('js', new Date());-->
-<!--      gtag('config', 'UA-53057933-2');-->
-<!--   </script>-->
    <meta charset="UTF-8">
    {% if page.url == "/" %}
        <title>{{ page.title }}</title>
@@ -22,4 +14,16 @@
     <meta property="og:description" content="{{ page.summary }}"/>
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/css/style.css">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1KJ12Q0F6J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1KJ12Q0F6J');
+</script>
+
+
 </head>
