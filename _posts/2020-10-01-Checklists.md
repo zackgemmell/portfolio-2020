@@ -57,4 +57,4 @@ We conducted dozens of user interviews, spoke with our sales and customer suppor
 
 ## Results
 
-In mid October we began rolling out the feature to great success. Not only did we see customers use checklists frequently—and qualitative research indicated it was a much better experience—but we also had the chance to ship the first modern web interface using Raken's new product language. Helping shape the way for future Raken web tools.
+In October 2020 we began rolling out the feature to great success. Not only did we see customers use checklists frequently—and qualitative research indicated it was a much better experience—but we also had the chance to ship the first modern web interface using Raken's new product language. Helping shape the way for future Raken web tools.
