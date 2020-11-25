@@ -7,9 +7,9 @@ permalink: /checklists/
 # Home
 company: Raken
 title: Checklists
-summary: Laying the foundation for a design system to support the future of the Raken app.
+summary: Creating a new feature to expand Raken's safety offering.
 thumbnail: /images/thumbnails/checklists-thumbnail.png
-thumbnailDesc: Architecting For Growth
+thumbnailDesc: Raken Checklists
 
 ---
 
