@@ -4,5 +4,5 @@
 
 layout: home
 title: Zack Gemmell - Product Designer
-summary: A product designer focused on growth through design.
+summary: Lead Product Designer at Raken. Previously co-founder at Code Cartel.
 ---
