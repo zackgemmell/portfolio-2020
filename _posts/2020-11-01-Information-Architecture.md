@@ -7,7 +7,7 @@ permalink: /architecting-for-growth/
 # Home
 company: Raken
 title: Architecting for Growth
-summary: Laying the foundation for a design system to support the future of the Raken app.
+summary: Building a foundation for the future of Raken.
 thumbnail: /images/thumbnails/ia-thumbnail.png
 thumbnailDesc: Architecting For Growth
 

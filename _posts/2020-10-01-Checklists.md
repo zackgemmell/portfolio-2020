@@ -7,7 +7,7 @@ permalink: /checklists/
 # Home
 company: Raken
 title: Checklists
-summary: Creating a new feature to expand Raken's safety offering.
+summary: Creating a new feature to grow Raken's safety offering.
 thumbnail: /images/thumbnails/checklists-thumbnail.png
 thumbnailDesc: Raken Checklists
 
