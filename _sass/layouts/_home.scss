@@ -188,11 +188,15 @@
    font-weight: 600;
    font-size: 40px;
    color: $grey400;
-   margin-bottom: 18px;
+   padding-top: 12px;
+   padding-bottom: 12px;
+   // margin-bottom: 18px;
    @media only screen and (max-width: $breakpointMedium) {
       font-size: 30px;
    }
 }
+
+
 
 .tile-work-description-summary {
    color: $grey200;
