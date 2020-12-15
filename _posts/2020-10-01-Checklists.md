@@ -19,12 +19,9 @@ Beginning in February 2020 I worked with a small team --- one researcher, one pr
 
 <mark>Our objective was to build a customizable form feature that would suite the needs of enterprise safety managers in order to promote Raken as a robust safety solution.</mark>
 
-## Competitive Analysis
+## UX Research
 
 As with any design process, we began by conducting research — qualitative surveys of our users, lab studies in our Carlsbad office, and competitor analysis.
-
-> “Everything is happening with pen and paper except for the site safety inspections which we are using iAuditor for. For pen and paper checklists, users are taking a picture of it and attaching it to their Dailies.”
-> Rylan Page, Vector Group
 
 One of the sub-features of [Daily Reports](https://www.rakenapp.com/daily-reports) is called Surveys. Built as a simple way for workers to answer a set of yes-no questions; it was quickly adopted by our small business market but our mid-market and enterprise clients had more specialized needs.
 
