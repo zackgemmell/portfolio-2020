@@ -58,7 +58,7 @@ In order to flatten the navigation we needed to surface features and settings th
 
 ![New feature announcements](../assets/img/raken/upgrade-mega-menu.png){:.img-120 .mt .mb}
 
-Even though this project was primarily an improvement to the Raken web experience, our mobile apps also needed to be updated to follow the same patterns. Since
+Even though this project was primarily an improvement to the Raken web experience, our mobile apps also needed to be updated to follow the same patterns.
 
 Since Raken’s native mobile apps act as a bridge between office admins and workers out in the field, we needed to make sure that the new architecture would continue to be intuitive for those users while matching the new pattern. 
 {: .post-paragraph-embedded-last}
