@@ -53,7 +53,7 @@ Due to the nature of the application, there was a need to distinguish between Co
      a <a href="../assets/img/raken/project-and-company.mp4">link to the video</a> instead.</p>
 </video>{:.img-120 .mb .mt}
 
-In order to flatten the navigation we needed to surface features and settings that had long been buried deep within settings. Not only did the change create more visibility for these features but it also provided an opportunity for new feature announcements and upgrade prommts when the user was on a basic plan. Check out the [Web](https://www.sketch.com/s/99011ff7-74b8-40fe-9053-45e867580ab6/v/ZWj8j5/a/kwMv79/play) experience.
+In order to flatten the navigation we needed to surface features and settings that had long been buried deep within settings. Not only did the change create more visibility for these features but it also provided an opportunity for new feature announcements and upgrade prompts when the user was on a basic plan. Check out the [Web](https://www.sketch.com/s/99011ff7-74b8-40fe-9053-45e867580ab6/v/ZWj8j5/a/kwMv79/play) experience.
 {: .post-paragraph-embedded-last}
 
 ![New feature announcements](../assets/img/raken/upgrade-mega-menu.png){:.img-120 .mt .mb}
