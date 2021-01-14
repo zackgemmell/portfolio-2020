@@ -25,7 +25,7 @@ As with any design process, we began by conducting research — qualitative surv
 
 One of the sub-features of [Daily Reports](https://www.rakenapp.com/daily-reports) is called Surveys. Built as a simple way for workers to answer a set of yes-no questions; it was quickly adopted by our small business market but our mid-market and enterprise clients had more specialized needs.
 
-![Original survey within a daily report](../assets/img/raken/survey.png){: .post-image .img-120 .mt}
+![Original survey within a daily report](../assets/img/raken/survey.png){: .post-image .img-120 .mt .zoom-image}
 
 Original design of the survey feature.
 {: .post-caption}
@@ -43,14 +43,14 @@ Since construction activities vary greatly from day to day, we saw an opportunit
 
 We conducted dozens of user interviews, spoke with our sales and customer support teams, and consulted our in-house industry experts. The results were clear. <mark>We needed to overhaul our existing "survey" experience</mark> to allow an admin to create an entire library of checklist templates, each with their own set of questions and response types. Check out the prototype for the [Web](https://www.sketch.com/s/ae80686d-bb0f-4a5f-b2b2-40eaf43c2fc2/a/5a47rp/play) experience.
 
-![Original survey within a daily report](../assets/img/raken/template-editor.png){: .post-image .img-120 .mt}
+![Original survey within a daily report](../assets/img/raken/template-editor.png){: .post-image .img-120 .mt .zoom-image}
 
 
 ## Completing a checklist
 
 <mark>The completion workflow had to be straightforward.</mark> Every question and response needed to follow the same format and would also allow users to attach additional content such as notes, photos, or documents.  Check out the prototypes for the [Web](https://www.sketch.com/s/ae80686d-bb0f-4a5f-b2b2-40eaf43c2fc2/a/lq8AMV/play) and [iOS](https://www.sketch.com/s/39012f72-9c4a-4218-a190-46330a5f510a/a/Aw99Or/play) experiences. 
 
-![Project tools on iOS](../assets/img/raken/checklist-mobile.png){: .img-50 .mt .mb}
+![Project tools on iOS](../assets/img/raken/checklist-mobile.png){: .img-50 .mt .mb .zoom-image}
 
 ## Results
 

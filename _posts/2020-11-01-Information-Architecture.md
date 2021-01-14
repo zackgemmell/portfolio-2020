@@ -22,7 +22,7 @@ Engineering teams were spending months on new features only to find that adoptio
 This was partially symmtomatic of where Raken found product market fit initially: people knew us as a daily reporting solution and nothing more.
 {: .post-paragraph-embedded-last}
 
-![Mixpanel data showing feature usage](../assets/img/raken/mixpanel.png){:.img-120 .mb .mt}
+![Mixpanel data showing feature usage](../assets/img/raken/mixpanel.png){:.img-120 .mb .mt .zoom-image}
 
 From production tracking, timecards, and safety talks, to checklists. Users had to navigate away from the daily report in order to discover them.
 
@@ -56,14 +56,14 @@ Due to the nature of the application, there was a need to distinguish between Co
 In order to flatten the navigation we needed to surface features and settings that had long been buried deep within settings. Not only did the change create more visibility for these features but it also provided an opportunity for new feature announcements and upgrade prompts when the user was on a basic plan. Check out the [Web](https://www.sketch.com/s/99011ff7-74b8-40fe-9053-45e867580ab6/v/ZWj8j5/a/kwMv79/play) experience.
 {: .post-paragraph-embedded-last}
 
-![New feature announcements](../assets/img/raken/upgrade-mega-menu.png){:.img-120 .mt .mb}
+![New feature announcements](../assets/img/raken/upgrade-mega-menu.png){:.img-120 .mt .mb .zoom-image}
 
 Even though this project was primarily an improvement to the Raken web experience, our mobile apps also needed to be updated to follow the same patterns.
 
 Since Raken’s native mobile apps act as a bridge between office admins and workers out in the field, we needed to make sure that the new architecture would continue to be intuitive for those users while matching the new pattern. 
 {: .post-paragraph-embedded-last}
 
-![Project tools on iOS](../assets/img/raken/mobile-tools.png){:.img-50 .mt .mb}
+![Project tools on iOS](../assets/img/raken/mobile-tools.png){:.img-50 .mt .mb .zoom-image}
 
 I needed a layout that was straight-forward and easy to understand: I landed on the layout above because it offered simplicity and the flexibility to add or remove features based on plan type, user type, or company customization.
 
