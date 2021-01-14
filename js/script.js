@@ -1,5 +1,6 @@
 
 $(document).ready(function(){
+  mediumZoom('.zoom-image', { margin: 50 })
 
   var introGreeting = $(".intro-greeting");
   var introBio = $(".intro-bio");
