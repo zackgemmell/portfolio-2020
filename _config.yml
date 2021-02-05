@@ -54,3 +54,7 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+jekyll_timeago:
+  depth: 1
+  default_locale: 'en'

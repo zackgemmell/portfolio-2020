@@ -47,14 +47,9 @@
 
 
 
-
-.story-title{
-  margin-bottom: 1em;
-}
-
 .post-caption {
   font-size: 20px;
-  color: #8E8E93;
+  color: $grey150;
   text-align: center;
   padding-bottom: 2em;
 }
@@ -65,4 +60,10 @@
 
 .mt {
   margin-top: 2em;
+}
+
+.metadata {
+  font-size: 16px;
+  color: $grey150;
+  padding-bottom: 2em;
 }
