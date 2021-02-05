@@ -34,6 +34,7 @@ permalink: /:title
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-timeago
 
 # Exclude from processing.
 # The following items will not be processed, by default.
