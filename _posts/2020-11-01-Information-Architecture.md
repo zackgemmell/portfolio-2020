@@ -19,7 +19,7 @@ Through customer feedback and event tracking, the team had come to learn that ex
 
 Engineering teams were spending months on new features only to find that adoption was incredibly low even though these were highly asked-for features.
 
-This was partially symmtomatic of where Raken found product market fit initially: people knew us as a daily reporting solution and nothing more.
+This was partially symptomatic of where Raken found product market fit initially: people knew us as a daily reporting solution and nothing more.
 {: .post-paragraph-embedded-last}
 
 ![Mixpanel data showing feature usage](../assets/img/raken/mixpanel.png){:.img-120 .mb .mt .zoom-image}
