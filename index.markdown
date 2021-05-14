@@ -3,6 +3,6 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 layout: home
-title: Zack Gemmell - Product Designer 🤘🏻
-summary: Lead Product Designer at Raken. Previously co-founder at Code Cartel.
+title: Zack Gemmell
+summary: Sr. Product Designer at Aero. Previously co-founder at Code Cartel.
 ---
