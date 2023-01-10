@@ -7,7 +7,7 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
 <html lang="en">
 {% include head.html %}
     <body id="home" class="home">
-        <!-- {% include header.html %} -->
+        {% include header.html %}
 
         <div class="wrapper">
             <div class="wrapper-intro">
@@ -20,7 +20,7 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
                    <div></div>
                 </div>
             </div>
-            <!-- <section id="projects" class="projects">
+            <section id="projects" class="projects">
                <h2 class="home-section-title">Work</h2>
                 {% for post in site.posts limit: 10 %}
                     {% if post.categories contains 'work' %}
@@ -34,11 +34,11 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
                         </a>
                    {% endif %}
                {% endfor %}
-            </section> -->
+            </section>
 
            
            <section id="about" class="about">
-             <!-- <h2 class="home-section-title">About</h2> -->
+             <h2 class="home-section-title">About</h2>
              <section class="about-main">
                  <p>
                  I’m currently a Staff Product Designer at <a href="https://teamflowhq.com">Teamflow</a> building the future of collaboaration for remote teams.
