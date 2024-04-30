@@ -48,7 +48,7 @@ We conducted dozens of user interviews, spoke with our sales and customer suppor
 
 ## Completing a checklist
 
-<mark>The completion workflow had to be straightforward.</mark> Every question and response needed to follow the same format and would also allow users to attach additional content such as notes, photos, or documents.  Check out the prototypes for the [Web](https://www.sketch.com/s/ae80686d-bb0f-4a5f-b2b2-40eaf43c2fc2/a/lq8AMV/play) and [iOS](https://www.sketch.com/s/39012f72-9c4a-4218-a190-46330a5f510a/a/Aw99Or/play) experiences. 
+<mark>The completion workflow had to be straightforward.</mark> Every question and response needed to follow the same format and would also allow users to attach additional content such as notes, photos, or documents. 
 
 ![Project tools on iOS](../assets/img/raken/checklist-mobile.png){: .img-50 .mt .mb .zoom-image}
 
