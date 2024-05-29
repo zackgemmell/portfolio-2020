@@ -4,5 +4,5 @@
 
 layout: home
 title: Zack Gemmell
-summary: Staff Product Designer at Teamflow. Previously co-founder at Code Cartel.
+summary: Staff Product Designer at Lindy. Previously co-founder at Code Cartel.
 ---
