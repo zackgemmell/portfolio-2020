@@ -3,8 +3,10 @@
    {% if page.url == "/" %}
        <title>{{ page.title }}</title>
        <meta property="og:title" content="{{ page.title }}"/>
+       <meta property="og:image" content="{{site.url}}/assets/img/share.jpg"/>
     {% else %}
        <title>{{ page.company | append: " - " | append: page.title }}</title>
+       <meta property="og:image" content="{{site.url}}{{thumbnail}}"/>
     {% endif %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ page.summary }}">
