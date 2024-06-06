@@ -13,13 +13,13 @@ thumbnailDesc: Architecting For Growth
 
 ---
 
-<mark>When I first joined Raken, features in our web application were painfully fragmented.</mark>
+When I first joined Raken, features in our web application were painfully fragmented.
 
 Through customer feedback and event tracking, the team had come to learn that existing features beyond our daily reporting tools were not being adopted by our users.
 
 Engineering teams were spending months on new features only to find that adoption was incredibly low even though these were highly asked-for features.
 
-This was partially symptomatic of where Raken found product market fit initially: people knew us as a daily reporting solution and nothing more.
+This was partially symptomatic of how Raken found product market fit initially: <mark>people knew us as a daily reporting solution and nothing more.</mark>
 {: .post-paragraph-embedded-last}
 
 ![Mixpanel data showing feature usage](../assets/img/raken/mixpanel.png){:.img-120 .mb .mt .zoom-image}
@@ -69,4 +69,4 @@ I needed a layout that was straight-forward and easy to understand: I landed on 
 
 Early signals have been promising: internal stakeholders and customers like being able to navigate their project settings all from a single menu. For our users, having a reliable app to perform their work activities is a must and though the app has confusing layouts and poor interactions, they had become accustomed to them. Our strategy is to slowly release the redesign in chunks.
 
-This project is ongoing and slated to be completed June 2021.
+This project is slated to be completed June 2021.
