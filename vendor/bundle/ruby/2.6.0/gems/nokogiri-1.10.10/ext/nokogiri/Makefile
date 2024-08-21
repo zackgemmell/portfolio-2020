@@ -14,7 +14,7 @@ NULLCMD = :
 srcdir = .
 topdir = /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/include/ruby-2.6.0
 hdrdir = $(topdir)
-arch_hdrdir = /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/include/ruby-2.6.0/universal-darwin21
+arch_hdrdir = /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/include/ruby-2.6.0/universal-darwin23
 PATH_SEPARATOR = :
 VPATH = $(srcdir):$(arch_hdrdir)/ruby:$(hdrdir)/ruby
 prefix = $(DESTDIR)/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr
@@ -31,8 +31,8 @@ rubyhdrdir = $(includedir)/$(RUBY_VERSION_NAME)
 vendorarchdir = $(vendorlibdir)/$(sitearch)
 vendorlibdir = $(vendordir)/$(ruby_version)
 vendordir = $(rubylibprefix)/vendor_ruby
-sitearchdir = $(DESTDIR)./.gem.20220324-67222-2pbris
-sitelibdir = $(DESTDIR)./.gem.20220324-67222-2pbris
+sitearchdir = $(DESTDIR)./.gem.20240820-30086-w22f0
+sitelibdir = $(DESTDIR)./.gem.20240820-30086-w22f0
 sitedir = $(DESTDIR)/Library/Ruby/Site
 rubyarchdir = $(rubylibdir)/$(arch)
 rubylibdir = $(rubylibprefix)/$(ruby_version)
@@ -87,10 +87,10 @@ CCDLFLAGS =
 CFLAGS   = $(CCDLFLAGS)  -g -Os -pipe -DHAVE_GCC_ATOMIC_BUILTINS -DUSE_FFI_CLOSURE_ALLOC  -I /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libxml2 -DNOKOGIRI_USE_PACKAGED_LIBRARIES $(ARCH_FLAG)
 INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir)
 DEFS     = 
-CPPFLAGS = -DHAVE_ICONV_H -DHAVE_XMLPARSEDOC -DHAVE_XSLTPARSESTYLESHEETDOC -DHAVE_EXSLTFUNCREGISTER -DHAVE_XMLHASFEATURE -DHAVE_XMLFIRSTELEMENTCHILD -DHAVE_XMLRELAXNGSETPARSERSTRUCTUREDERRORS -DHAVE_XMLRELAXNGSETPARSERSTRUCTUREDERRORS -DHAVE_XMLRELAXNGSETVALIDSTRUCTUREDERRORS -DHAVE_XMLSCHEMASETVALIDSTRUCTUREDERRORS -DHAVE_XMLSCHEMASETPARSERSTRUCTUREDERRORS -I/Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/x86_64-apple-darwin21/libxml2/2.9.10/include/libxml2 -I/Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/x86_64-apple-darwin21/libxslt/1.1.34/include -I/Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/x86_64-apple-darwin21/libxml2/2.9.10/include/libxml2 -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT $(DEFS) $(cppflags) "-DNOKOGIRI_LIBXML2_PATH=\"/Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/x86_64-apple-darwin21/libxml2/2.9.10\"" "-DNOKOGIRI_LIBXML2_PATCHES=\"0001-Revert-Do-not-URI-escape-in-server-side-includes.patch 0002-Remove-script-macro-support.patch 0003-Update-entities-to-remove-handling-of-ssi.patch 0004-libxml2.la-is-in-top_builddir.patch 0005-Fix-infinite-loop-in-xmlStringLenDecodeEntities.patch\"" "-DNOKOGIRI_LIBXSLT_PATH=\"/Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/x86_64-apple-darwin21/libxslt/1.1.34\"" "-DNOKOGIRI_LIBXSLT_PATCHES=\"\""
+CPPFLAGS = -DHAVE_ICONV_H -DHAVE_XMLPARSEDOC -DHAVE_XSLTPARSESTYLESHEETDOC -DHAVE_EXSLTFUNCREGISTER -DHAVE_XMLHASFEATURE -DHAVE_XMLFIRSTELEMENTCHILD -DHAVE_XMLRELAXNGSETPARSERSTRUCTUREDERRORS -DHAVE_XMLRELAXNGSETPARSERSTRUCTUREDERRORS -DHAVE_XMLRELAXNGSETVALIDSTRUCTUREDERRORS -DHAVE_XMLSCHEMASETVALIDSTRUCTUREDERRORS -DHAVE_XMLSCHEMASETPARSERSTRUCTUREDERRORS -I/Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/aarch64-apple-darwin23/libxml2/2.9.10/include/libxml2 -I/Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/aarch64-apple-darwin23/libxslt/1.1.34/include -I/Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/aarch64-apple-darwin23/libxml2/2.9.10/include/libxml2 -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT $(DEFS) $(cppflags) "-DNOKOGIRI_LIBXML2_PATH=\"/Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/aarch64-apple-darwin23/libxml2/2.9.10\"" "-DNOKOGIRI_LIBXML2_PATCHES=\"0001-Revert-Do-not-URI-escape-in-server-side-includes.patch 0002-Remove-script-macro-support.patch 0003-Update-entities-to-remove-handling-of-ssi.patch 0004-libxml2.la-is-in-top_builddir.patch 0005-Fix-infinite-loop-in-xmlStringLenDecodeEntities.patch\"" "-DNOKOGIRI_LIBXSLT_PATH=\"/Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/aarch64-apple-darwin23/libxslt/1.1.34\"" "-DNOKOGIRI_LIBXSLT_PATCHES=\"\""
 CXXFLAGS = $(CCDLFLAGS)  -g -Os -pipe  $(ARCH_FLAG)
-ldflags  = -L. -L/AppleInternal/Library/BuildRoots/66382bca-8bca-11ec-aade-6613bcf0e2ee/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.Internal.sdk/usr/local/lib
-dldflags = $(ARCH_FLAG)             -undefined dynamic_lookup -multiply_defined suppress 
+ldflags  = -L. -L/AppleInternal/Library/BuildRoots/91a344b1-f985-11ee-b563-fe8bc7981bff/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.Internal.sdk/usr/local/lib
+dldflags = $(ARCH_FLAG)             -undefined dynamic_lookup 
 ARCH_FLAG = 
 DLDFLAGS = $(ldflags) $(dldflags) $(ARCH_FLAG)
 LDSHARED = $(CC) -dynamic -bundle
@@ -105,7 +105,7 @@ RUBY_VERSION_NAME = $(RUBY_BASE_NAME)-$(ruby_version)
 RUBYW_BASE_NAME = rubyw
 RUBY_BASE_NAME = ruby
 
-arch = universal-darwin21
+arch = universal-darwin23
 sitearch = $(arch)
 ruby_version = 2.6.0
 ruby = $(bindir)/$(RUBY_BASE_NAME)
@@ -125,8 +125,8 @@ TOUCH = exit >
 #### End of system configuration section. ####
 
 preload = 
-libpath = . $(libdir) /Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/x86_64-apple-darwin21/libxml2/2.9.10/lib /Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/x86_64-apple-darwin21/libxslt/1.1.34/lib
-LIBPATH =  -L. -L$(libdir) -L/Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/x86_64-apple-darwin21/libxml2/2.9.10/lib -L/Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/x86_64-apple-darwin21/libxslt/1.1.34/lib
+libpath = . $(libdir) /Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/aarch64-apple-darwin23/libxml2/2.9.10/lib /Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/aarch64-apple-darwin23/libxslt/1.1.34/lib /opt/homebrew/Cellar/xz/5.4.5/lib
+LIBPATH =  -L. -L$(libdir) -L/Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/aarch64-apple-darwin23/libxml2/2.9.10/lib -L/Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/aarch64-apple-darwin23/libxslt/1.1.34/lib -L/opt/homebrew/Cellar/xz/5.4.5/lib
 DEFFILE = 
 
 CLEANFILES = mkmf.log
@@ -137,7 +137,7 @@ extout =
 extout_prefix = 
 target_prefix = /nokogiri
 LOCAL_LIBS = 
-LIBS = $(LIBRUBYARG_SHARED) /Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/x86_64-apple-darwin21/libxslt/1.1.34/lib/libexslt.a -lm -liconv -lpthread -lz /Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/x86_64-apple-darwin21/libxml2/2.9.10/lib/libxml2.a /Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/x86_64-apple-darwin21/libxslt/1.1.34/lib/libxslt.a -lm -liconv -lpthread -lz /Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/x86_64-apple-darwin21/libxml2/2.9.10/lib/libxml2.a -llzma   
+LIBS = $(LIBRUBYARG_SHARED) /Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/aarch64-apple-darwin23/libxslt/1.1.34/lib/libexslt.a -lm -liconv -lpthread -llzma -lz /Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/aarch64-apple-darwin23/libxml2/2.9.10/lib/libxml2.a /Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/aarch64-apple-darwin23/libxslt/1.1.34/lib/libxslt.a -lm -liconv -lpthread -llzma -lz /Users/zackgemmell/portfolio-2020/vendor/bundle/ruby/2.6.0/gems/nokogiri-1.10.10/ports/aarch64-apple-darwin23/libxml2/2.9.10/lib/libxml2.a -llzma   
 ORIG_SRCS = html_document.c html_element_description.c html_entity_lookup.c html_sax_parser_context.c html_sax_push_parser.c nokogiri.c xml_attr.c xml_attribute_decl.c xml_cdata.c xml_comment.c xml_document.c xml_document_fragment.c xml_dtd.c xml_element_content.c xml_element_decl.c xml_encoding_handler.c xml_entity_decl.c xml_entity_reference.c xml_io.c xml_libxml2_hacks.c xml_namespace.c xml_node.c xml_node_set.c xml_processing_instruction.c xml_reader.c xml_relax_ng.c xml_sax_parser.c xml_sax_parser_context.c xml_sax_push_parser.c xml_schema.c xml_syntax_error.c xml_text.c xml_xpath_context.c xslt_stylesheet.c
 SRCS = $(ORIG_SRCS) 
 OBJS = html_document.o html_element_description.o html_entity_lookup.o html_sax_parser_context.o html_sax_push_parser.o nokogiri.o xml_attr.o xml_attribute_decl.o xml_cdata.o xml_comment.o xml_document.o xml_document_fragment.o xml_dtd.o xml_element_content.o xml_element_decl.o xml_encoding_handler.o xml_entity_decl.o xml_entity_reference.o xml_io.o xml_libxml2_hacks.o xml_namespace.o xml_node.o xml_node_set.o xml_processing_instruction.o xml_reader.o xml_relax_ng.o xml_sax_parser.o xml_sax_parser_context.o xml_sax_push_parser.o xml_schema.o xml_syntax_error.o xml_text.o xml_xpath_context.o xslt_stylesheet.o
