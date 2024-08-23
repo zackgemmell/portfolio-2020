@@ -2,7 +2,7 @@
 layout: post
 category: work
 type: Regular
-permalink: /athens/
+permalink: /raken/athens
 published: false
 
 # Home

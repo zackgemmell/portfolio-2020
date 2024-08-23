@@ -2,7 +2,7 @@
 layout: post
 category: work
 type: Regular
-permalink: /architecting-for-growth/
+permalink: /raken/architecting-for-growth/
 
 # Home
 company: Raken

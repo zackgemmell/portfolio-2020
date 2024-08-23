@@ -2,7 +2,7 @@
 layout: post
 categories: work
 type: Regular
-permalink: /mobile-design-system/
+permalink: /raken/mobile-design-system/
 published: false
 
 # Home

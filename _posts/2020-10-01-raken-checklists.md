@@ -2,7 +2,7 @@
 layout: post
 category: work
 type: Regular
-permalink: /checklists/
+permalink: /raken/checklists/
 
 # Home
 company: Raken

@@ -2,15 +2,15 @@
 layout: post
 category: work
 type: Regular
-permalink: /teamflow/
-published: true
+permalink: /lindy/onboarding
+published: false
 
 # Home
-company: Teamflow
-title: Remote Co-working
-summary: Combining virtual offices with meeting spaces.
-thumbnail: /images/thumbnails/tf-thumbnail.png
-thumbnailDesc: Remote Co-working
+company: Lindy
+title: AI agent onboarding
+summary: Designing a starter experience for business workflow automation agents.
+thumbnail: /images/thumbnails/lindy-thumbnail.png
+thumbnailDesc: Lindy
 
 ---
 <!-- Overview
