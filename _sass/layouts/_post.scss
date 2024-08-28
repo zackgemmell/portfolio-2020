@@ -71,7 +71,6 @@
 .video-shadow {
   border-radius: 8px;
   box-shadow: 0 0 44px rgba($color: #000000, $alpha: 0.1);
-  object-fit: contain;
   @media only screen and (max-width: 1278px) {
     margin-left:0;
     width:100%;
