@@ -21,7 +21,7 @@
 title: Zack Gemmell
 email: zack.gemmell@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Lead Product Designer at Raken. Previously co-founder at Code Cartel.
+  Founding Product Designer at Lindy. Previously co-founder at Code Cartel.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://zackgemmell.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb

@@ -163,8 +163,8 @@
 }
 
 .tile-work-description {
-   padding-left: 27px;
-   @media only screen and (max-width: $breakpointMedium) {
+   padding-left: 24px;
+   @media only screen and (max-width: $breakpointSmall) {
       padding-left:0;
    }
 }
