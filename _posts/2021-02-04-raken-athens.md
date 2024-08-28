@@ -11,6 +11,7 @@ title: Athens Design System
 summary: Defining a new product language and design system for Raken's products.
 thumbnail: /images/thumbnails/athens-thumbnail.png
 thumbnailDesc: Athens Design System
+companyLink: https://rakenapp.com
 
 ---
 

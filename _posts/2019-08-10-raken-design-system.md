@@ -11,6 +11,7 @@ title: Mobile Design System
 summary: Creating a foundation for the future of the Raken app.
 thumbnail: /images/thumbnails/rk-thumbnail.png
 thumbnailDesc: Mobile Design System
+companyLink: https://rakenapp.com
 
 # Post
 heroMedia: "../images/rk-header.png"
@@ -23,7 +24,7 @@ tools:
     - Sketch, ProtoPie, InVision, Atomic Design Principles
 ---
 
-![Support for iOS 13 dark mode](../images/rk-2.png){: .post-image .img-120}
+![Support for iOS 13 dark mode]({{site.url}}/images/rk-2.png){: .post-image .img-120}
 
 Symbol nesting allows for components to be quickly updated across all feature designs.
 {: .post-caption}
@@ -31,7 +32,7 @@ Symbol nesting allows for components to be quickly updated across all feature de
 Using atomic design principles ensures that every component in the library has all the necessary overrides as self contained symbols. 
 {: .post-paragraph-embedded-last}
 
-![Support for iOS 13 dark mode](../images/rk-1.png){: .post-image .img-120}
+![Support for iOS 13 dark mode]({{site.url}}/images/rk-1.png){: .post-image .img-120}
 
 The design system will support the new iOS 13 dark mode.
 {: .post-caption}
