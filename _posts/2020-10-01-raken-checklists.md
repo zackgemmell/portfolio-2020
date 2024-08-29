@@ -7,7 +7,7 @@ permalink: /raken/checklists/
 # Home
 company: Raken
 title: Checklists
-summary: A new feature to expand Raken's safety offering.
+summary: Creating a new feature to expand Raken's safety offering.
 thumbnail: /images/thumbnails/checklists-thumbnail.png
 thumbnailDesc: Raken Checklists
 companyLink: https://rakenapp.com
@@ -26,10 +26,10 @@ As with any design process, we began by conducting research — qualitative surv
 
 One of the sub-features of [Daily Reports](https://www.rakenapp.com/daily-reports) is called Surveys. Built as a simple way for workers to answer a set of yes-no questions; it was quickly adopted by our small business market but our mid-market and enterprise clients had more specialized needs.
 
-![Original survey within a daily report]({{site.url}}/assets/img/raken/survey.png){: .post-image .img-120 .mt .zoom-image}
+<!-- ![Original survey within a daily report]({{site.url}}/assets/img/raken/survey.png){: .post-image .img-120 .mt .zoom-image}
 
 Original design of the survey feature.
-{: .post-caption}
+{: .post-caption} -->
 
 The existing design had several limitations:
 
