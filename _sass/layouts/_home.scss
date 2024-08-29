@@ -131,7 +131,7 @@
       box-shadow:  0 0 120px rgba(0, 0, 0, 0.1);
    }
 
-   @media only screen and (max-width: $breakpointMedium) {
+   @media only screen and (max-width: $breakpointSmall) {
       flex-direction: column;
    }
 }
@@ -147,13 +147,13 @@
    height: 270px;
    border-radius: 24px;
 
-   @media only screen and (max-width: $breakpointLarge) {
+   @media only screen and (max-width: $breakpointMedium) {
       width: 170px;
       height: 170px;
       border-radius: 24px;
    }
 
-   @media only screen and (max-width: $breakpointMedium) {
+   @media only screen and (max-width: $breakpointSmall) {
       width: 100%;
       height: auto;
       border-radius: 24px;
@@ -177,7 +177,7 @@
    padding: 6px 13px;
    margin-bottom: 7px;
    font-size: 18px;
-   font-weight: 600;
+   font-weight: 400;
    @media only screen and (max-width: $breakpointMedium) {
       font-size: 14px;
       padding: 4px 10px;
@@ -200,10 +200,11 @@
 
 .tile-work-description-summary {
    color: $grey200;
-   font-size:24px;
+   font-size:22px;
    @media only screen and (max-width: $breakpointMedium) {
       font-size: 20px;
    }
+   
 }
 
 
