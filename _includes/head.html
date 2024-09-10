@@ -3,7 +3,7 @@
    {% if page.url == "/" %}
        <title>{{ page.title }}</title>
        <meta property="og:title" content="{{page.title}}"/>
-       <meta property="og:image" content="{{site.url}}/assets/img/share.jpg"/>
+       <meta property="og:image" content="{{site.url}}/assets/img/favicon.png"/>
     {% else %}
        <title>{{ page.title | append: " - " | append: page.company }}</title>
        <meta property="og:title" content="{{page.title}} - {{page.company}}"/>
@@ -18,7 +18,11 @@
     <meta property="og:profile:last_name" content="Gemmell"/>
     <meta property="og:type" content="profile"/>
     <meta property="og:description" content="{{page.summary}}"/>
-    <link rel="shortcut icon" href="{{site.url}}/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{site.url}}/assets/img/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="{{site.url}}/css/style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{site.url}}/assets/img/apple-touch-icon.png">
+   <link rel="icon" type="image/png" sizes="32x32" href="{{site.url}}/assets/img/favicon-32x32.png">
+   <link rel="icon" type="image/png" sizes="16x16" href="{{site.url}}/assets/img/favicon-16x16.png">
+   <link rel="manifest" href="/site.webmanifest">
 
 </head>
