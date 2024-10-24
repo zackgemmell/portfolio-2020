@@ -37,7 +37,7 @@ All of this highlighted the fundamental problem with how Raken’s information a
 
 <mark>We asked: what would happen if we consolidated the project feature navigation into a single menu?</mark>
 
-<video autoplay loop width="100%">
+<video autoplay muted playsinline loop width="100%">
   <source src="{{site.url}}/assets/img/raken/information-architecture.mp4" type="video/mp4">
   <source src="{{site.url}}/assets/img/raken/information-architecture.webm" type="video/webm">
   <p>Your browser doesn't support HTML5 video. Here is
@@ -47,7 +47,7 @@ All of this highlighted the fundamental problem with how Raken’s information a
 Due to the nature of the application, there was a need to distinguish between Company level and Project level features. This duality presented an opportunity to organize features according to whether or not the user is inside a project.
 {: .post-paragraph-embedded-last}
 
-<video autoplay loop width="100%">
+<video autoplay muted playsinline loop width="100%">
   <source src="{{site.url}}/assets/img/raken/project-and-company.mp4" type="video/mp4">
   <source src="{{site.url}}/assets/img/raken/project-and-company.webm" type="video/webm">
   <p>Your browser doesn't support HTML5 video. Here is
