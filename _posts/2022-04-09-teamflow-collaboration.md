@@ -3,7 +3,7 @@ layout: post
 category: work
 type: Regular
 permalink: /teamflow/collaboration
-published: true
+published: false
 
 # Home
 company: Teamflow
