@@ -3,32 +3,41 @@ layout: post
 category: work
 type: Regular
 permalink: /medical-scribe/
-published: false
+published: true
 
 # Home
 company: Personal
 title: AI Medical Scribe
-summary: Turning patient conversations into SOAP notes.
+summary: Turning patient conversations into clincal notes.
 thumbnail: /images/thumbnails/ms-thumbnail.png
 thumbnailDesc: Medical Scribe
 companyLink: https://medicalscribe.app
 ---
 
-Give it a try at [medicalscribe.app](https://medicalscribe.app).
+With the rise of LLMs, we gained the ability to not only transcribe conversations but also organize and structure them into patient notes, transforming one of the most tedious aspects of a clinician’s job into an almost effortless task. 
 
-![An example of a retrospective]({{site.url}}/assets/img/ms/visit.png){: .post-image .img-120 .mt .mb .zoom-image }
+So I built an app. Give it a try at [medicalscribe.app](https://medicalscribe.app) or [download for iOS](https://apps.apple.com/us/app/medical-scribe/id6482050489).
 
-The first iteration of the app gave users the ability to create public retros---anybody with the [link](https://ezretro.com/E0gysdEpPrxyO685zjQx) can contribute. It also provided the ability to vote on issues that other users wrote.
+![Medical Scribe]({{site.url}}/assets/img/ms/visit.png){: .post-image .img-120 .mt .zoom-image }
 
-The next iteration added features that required authentication:
+Web
+{: .post-caption}
 
-- Team management
-- @mention teammates
-- Admins controls
+![Medical Scribe]({{site.url}}/assets/img/ms/medical-scribe-ios.png){: .post-image .img-50 .mt .zoom-image }
 
-## Watch app
+iOS
+{: .post-caption}
 
-The app was designed so that users would be able to conduct their patient visits conveniently with just their watch.
+
+
+
+
+
+<!-- ## Watch app
+
+The app was designed so that clinicians could conduct their patient visits with just their watch. -->
 
 ![WatchOS App]({{site.url}}/assets/img/ms/watch.png){: .post-image .img-50 .mt .mb .zoom-image }
 
+watchOS
+{: .post-caption}
