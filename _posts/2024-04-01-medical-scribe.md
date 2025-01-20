@@ -14,9 +14,9 @@ thumbnailDesc: Medical Scribe
 companyLink: https://medicalscribe.app
 ---
 
-With the rise of LLMs, we gained the ability to not only accurately transcribe medical conversations but also organize and structure them into patient notes, transforming one of the most tedious aspects of a clinician’s job into an almost effortless task. 
+With the rise of LLMs, we gained the ability to not only accurately transcribe medical conversations but also organize and structure them into patient notes, transforming one of the most tedious aspects of a clinician’s job into an almost effortless task. So I built an app. 
 
-So I built an app. Give it a try at [medicalscribe.app](https://medicalscribe.app) or [download for iOS](https://apps.apple.com/us/app/medical-scribe/id6482050489).
+Give it a try at [medicalscribe.app](https://medicalscribe.app) or [download for iOS](https://apps.apple.com/us/app/medical-scribe/id6482050489).
 
 ![Medical Scribe]({{site.url}}/assets/img/ms/visit.png){: .post-image .img-120 .mt .zoom-image }
 

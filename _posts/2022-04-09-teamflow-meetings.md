@@ -9,7 +9,7 @@ published: true
 company: Teamflow
 title: Remote Meetings
 summary: Combining virtual offices with meeting spaces.
-thumbnail: /images/thumbnails/tf-co-thumbnail.png
+thumbnail: /images/thumbnails/tf-thumbnail.png
 thumbnailDesc: Remote Co-working
 companyLink: https://teamflowhq.com
 
