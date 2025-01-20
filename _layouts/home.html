@@ -23,7 +23,7 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
             <section id="projects" class="projects">
                <h2 class="home-section-title">Work</h2>
                <div id="projects-list">
-                   {% for post in site.posts limit: 4 %}
+                   {% for post in site.posts limit: 3 %}
                        {% if post.categories contains 'work' %}
                            <a href="{{site.baseurl}}{{ post.url }}" class="tile-work">
                                <img class="tile-work-thumbnail" src="{{site.baseurl}}{{ post.thumbnail }}" alt="{{ post.thumbnailDesc }}">
@@ -80,7 +80,7 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
                 if (isShowingAll) {
                     button.textContent = 'Show More';
                     projectsList.innerHTML = `
-                        {% for post in site.posts limit: 4 %}
+                        {% for post in site.posts limit: 3 %}
                             {% if post.categories contains 'work' %}
                                 <a href="{{site.baseurl}}{{ post.url }}" class="tile-work">
                                     <img class="tile-work-thumbnail" src="{{site.baseurl}}{{ post.thumbnail }}" alt="{{ post.thumbnailDesc }}">
