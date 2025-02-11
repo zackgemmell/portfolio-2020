@@ -20,10 +20,9 @@
    transition: all 1.5s ease;
    color: transparent;
    margin: 0 0 26px;
-   background-image: url("../images/text-bg-4.gif");
+   background-image: url("../images/text-bg-5.gif");
    background-clip: text;
    -webkit-background-clip: text;
-   padding: 20px 0 0 0;
    @media only screen and (max-width: $breakpointLarge) {
       font-size: 60px;
    }
@@ -45,7 +44,7 @@
    line-height: 1;
    transition: all 1.5s ease;
    color: transparent;
-   background-image: url("../images/text-bg-4.gif");
+   background-image: url("../images/text-bg-5.gif");
    background-clip: text;
    -webkit-background-clip: text;
    @media only screen and (max-width: $breakpointLarge) {
@@ -112,7 +111,7 @@
    font-size: 48px;
    font-weight: 600;
    margin-bottom: 20px;
-   padding-left:32px;
+   padding-left:20px;
    @media only screen and (max-width: $breakpointMedium) {
       font-size: 38px;
    }
@@ -212,7 +211,7 @@
 .about-main {
    font-size: 24px;
    color: $grey400;
-   padding:0 32px;
+   padding:0 20px;
    > p {
       margin-bottom: $spaceSmall;
    }
@@ -236,7 +235,6 @@
         border-radius: 20px; /* Large rounded corners */
         cursor: pointer; /* Change cursor to pointer */
         transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover transition */
-        margin-left: 32px;
     }
 
     .projects-button button:hover {
