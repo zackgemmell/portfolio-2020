@@ -4,5 +4,5 @@
 
 layout: home
 title: Zack Gemmell
-summary: Staff Product Designer at Lindy. Previously co-founder at Code Cartel.
+summary: Founding Designer at StockApp. Previously Founding Designer at Lindy.
 ---
