@@ -1,61 +1,69 @@
 
-$(document).ready(function(){
-  mediumZoom('.zoom-image', { margin: 50 })
+$(document).ready(function () {
+   mediumZoom('.zoom-image', { margin: 50 })
 
-  var introGreeting = $(".intro-greeting");
-  var introBio = $(".intro-bio");
-  var header = $(".header");
-  var introScroll = $(".intro-scroll");
+   var introGreeting = $(".intro-greeting");
+   var introBio = $(".intro-bio");
+   var header = $(".header");
+   var introScroll = $(".intro-scroll");
 
-  setTimeout(function(){
-     introGreeting.addClass('intro-loaded');
-  },500)
+   setTimeout(function () {
+      introGreeting.addClass('intro-loaded');
+   }, 300)
 
-  setTimeout(function(){
-     introBio.addClass('intro-loaded');
-  },1700)
+   setTimeout(function () {
+      introBio.addClass('intro-loaded');
+   }, 900)
 
-  setTimeout(function(){
-     header.addClass('header-loaded');
-     introScroll.addClass('intro-scroll-loaded');
-  },2500)
+   // Header animation only on home page
+   if ($('body').attr('id') === 'home') {
+      // Header appears immediately with slide-in animation on home page
+      header.addClass('header-loaded');
+   } else {
+      // Header appears instantly without animation on other pages
+      header.addClass('header-loaded-instant');
+   }
 
- $(window).on('scroll', function() {
-    var scrollPosition = $(this).scrollTop();
-    // console.log(scrollPosition);
+   setTimeout(function () {
+      introScroll.addClass('intro-scroll-loaded');
+   }, 1500)
 
-    if (scrollPosition > 0) {
-        introScroll.removeClass('intro-scroll-loaded');
+   $(window).on('scroll', function () {
+      var scrollPosition = $(this).scrollTop();
+      // console.log(scrollPosition);
 
-        header.addClass('header-scrolled');
-     } else {
-        introScroll.addClass('intro-scroll-loaded');
-        header.removeClass('header-scrolled');
-     }
- });
+      if (scrollPosition > 0) {
+         introScroll.removeClass('intro-scroll-loaded');
+
+         header.addClass('header-scrolled');
+      } else {
+         introScroll.addClass('intro-scroll-loaded');
+         header.removeClass('header-scrolled');
+      }
+   });
 
 
-// Add smooth scrolling to all links
-  $("#header-home > a").on('click', function(event) {
+   // Add smooth scrolling to all links
+   $("#header-home > a").on('click', function (event) {
 
-    // Make sure this.hash has a value before overriding default behavior
-    if (this.hash !== "") {
-      // Prevent default anchor click behavior
-      event.preventDefault();
+      // Make sure this.hash has a value before overriding default behavior
+      if (this.hash !== "") {
+         // Prevent default anchor click behavior
+         event.preventDefault();
 
-      // Store hash
-      var hash = this.hash;
-      console.log($(hash).offset().top);
+         // Store hash
+         var hash = this.hash;
+         console.log($(hash).offset().top);
 
-      // Using jQuery's animate() method to add smooth page scroll
-      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
-      $('html, body').animate({
-        scrollTop: $(hash).offset().top
-     }, 800, function(){
+         // Using jQuery's animate() method to add smooth page scroll
+         // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+         $('html, body').animate({
+            scrollTop: $(hash).offset().top
+         }, 800, function () {
 
-        // Add hash (#) to URL when done scrolling (default click behavior)
-        // window.location.hash = hash;
-      });
-    } // End if
-  });
+            // Add hash (#) to URL when done scrolling (default click behavior)
+            // window.location.hash = hash;
+         });
+      } // End if
+   });
 });
