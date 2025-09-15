@@ -1,52 +1,46 @@
-.header-post {
+.header-post{
   opacity: 1;
 }
 
-.wrapper-post {
+.wrapper-post{
   padding-top: 1em;
 }
 
-.header-empty {
-  height: 80px;
+.header-empty{
+  height:80px;
 }
 
-.img-120 {
-  width: 120%;
-  margin-left: -10%;
-  max-width: initial;
+.img-120{
+  width:120%;
+  margin-left:-10%;
+  max-width:initial;
   border-radius: 16px;
   box-shadow: 0 0 44px rgba($color: #000000, $alpha: 0.1);
-
-  @include dark-mode-smart {
-    box-shadow: 0 0 44px rgba($color: #000000, $alpha: 0.3);
-  }
-
   @media only screen and (max-width: 1278px) {
-    margin-left: 0;
-    width: 100%;
-    max-width: initial;
+    margin-left:0;
+    width:100%;
+    max-width:initial;
   }
 }
 
-.medium-zoom-image--opened {
+.medium-zoom-image--opened{
   z-index: 100;
-  margin: 0 !important;
+  margin: 0!important;
 }
 
-.medium-zoom-overlay {
+.medium-zoom-overlay{
   z-index: 90;
 }
 
 
-.img-50 {
-  width: 50%;
-  margin-left: 25%;
-  max-width: initial;
-
+.img-50{
+  width:50%;
+  margin-left:25%;
+  max-width:initial;
   @media only screen and (max-width: 1278px) {
-    margin-left: 20%;
-    width: 60%;
-    max-width: initial;
+    margin-left:20%;
+    width:60%;
+    max-width:initial;
   }
 }
 
@@ -58,10 +52,6 @@
   color: $grey150;
   text-align: center;
   padding-bottom: 2em;
-
-  @include dark-mode-smart {
-    color: $darkTextTertiary;
-  }
 }
 
 .mb {
@@ -76,23 +66,14 @@
   font-size: 16px;
   color: $grey150;
   padding-bottom: 2em;
-
-  @include dark-mode-smart {
-    color: $darkTextTertiary;
-  }
 }
 
 .video-shadow {
   border-radius: 8px;
   box-shadow: 0 0 44px rgba($color: #000000, $alpha: 0.1);
-
-  @include dark-mode-smart {
-    box-shadow: 0 0 44px rgba($color: #000000, $alpha: 0.3);
-  }
-
   @media only screen and (max-width: 1278px) {
-    margin-left: 0;
-    width: 100%;
-    max-width: initial;
+    margin-left:0;
+    width:100%;
+    max-width:initial;
   }
 }

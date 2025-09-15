@@ -12,17 +12,6 @@ $black: #000000;
 $indigo: #6b6bff;
 $yellow: #fff7c1;
 
-// dark mode colors
-$darkBg: #111111;
-$darkSurface: #1C1C1E;
-$darkSurfaceSecondary: #2C2C2E;
-$darkText: #FFFFFF;
-$darkTextSecondary: #E5E5EA;
-$darkTextTertiary: #8E8E93;
-$darkBorder: #3A3A3C;
-$darkHighlight: #FFE066;
-$darkIndigo: #8A8AFF;
-
 
 $font: 'SF';
 
@@ -40,7 +29,7 @@ $breakpointMedium: 944px; // 13 inch mbp
 $breakpointSmall: 696px; // mobile device
 
 // curves
-$bezierEaseOut: cubic-bezier(.3, 0, 0, 1);
+$bezierEaseOut: cubic-bezier(.3,0,0,1);
 $bezierLogo: cubic-bezier(0.25, 0.10, 0.00, 1.00);
 
 // timing

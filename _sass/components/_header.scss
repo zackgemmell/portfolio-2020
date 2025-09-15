@@ -1,106 +1,54 @@
 .header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1;
-  opacity: 0;
-  background: #fff;
-  transition: opacity 1.5s ease, box-shadow $durationShort ease;
-
-  @include dark-mode-smart {
-    background: $darkSurface;
-  }
-
-  .header-center {
-    max-width: 860px;
-    padding: 0 20px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 64px;
-  }
-
-  a {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    opacity: 0;
+    background: #fff;
+    transition: opacity 1.5s ease, box-shadow $durationShort ease;
+    .header-center{
+      max-width: 860px;
+      padding:0 20px;
+      margin:0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height:64px;
+    }
+  a{
     text-decoration: none;
   }
 }
 
 .header-loaded {
-  opacity: 1;
+    opacity: 1;
 }
 
 .header-loaded-instant {
-  opacity: 1;
-  transition: opacity 0s, box-shadow 0s;
-  box-shadow: $shadow;
+   opacity: 1;
+   transition: opacity 0s, box-shadow 0s;
+   box-shadow: $shadow;
 
 }
 
 .header-scrolled {
-  box-shadow: $shadow;
+   box-shadow: $shadow;
 }
 
 .header-nav {
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-
-  >a {
-    color: $grey400;
-    font-weight: 400;
-    font-size: 20px;
-    margin-left: 36px;
-
-    @include dark-mode-smart {
-      color: $darkText;
-    }
-  }
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+   > a {
+     color:$grey400;
+     font-weight: 400;
+     font-size:20px;
+     margin-left:36px;
+   }
 }
 
-.logo {
-  color: $grey400;
+.logo{
+  color:$grey400;
   font-weight: 600;
-  font-size: 20px;
-
-  @include dark-mode-smart {
-    color: $darkText;
-  }
-}
-
-.dark-mode-toggle {
-  background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  padding: 8px;
-  margin-left: 20px;
-  border-radius: 50%;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-
-    @include dark-mode-smart {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-  }
-
-  .dark-mode-icon {
-    display: none;
-  }
-
-  .light-mode-icon {
-    display: inline;
-  }
-
-  @include dark-mode-smart {
-    .dark-mode-icon {
-      display: inline;
-    }
-
-    .light-mode-icon {
-      display: none;
-    }
-  }
+  font-size:20px;
 }

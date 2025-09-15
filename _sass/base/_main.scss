@@ -1,11 +1,9 @@
 * {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
-*,
-*:after,
-*:before {
+*, *:after, *:before {
   box-sizing: border-box;
 }
 
@@ -14,20 +12,11 @@ body {
   overflow: auto;
   transition: all $durationLong ease;
   font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif;
-
-  @include dark-mode-smart {
-    background-color: $darkBg;
-    color: $darkText;
-  }
 }
 
 html {
-  font-size: 24px;
+  font-size:24px;
   color: $grey400;
-
-  @include dark-mode-smart {
-    color: $darkText;
-  }
 }
 
 button {
@@ -39,25 +28,17 @@ button:focus {
   outline: none;
 }
 
-p {
-  margin-bottom: 1em;
+p{
+  margin-bottom:1em;
   line-height: 1.6em;
 }
 
 p a {
   color: $indigo;
-
-  @include dark-mode-smart {
-    color: $darkIndigo;
-  }
 }
 
 a {
   color: $black;
-
-  @include dark-mode-smart {
-    color: $darkText;
-  }
 }
 
 li {
@@ -70,159 +51,106 @@ li {
   padding: 0 20px;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  color: $grey400;
-
-  @include dark-mode-smart {
-    color: $darkText;
-  }
+h1,h2,h3,h4{
+  color:$grey400;
 }
 
-h5,
-h6 {
-  color: $grey150;
-
-  @include dark-mode-smart {
-    color: $darkTextSecondary;
-  }
+h5,h6{
+  color:$grey150;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1,h2,h3,h4,h5,h6{
   font-weight: 700;
 }
 
-h1 {
-  font-size: 48px;
+h1{
+  font-size:48px;
 }
 
-h2 {
-  font-size: 36px;
+h2{
+  font-size:36px;
   padding-top: 1em;
   padding-bottom: 0.4em;
 }
 
-h3 {
-  font-size: 28px;
+h3{
+  font-size:28px;
   padding-bottom: 0.4em;
 }
 
-h4 {
-  font-size: 24px;
+h4{
+  font-size:24px;
   padding-bottom: 0.4em;
 }
 
-h5 {
-  font-size: 20px;
+h5{
+  font-size:20px;
   padding-bottom: 0.4em;
 }
 
-h6 {
-  font-size: 16px;
+h6{
+  font-size:16px;
 }
 
-mark {
+mark{
   background: $yellow;
-
-  @include dark-mode-smart {
-    background: $darkHighlight;
-    color: $darkBg;
-  }
 }
 
-table {
+table{
   width: 100%;
   border-spacing: 0;
   border-radius: 4px;
-  border: 1px solid $grey100;
-
-  @include dark-mode-smart {
-    border-color: $darkBorder;
-  }
-
-  th {
+  border:1px solid $grey100;
+  th{
     background: #f2f2f5;
     font-weight: 600;
-
-    @include dark-mode-smart {
-      background: $darkSurfaceSecondary;
-      color: $darkText;
+    &:first-child{
+      border-radius:4px 0 0 0;
     }
-
-    &:first-child {
-      border-radius: 4px 0 0 0;
-    }
-
-    &:last-child {
-      border-radius: 0 4px 0 0;
+    &:last-child{
+      border-radius:0 4px 0 0;
     }
   }
-
-  tr:last-child td {
-    &:first-child {
+  tr:last-child td{
+    &:first-child{
       border-radius: 0 0 0 4px;
     }
-
-    &:last-child {
-      border-radius: 0 0 4px 0;
+    &:last-child{
+      border-radius:0 0 4px 0;
     }
   }
-
   td,
-  th {
-    border: 1px solid $grey100;
-    padding: 16px;
-
-    @include dark-mode-smart {
-      border-color: $darkBorder;
-    }
+  th{
+    border:1px solid $grey100;
+    padding:16px;
+    
   }
 }
 
-blockquote {
-  border-left: 8px solid $grey100;
-  padding-left: 22px;
-
-  @include dark-mode-smart {
-    border-left-color: $darkBorder;
-  }
-
-  p {
-    color: $grey150;
-
-    @include dark-mode-smart {
-      color: $darkTextTertiary;
-    }
+blockquote{
+  border-left:8px solid $grey100;
+  padding-left:22px;
+  p{
+    color:$grey150;
   }
 }
 
-hr {
+hr{
   background: $grey100;
   height: 2px;
   border: none;
-
-  @include dark-mode-smart {
-    background: $darkBorder;
-  }
 }
 
-img {
-  max-width: 100%;
+img{
+  max-width:100%;
 }
 
-ul {
-  margin-top: 1em;
-  margin-bottom: 1em;
+ul{
+margin-top: 1em;
+margin-bottom: 1em;
 }
 
-li {
+li{
   list-style-type: disc;
   list-style-position: outside;
   margin-left: 2em;
