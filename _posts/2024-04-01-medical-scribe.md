@@ -3,7 +3,7 @@ layout: post
 category: work
 type: Regular
 permalink: /medical-scribe/
-published: true
+published: false
 
 # Home
 company: Personal
