@@ -23,12 +23,15 @@
    background-image: url("../images/text-bg-5.gif");
    background-clip: text;
    -webkit-background-clip: text;
+
    @media only screen and (max-width: $breakpointLarge) {
       font-size: 60px;
    }
+
    @media only screen and (max-width: $breakpointMedium) {
       font-size: 50px;
    }
+
    @media only screen and (max-width: $breakpointSmall) {
       font-size: 40px;
    }
@@ -47,12 +50,15 @@
    background-image: url("../images/text-bg-5.gif");
    background-clip: text;
    -webkit-background-clip: text;
+
    @media only screen and (max-width: $breakpointLarge) {
       font-size: 64px;
    }
+
    @media only screen and (max-width: $breakpointMedium) {
       font-size: 50px;
    }
+
    @media only screen and (max-width: $breakpointSmall) {
       font-size: 44px;
    }
@@ -76,7 +82,11 @@
 
    transition: all 1.5s ease;
 
-   > div {
+   @include dark-mode-smart {
+      border-color: $darkTextTertiary;
+   }
+
+   >div {
       display: block;
       width: 8px;
       height: 8px;
@@ -86,6 +96,10 @@
       background: $grey150;
       animation: scrollWheel 2s infinite 3s;
       transition: all $durationShort $bezierEaseOut;
+
+      @include dark-mode-smart {
+         background: $darkTextTertiary;
+      }
    }
 
    @media (max-width: $breakpointSmall) {
@@ -98,20 +112,23 @@
 }
 
 .projects {
-   a{
+   a {
       text-decoration: none;
    }
+
    margin-bottom: 180px;
+
    @media only screen and (max-width: $breakpointMedium) {
       margin-bottom: 100px;
    }
 }
 
-.home-section-title{
+.home-section-title {
    font-size: 48px;
    font-weight: 600;
    margin-bottom: 20px;
-   padding-left:20px;
+   padding-left: 20px;
+
    @media only screen and (max-width: $breakpointMedium) {
       font-size: 38px;
    }
@@ -125,9 +142,15 @@
    transition: all $durationLong $bezierEaseOut;
    border-radius: 40px;
    margin-bottom: 32px;
-   &:hover{
+
+   &:hover {
       transform: scale(1.03);
-      box-shadow:  0 0 120px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 120px rgba(0, 0, 0, 0.1);
+
+      @include dark-mode-smart {
+         box-shadow: 0 0 120px rgba(255, 255, 255, 0.05);
+         background-color: rgba(255, 255, 255, 0.05);
+      }
    }
 
    @media only screen and (max-width: $breakpointSmall) {
@@ -164,8 +187,9 @@
 
 .tile-work-description {
    padding-left: 24px;
+
    @media only screen and (max-width: $breakpointSmall) {
-      padding-left:0;
+      padding-left: 0;
    }
 }
 
@@ -178,6 +202,12 @@
    margin-bottom: 7px;
    font-size: 18px;
    font-weight: 400;
+
+   @include dark-mode-smart {
+      background-color: $darkSurfaceSecondary;
+      color: $darkTextSecondary;
+   }
+
    @media only screen and (max-width: $breakpointMedium) {
       font-size: 14px;
       padding: 4px 10px;
@@ -190,7 +220,11 @@
    color: $grey400;
    padding-top: 6px;
    padding-bottom: 12px;
-   // margin-bottom: 18px;
+
+   @include dark-mode-smart {
+      color: $darkText;
+   }
+
    @media only screen and (max-width: $breakpointMedium) {
       font-size: 30px;
    }
@@ -200,49 +234,85 @@
 
 .tile-work-description-summary {
    color: $grey200;
-   font-size:22px;
+   font-size: 22px;
+
+   @include dark-mode-smart {
+      color: $darkTextSecondary;
+   }
+
    @media only screen and (max-width: $breakpointMedium) {
       font-size: 20px;
    }
-   
 }
 
 
 .about-main {
    font-size: 24px;
    color: $grey400;
-   padding:0 20px;
-   > p {
+   padding: 0 20px;
+
+   @include dark-mode-smart {
+      color: $darkText;
+   }
+
+   >p {
       margin-bottom: $spaceSmall;
    }
+
    @media only screen and (max-width: $breakpointLarge) {
       font-size: 18px;
    }
 }
+
 .projects-button {
    display: flex;
-   justify-content: center; /* Center horizontally */
-   align-items: center; /* Center vertically, if needed */
-   margin-top: 20px; /* Add spacing above the button */
+   justify-content: center;
+   /* Center horizontally */
+   align-items: center;
+   /* Center vertically, if needed */
+   margin-top: 20px;
+   /* Add spacing above the button */
 }
 
 .projects-button button {
-        background-color: #f5f5f5; /* Light gray background */
-        color: #333; /* Dark text for contrast */
-        border: none; /* Remove default borders */
-        padding: 10px 20px; /* Add padding for size */
-        font-size: 16px; /* Increase font size */
-        border-radius: 20px; /* Large rounded corners */
-        cursor: pointer; /* Change cursor to pointer */
-        transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover transition */
-    }
+   background-color: #f5f5f5;
+   /* Light gray background */
+   color: #333;
+   /* Dark text for contrast */
+   border: none;
+   /* Remove default borders */
+   padding: 10px 20px;
+   /* Add padding for size */
+   font-size: 16px;
+   /* Increase font size */
+   border-radius: 20px;
+   /* Large rounded corners */
+   cursor: pointer;
+   /* Change cursor to pointer */
+   transition: background-color 0.3s ease, color 0.3s ease;
+   /* Smooth hover transition */
 
-    .projects-button button:hover {
-        background-color: #e0e0e0; /* Slightly darker gray on hover */
-        color: #000; /* Darker text color on hover */
-    }
+   @include dark-mode-smart {
+      background-color: $darkSurfaceSecondary;
+      color: $darkText;
+   }
+}
 
-    .projects-button button:active {
-        background-color: #d6d6d6; /* Even darker gray for active state */
-        transform: scale(0.98); /* Slight scale-down effect on click */
-    }
+.projects-button button:hover {
+   background-color: #e0e0e0;
+   /* Slightly darker gray on hover */
+   color: #000;
+   /* Darker text color on hover */
+
+   @include dark-mode-smart {
+      background-color: $darkBorder;
+      color: $darkText;
+   }
+}
+
+.projects-button button:active {
+   background-color: #d6d6d6;
+   /* Even darker gray for active state */
+   transform: scale(0.98);
+   /* Slight scale-down effect on click */
+}
