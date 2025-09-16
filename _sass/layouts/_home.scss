@@ -227,6 +227,13 @@
       opacity: 0;
       transform: translateY(-20px);
       animation: cascadeIn $durationLong $bezierEaseOut forwards;
+
+      // Remove animation after it completes to allow hover to work
+      &.cascade-complete {
+         animation: none;
+         opacity: 1;
+         transform: translateY(0);
+      }
    }
 
    margin-bottom: 32px;
@@ -234,6 +241,12 @@
    box-shadow 0.3s ease;
 
    &:hover {
+      transform: translateY(0) scale(1.05);
+      box-shadow: 0 0 120px rgba(0, 0, 0, 0.1);
+   }
+
+   // Ensure hover works after cascade animation completes
+   &.cascade-animate:hover {
       transform: translateY(0) scale(1.05);
       box-shadow: 0 0 120px rgba(0, 0, 0, 0.1);
    }

@@ -181,6 +181,14 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
                         // Apply staggered delay and animation class
                         tile.style.animationDelay = `${index * 0.08}s`;
                         tile.classList.add('cascade-animate');
+
+                        // Remove animation class after animation completes to allow hover
+                        const animationDuration = 600; // $durationLong in ms
+                        const delay = index * 80; // 0.08s in ms
+                        setTimeout(() => {
+                            tile.classList.remove('cascade-animate');
+                            tile.classList.add('cascade-complete');
+                        }, animationDuration + delay);
                     });
                 });
 
