@@ -168,15 +168,18 @@
    font-size: 48px;
    font-weight: 600;
    cursor: pointer;
-   transition: color 0.3s ease;
+   transition: all $durationMedium $bezierEaseOut;
    outline: none;
+   transform: translateY(0);
 
    &:hover {
       color: #666;
+      transform: translateY(-2px);
    }
 
    &.active {
       color: white;
+      transform: translateY(-1px);
 
       @media (prefers-color-scheme: light) {
          color: #000;
@@ -189,7 +192,20 @@
 }
 
 #projects-list {
-   transition: opacity 0.1s ease;
+   transition: opacity $durationMedium $bezierEaseOut;
+}
+
+// Cascade animation for project tiles
+@keyframes cascadeIn {
+   0% {
+      opacity: 0;
+      transform: translateY(-20px);
+   }
+
+   100% {
+      opacity: 1;
+      transform: translateY(0);
+   }
 }
 
 .tile-work {
@@ -197,8 +213,22 @@
    width: 100%;
    padding: 16px;
    align-items: center;
-   transition: all $durationLong $bezierEaseOut;
    border-radius: 40px;
+
+   // Default state - visible unless animating
+   opacity: 1;
+   transform: translateY(0);
+
+   // Enable hardware acceleration for smoother animations
+   will-change: transform, opacity;
+   backface-visibility: hidden;
+
+   &.cascade-animate {
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: cascadeIn $durationLong $bezierEaseOut forwards;
+   }
+
    margin-bottom: 32px;
 
    &:hover {

@@ -148,9 +148,22 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
             // Wait for fade out to complete, then update content
             setTimeout(() => {
                 updateProjectsList(limit);
+
+                // Apply cascade animation with staggered delays
+                const tiles = projectsList.querySelectorAll('.tile-work');
+
+                // Use requestAnimationFrame for smoother animations
+                requestAnimationFrame(() => {
+                    tiles.forEach((tile, index) => {
+                        // Apply staggered delay and animation class
+                        tile.style.animationDelay = `${index * 0.08}s`;
+                        tile.classList.add('cascade-animate');
+                    });
+                });
+
                 // Fade in
                 projectsList.style.opacity = '1';
-            }, 100);
+            }, 350);
         }
 
         function switchTab(category) {
@@ -189,6 +202,15 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
             document.querySelectorAll('.tab-button').forEach(button => {
                 button.addEventListener('click', () => {
                     switchTab(button.dataset.category);
+                });
+            });
+
+            // Apply initial cascade animation to existing tiles
+            const initialTiles = document.querySelectorAll('#projects-list .tile-work');
+            requestAnimationFrame(() => {
+                initialTiles.forEach((tile, index) => {
+                    tile.style.animationDelay = `${index * 0.08}s`;
+                    tile.classList.add('cascade-animate');
                 });
             });
 
