@@ -6,80 +6,85 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
 
 <html lang="en">
 {% include head.html %}
-    <body id="home" class="home">
-        {% include header.html %}
 
-        <div class="wrapper">
-            <div class="wrapper-intro">
-                <section class="intro">
-                   <h1 class="intro-greeting">Hi, I'm Zack.</h1>
-                   <span class="intro-bio">
-                       I love crafting user experiences.</span>
-                </section>
-                <div class="intro-scroll">
-                   <div></div>
-                </div>
+<body id="home" class="home">
+    {% include header.html %}
+
+    <div class="wrapper">
+        <div class="wrapper-intro">
+            <section class="intro">
+                <h1 class="intro-greeting">Hi, I'm Zack.</h1>
+                <span class="intro-bio">
+                    Full-stack product designer with 13 years of experience.</span>
+            </section>
+            <div class="intro-scroll">
+                <div></div>
             </div>
-            <section id="projects" class="projects">
-               <h2 class="home-section-title">Work</h2>
-               <div id="projects-list">
-                   {% for post in site.posts limit: 3 %}
-                       {% if post.categories contains 'work' %}
-                           <a href="{{site.baseurl}}{{ post.url }}" class="tile-work">
-                               <img class="tile-work-thumbnail" src="{{site.baseurl}}{{ post.thumbnail }}" alt="{{ post.thumbnailDesc }}">
-                               <div class="tile-work-description">
-                                   <span class="tile-work-description-company">{{ post.company}}</span>
-                                   <div class="tile-work-description-title">{{ post.title }}</div>
-                                   <div class="tile-work-description-summary">{{ post.summary }}</div>
-                               </div>
-                           </a>
-                       {% endif %}
-                   {% endfor %}
-               </div>
-               <div class="projects-button">
-                   <button id="toggle-projects" onclick="toggleProjects()">Show More</button>
-               </div>
-           </section>
+        </div>
+        <section id="projects" class="projects">
+            <h2 class="home-section-title">Work</h2>
+            <div id="projects-list">
+                {% for post in site.posts limit: 3 %}
+                {% if post.categories contains 'work' %}
+                <a href="{{site.baseurl}}{{ post.url }}" class="tile-work">
+                    <img class="tile-work-thumbnail" src="{{site.baseurl}}{{ post.thumbnail }}"
+                        alt="{{ post.thumbnailDesc }}">
+                    <div class="tile-work-description">
+                        <span class="tile-work-description-company">{{ post.company}}</span>
+                        <div class="tile-work-description-title">{{ post.title }}</div>
+                        <div class="tile-work-description-summary">{{ post.summary }}</div>
+                    </div>
+                </a>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="projects-button">
+                <button id="toggle-projects" onclick="toggleProjects()">Show More</button>
+            </div>
+        </section>
 
-           <section id="about" class="about">
-             <h2 class="home-section-title">About</h2>
-             <section class="about-main">
-                 <p>
-                 I’m currently Founding Product Designer at <a href="https://stockapp.com">StockApp</a> in stealth mode.
-                 </p>
-                 <p>
-                 I am passionate about web products and have extensive experience across mobile and desktop too. I'm interested in working closely with product and engineering leaders to produce quality user experiences.
-                 </p>
-                 <p>
-                 When I'm not working, I enjoy surfing and building things.
-                 </p>
-                 <p>
-                 The best way to reach me is via
-                     <a href="https://www.linkedin.com/in/zackgemmell" target="_blank">
-                         LinkedIn</a>.
-                 </p>
-             </section>
-           </section>
+        <section id="about" class="about">
+            <h2 class="home-section-title">About</h2>
+            <section class="about-main">
+                <p>
+                    I’m currently Founding Product Designer at <a href="https://stockapp.com">StockApp</a> in stealth
+                    mode.
+                </p>
+                <p>
+                    I am passionate about web products and have extensive experience across mobile and desktop too. I'm
+                    interested in working closely with product and engineering leaders to produce quality user
+                    experiences.
+                </p>
+                <p>
+                    When I'm not working, I enjoy surfing and building things.
+                </p>
+                <p>
+                    The best way to reach me is via
+                    <a href="https://www.linkedin.com/in/zackgemmell" target="_blank">
+                        LinkedIn</a>.
+                </p>
+            </section>
+        </section>
 
-           <div class="social-links">
-               <!-- Social links code here -->
-           </div>
-
-           {% include footer.html %}
+        <div class="social-links">
+            <!-- Social links code here -->
         </div>
 
-        {% include scripts.html %}
+        {% include footer.html %}
+    </div>
 
-        <script>
-            let isShowingAll = false;
-        
-            function toggleProjects() {
-                const button = document.getElementById('toggle-projects');
-                const projectsList = document.getElementById('projects-list');
-        
-                if (isShowingAll) {
-                    button.textContent = 'Show More';
-                    projectsList.innerHTML = `
+    {% include scripts.html %}
+
+    <script>
+        let isShowingAll = false;
+
+        function toggleProjects() {
+            const button = document.getElementById('toggle-projects');
+            const projectsList = document.getElementById('projects-list');
+
+            if (isShowingAll) {
+                button.textContent = 'Show More';
+                projectsList.innerHTML = `
                         {% for post in site.posts limit: 3 %}
                             {% if post.categories contains 'work' %}
                                 <a href="{{site.baseurl}}{{ post.url }}" class="tile-work">
@@ -93,10 +98,10 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
                             {% endif %}
                         {% endfor %}
                     `;
-                    updateUrl(false); // Update URL to show 4 projects
-                } else {
-                    button.textContent = 'Show Less';
-                    projectsList.innerHTML = `
+                updateUrl(false); // Update URL to show 4 projects
+            } else {
+                button.textContent = 'Show Less';
+                projectsList.innerHTML = `
                         {% for post in site.posts limit: 20 %}
                             {% if post.categories contains 'work' %}
                                 <a href="{{site.baseurl}}{{ post.url }}" class="tile-work">
@@ -110,54 +115,72 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
                             {% endif %}
                         {% endfor %}
                     `;
-                    updateUrl(true); // Update URL to show all projects
-                }
-                isShowingAll = !isShowingAll;
+                updateUrl(true); // Update URL to show all projects
             }
-        
-            function updateUrl(showAll) {
-                const url = new URL(window.location);
-                if (showAll) {
-                    url.searchParams.set('show', 'all');
-                } else {
-                    url.searchParams.delete('show');
-                }
-                window.history.replaceState({}, '', url);
-            }
-        
-            // Check URL on page load and set the initial state
-            document.addEventListener('DOMContentLoaded', () => {
-                const urlParams = new URLSearchParams(window.location.search);
-                if (urlParams.get('show') === 'all') {
-                    isShowingAll = false; // Start from "Show All" state
-                    toggleProjects(); // Expand projects automatically
-                }
-                window.addEventListener('scroll', () => {
-                  const scrollTop = window.scrollY || document.documentElement.scrollTop;
-                  const windowHeight = window.innerHeight;
-                  const docHeight = document.documentElement.scrollHeight;
-                  const blurOverlay = document.getElementById('blur-overlay');
+            isShowingAll = !isShowingAll;
+        }
 
-                  if (scrollTop + windowHeight >= docHeight - 1) {
+        function updateUrl(showAll) {
+            const url = new URL(window.location);
+            if (showAll) {
+                url.searchParams.set('show', 'all');
+            } else {
+                url.searchParams.delete('show');
+            }
+            window.history.replaceState({}, '', url);
+        }
+
+        // Check URL on page load and set the initial state
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('show') === 'all') {
+                isShowingAll = false; // Start from "Show All" state
+                toggleProjects(); // Expand projects automatically
+            }
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY || document.documentElement.scrollTop;
+                const windowHeight = window.innerHeight;
+                const docHeight = document.documentElement.scrollHeight;
+                const blurOverlay = document.getElementById('blur-overlay');
+
+                if (scrollTop + windowHeight >= docHeight - 1) {
                     blurOverlay.style.display = 'none';
-                  } else {
+                } else {
                     blurOverlay.style.display = 'block';
-                  }
-                });
+                }
             });
-        </script>
-        
-</div>
+        });
+    </script>
 
-  <div id="blur-overlay" style="position:fixed;bottom:0;left:0;width:100%;height:20%;pointer-events:none;z-index:9999">
-    <div style="position:absolute;inset:0;z-index:1;backdrop-filter:blur(0.0625px);-webkit-backdrop-filter:blur(0.0625px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 12.5%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 0) 37.5%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 12.5%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 0) 37.5%)"></div>
-    <div style="position:absolute;inset:0;z-index:2;backdrop-filter:blur(0.125px);-webkit-backdrop-filter:blur(0.125px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 12.5%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 1) 37.5%, rgba(0, 0, 0, 0) 50%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 12.5%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 1) 37.5%, rgba(0, 0, 0, 0) 50%)"></div>
-    <div style="position:absolute;inset:0;z-index:3;backdrop-filter:blur(0.25px);-webkit-backdrop-filter:blur(0.25px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 1) 37.5%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 62.5%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 1) 37.5%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 62.5%)"></div>
-    <div style="position:absolute;inset:0;z-index:4;backdrop-filter:blur(0.5px);-webkit-backdrop-filter:blur(0.5px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 37.5%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 1) 62.5%, rgba(0, 0, 0, 0) 75%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 37.5%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 1) 62.5%, rgba(0, 0, 0, 0) 75%)"></div>
-    <div style="position:absolute;inset:0;z-index:5;backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 1) 62.5%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 87.5%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 1) 62.5%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 87.5%)"></div>
-    <div style="position:absolute;inset:0;z-index:6;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 62.5%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 1) 87.5%, rgba(0, 0, 0, 0) 100%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 62.5%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 1) 87.5%, rgba(0, 0, 0, 0) 100%)"></div>
-    <div style="position:absolute;inset:0;z-index:7;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 1) 87.5%, rgba(0, 0, 0, 1) 100%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 1) 87.5%, rgba(0, 0, 0, 1) 100%)"></div>
-    <div style="position:absolute;inset:0;z-index:8;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 87.5%, rgba(0, 0, 0, 1) 100%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 87.5%, rgba(0, 0, 0, 1) 100%)"></div>
-  </div>
-    </body>
+    </div>
+
+    <div id="blur-overlay"
+        style="position:fixed;bottom:0;left:0;width:100%;height:20%;pointer-events:none;z-index:9999">
+        <div
+            style="position:absolute;inset:0;z-index:1;backdrop-filter:blur(0.0625px);-webkit-backdrop-filter:blur(0.0625px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 12.5%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 0) 37.5%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 12.5%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 0) 37.5%)">
+        </div>
+        <div
+            style="position:absolute;inset:0;z-index:2;backdrop-filter:blur(0.125px);-webkit-backdrop-filter:blur(0.125px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 12.5%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 1) 37.5%, rgba(0, 0, 0, 0) 50%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 12.5%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 1) 37.5%, rgba(0, 0, 0, 0) 50%)">
+        </div>
+        <div
+            style="position:absolute;inset:0;z-index:3;backdrop-filter:blur(0.25px);-webkit-backdrop-filter:blur(0.25px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 1) 37.5%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 62.5%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 1) 37.5%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 62.5%)">
+        </div>
+        <div
+            style="position:absolute;inset:0;z-index:4;backdrop-filter:blur(0.5px);-webkit-backdrop-filter:blur(0.5px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 37.5%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 1) 62.5%, rgba(0, 0, 0, 0) 75%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 37.5%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 1) 62.5%, rgba(0, 0, 0, 0) 75%)">
+        </div>
+        <div
+            style="position:absolute;inset:0;z-index:5;backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 1) 62.5%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 87.5%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 1) 62.5%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 87.5%)">
+        </div>
+        <div
+            style="position:absolute;inset:0;z-index:6;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 62.5%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 1) 87.5%, rgba(0, 0, 0, 0) 100%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 62.5%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 1) 87.5%, rgba(0, 0, 0, 0) 100%)">
+        </div>
+        <div
+            style="position:absolute;inset:0;z-index:7;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 1) 87.5%, rgba(0, 0, 0, 1) 100%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 1) 87.5%, rgba(0, 0, 0, 1) 100%)">
+        </div>
+        <div
+            style="position:absolute;inset:0;z-index:8;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 87.5%, rgba(0, 0, 0, 1) 100%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 87.5%, rgba(0, 0, 0, 1) 100%)">
+        </div>
+    </div>
+</body>
+
 </html>

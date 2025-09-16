@@ -3,6 +3,10 @@
    height: 100vh;
    display: flex;
    align-items: center;
+
+   @media only screen and (min-width: $breakpointSmall) {
+      height: 100vh;
+   }
 }
 
 .intro {
@@ -24,6 +28,10 @@
    background-clip: text;
    -webkit-background-clip: text;
    filter: blur(10px);
+
+   @media only screen and (min-width: $breakpointLarge) {
+      font-size: 65px;
+   }
 
    @media only screen and (max-width: $breakpointLarge) {
       font-size: 60px;
@@ -53,6 +61,10 @@
    -webkit-background-clip: text;
    filter: blur(10px);
 
+   @media only screen and (min-width: $breakpointLarge) {
+      font-size: 70px;
+   }
+
    @media only screen and (max-width: $breakpointLarge) {
       font-size: 64px;
    }
@@ -67,8 +79,8 @@
 }
 
 .intro-loaded {
-   opacity: 1;
-   filter: blur(0px);
+   opacity: 1 !important;
+   filter: blur(0px) !important;
 }
 
 .intro-scroll {
@@ -103,7 +115,7 @@
 }
 
 .intro-scroll-loaded {
-   opacity: 1;
+   opacity: 1 !important;
 }
 
 .projects {
@@ -147,11 +159,6 @@
       flex-direction: column;
       padding-bottom: 40px;
    }
-}
-
-.tile-work-loaded {
-   transform: translateY(0px);
-   opacity: 1;
 }
 
 .tile-work-thumbnail {
