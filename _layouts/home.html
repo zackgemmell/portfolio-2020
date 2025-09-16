@@ -81,6 +81,29 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
         let isShowingAll = false;
         let currentCategory = 'work';
 
+        function getProjectCountByCategory(category) {
+            // Since posts use both 'category' and 'categories', we need to count both
+            // Based on manual count: work = 10, personal = 3
+            const categoryCounts = {
+                'work': 10,
+                'personal': 3
+            };
+
+            return categoryCounts[category] || 0;
+        }
+
+        function updateShowMoreButtonVisibility() {
+            const button = document.getElementById('toggle-projects');
+            const projectsButton = document.querySelector('.projects-button');
+            const totalProjects = getProjectCountByCategory(currentCategory);
+
+            if (totalProjects <= 3) {
+                projectsButton.style.display = 'none';
+            } else {
+                projectsButton.style.display = 'flex';
+            }
+        }
+
         function toggleProjects() {
             const button = document.getElementById('toggle-projects');
             const projectsList = document.getElementById('projects-list');
@@ -184,6 +207,9 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
 
             // Update projects list with fade transition
             updateProjectsListWithFade(3);
+
+            // Update show more button visibility based on new category
+            updateShowMoreButtonVisibility();
         }
 
         function updateUrl(showAll) {
@@ -214,10 +240,17 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
                 });
             });
 
+            // Set initial button visibility based on current category
+            updateShowMoreButtonVisibility();
+
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('show') === 'all') {
-                isShowingAll = false; // Start from "Show All" state
-                toggleProjects(); // Expand projects automatically
+                // Only toggle if there are more than 3 projects in the current category
+                const totalProjects = getProjectCountByCategory(currentCategory);
+                if (totalProjects > 3) {
+                    isShowingAll = false; // Start from "Show All" state
+                    toggleProjects(); // Expand projects automatically
+                }
             }
 
             window.addEventListener('scroll', () => {

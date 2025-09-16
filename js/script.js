@@ -53,12 +53,18 @@ $(document).ready(function () {
 
          // Store hash
          var hash = this.hash;
-         console.log($(hash).offset().top);
+
+         // Calculate offset for fixed header
+         var headerOffset = 100; // Offset to account for fixed header height + spacing
+         var targetPosition = $(hash).offset().top - headerOffset;
+
+         console.log('Target element position:', $(hash).offset().top);
+         console.log('Scroll position with offset:', targetPosition);
 
          // Using jQuery's animate() method to add smooth page scroll
          // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
          $('html, body').animate({
-            scrollTop: $(hash).offset().top
+            scrollTop: targetPosition
          }, 800, function () {
 
             // Add hash (#) to URL when done scrolling (default click behavior)
