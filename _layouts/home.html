@@ -15,17 +15,20 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
             <section class="intro">
                 <h1 class="intro-greeting">Hi, I'm Zack.</h1>
                 <span class="intro-bio">
-                    Full-stack product designer with 13 years of experience.</span>
+                    Full-stack product designer with {{ 'now' | date: '%Y' | minus: 2012 }} years of experience.</span>
             </section>
             <div class="intro-scroll">
                 <div></div>
             </div>
         </div>
         <section id="projects" class="projects">
-            <h2 class="home-section-title">Work</h2>
+            <div class="projects-tabs">
+                <button class="tab-button active" data-category="work">Work</button>
+                <button class="tab-button" data-category="personal">Personal</button>
+            </div>
             <div id="projects-list">
-                {% for post in site.posts limit: 3 %}
-                {% if post.categories contains 'work' %}
+                {% assign work_posts = site.posts | where: 'categories', 'work' %}
+                {% for post in work_posts limit: 3 %}
                 <a href="{{site.baseurl}}{{ post.url }}" class="tile-work">
                     <img class="tile-work-thumbnail" src="{{site.baseurl}}{{ post.thumbnail }}"
                         alt="{{ post.thumbnailDesc }}">
@@ -35,7 +38,6 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
                         <div class="tile-work-description-summary">{{ post.summary }}</div>
                     </div>
                 </a>
-                {% endif %}
                 {% endfor %}
             </div>
             <div class="projects-button">
@@ -77,6 +79,7 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
 
     <script>
         let isShowingAll = false;
+        let currentCategory = 'work';
 
         function toggleProjects() {
             const button = document.getElementById('toggle-projects');
@@ -84,40 +87,90 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
 
             if (isShowingAll) {
                 button.textContent = 'Show More';
-                projectsList.innerHTML = `
-                        {% for post in site.posts limit: 3 %}
-                            {% if post.categories contains 'work' %}
-                                <a href="{{site.baseurl}}{{ post.url }}" class="tile-work">
-                                    <img class="tile-work-thumbnail" src="{{site.baseurl}}{{ post.thumbnail }}" alt="{{ post.thumbnailDesc }}">
-                                    <div class="tile-work-description">
-                                        <span class="tile-work-description-company">{{ post.company}}</span>
-                                        <div class="tile-work-description-title">{{ post.title }}</div>
-                                        <div class="tile-work-description-summary">{{ post.summary }}</div>
-                                    </div>
-                                </a>
-                            {% endif %}
-                        {% endfor %}
-                    `;
-                updateUrl(false); // Update URL to show 4 projects
+                updateProjectsListWithFade(3);
+                updateUrl(false); // Update URL to show 3 projects
             } else {
                 button.textContent = 'Show Less';
-                projectsList.innerHTML = `
-                        {% for post in site.posts limit: 20 %}
-                            {% if post.categories contains 'work' %}
-                                <a href="{{site.baseurl}}{{ post.url }}" class="tile-work">
-                                    <img class="tile-work-thumbnail" src="{{site.baseurl}}{{ post.thumbnail }}" alt="{{ post.thumbnailDesc }}">
-                                    <div class="tile-work-description">
-                                        <span class="tile-work-description-company">{{ post.company}}</span>
-                                        <div class="tile-work-description-title">{{ post.title }}</div>
-                                        <div class="tile-work-description-summary">{{ post.summary }}</div>
-                                    </div>
-                                </a>
-                            {% endif %}
-                        {% endfor %}
-                    `;
+                updateProjectsListWithFade(20);
                 updateUrl(true); // Update URL to show all projects
             }
             isShowingAll = !isShowingAll;
+        }
+
+        function updateProjectsList(limit) {
+            const projectsList = document.getElementById('projects-list');
+
+            // Clear current content
+            projectsList.innerHTML = '';
+
+            // Get all posts and filter by current category
+            const allPosts = [
+                {% for post in site.posts %}
+        {
+            url: "{{site.baseurl}}{{ post.url }}",
+                thumbnail: "{{site.baseurl}}{{ post.thumbnail }}",
+                    thumbnailDesc: "{{ post.thumbnailDesc }}",
+                        company: "{{ post.company}}",
+                            title: "{{ post.title }}",
+                                summary: "{{ post.summary }}",
+                                    categories: [{% for category in post.categories %} "{{ category }}"{% unless forloop.last %}, {% endunless %} {% endfor %}]
+                }{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
+            ];
+
+        // Filter posts by current category and limit
+        const filteredPosts = allPosts
+            .filter(post => post.categories.includes(currentCategory))
+            .slice(0, limit);
+
+        // Generate HTML for filtered posts
+        filteredPosts.forEach(post => {
+            const projectTile = `
+                    <a href="${post.url}" class="tile-work">
+                        <img class="tile-work-thumbnail" src="${post.thumbnail}" alt="${post.thumbnailDesc}">
+                        <div class="tile-work-description">
+                            <span class="tile-work-description-company">${post.company}</span>
+                            <div class="tile-work-description-title">${post.title}</div>
+                            <div class="tile-work-description-summary">${post.summary}</div>
+                        </div>
+                    </a>
+                `;
+            projectsList.innerHTML += projectTile;
+        });
+        }
+
+        function updateProjectsListWithFade(limit) {
+            const projectsList = document.getElementById('projects-list');
+
+            // Fade out
+            projectsList.style.opacity = '0';
+
+            // Wait for fade out to complete, then update content
+            setTimeout(() => {
+                updateProjectsList(limit);
+                // Fade in
+                projectsList.style.opacity = '1';
+            }, 100);
+        }
+
+        function switchTab(category) {
+            // Update current category
+            currentCategory = category;
+
+            // Update tab button states
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+                if (button.dataset.category === category) {
+                    button.classList.add('active');
+                }
+            });
+
+            // Reset to showing limited projects when switching tabs
+            isShowingAll = false;
+            document.getElementById('toggle-projects').textContent = 'Show More';
+
+            // Update projects list with fade transition
+            updateProjectsListWithFade(3);
         }
 
         function updateUrl(showAll) {
@@ -132,11 +185,19 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
 
         // Check URL on page load and set the initial state
         document.addEventListener('DOMContentLoaded', () => {
+            // Add click event listeners to tab buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    switchTab(button.dataset.category);
+                });
+            });
+
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('show') === 'all') {
                 isShowingAll = false; // Start from "Show All" state
                 toggleProjects(); // Expand projects automatically
             }
+
             window.addEventListener('scroll', () => {
                 const scrollTop = window.scrollY || document.documentElement.scrollTop;
                 const windowHeight = window.innerHeight;

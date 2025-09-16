@@ -1,9 +1,9 @@
 ---
 layout: post
-category: work
+category: personal
 type: Regular
 permalink: /medical-scribe/
-published: false
+published: true
 
 # Home
 company: Personal
