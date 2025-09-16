@@ -1,7 +1,50 @@
 // levers
 $rotationSpeed: 20s;
 
-// all colors
+// CSS Custom Properties for Dark Mode
+:root {
+    // Light mode colors (default)
+    --bg-color: #ffffff;
+    --text-primary: #2C2C2F;
+    --text-secondary: #5B5B61;
+    --text-tertiary: #727279;
+    --text-muted: #8E8E93;
+    --border-color: #E5E5EA;
+    --accent-color: #6b6bff;
+    --highlight-bg: #fff7c1;
+    --card-bg: #ffffff;
+    --header-bg: rgba(255, 255, 255, 0.7);
+    --header-bg-scrolled: rgba(255, 255, 255, 0.8);
+    --header-border: rgba(255, 255, 255, 0.2);
+    --header-border-scrolled: rgba(255, 255, 255, 0.3);
+    --table-header-bg: #f2f2f5;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --shadow-strong: rgba(0, 0, 0, 0.15);
+}
+
+// Dark mode colors
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #1a1a1a;
+        --text-primary: #e0e0e0;
+        --text-secondary: #b8b8b8;
+        --text-tertiary: #9a9a9a;
+        --text-muted: #7a7a7a;
+        --border-color: #333333;
+        --accent-color: #7d7dff;
+        --highlight-bg: #4a4a2a;
+        --card-bg: #2d2d2d;
+        --header-bg: rgba(26, 26, 26, 0.7);
+        --header-bg-scrolled: rgba(26, 26, 26, 0.8);
+        --header-border: rgba(255, 255, 255, 0.0);
+        --header-border-scrolled: rgba(255, 255, 255, 0.15);
+        --table-header-bg: #333333;
+        --shadow: rgba(0, 0, 0, 0.3);
+        --shadow-strong: rgba(0, 0, 0, 0.4);
+    }
+}
+
+// all colors (keeping for backwards compatibility)
 $grey400: #2C2C2F;
 $grey300: #5B5B61;
 $grey200: #727279;
@@ -29,7 +72,7 @@ $breakpointMedium: 944px; // 13 inch mbp
 $breakpointSmall: 696px; // mobile device
 
 // curves
-$bezierEaseOut: cubic-bezier(.3,0,0,1);
+$bezierEaseOut: cubic-bezier(.3, 0, 0, 1);
 $bezierLogo: cubic-bezier(0.25, 0.10, 0.00, 1.00);
 
 // timing

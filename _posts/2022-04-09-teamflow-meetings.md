@@ -54,7 +54,7 @@ I re-imagined familiar features such as screensharing and added a concept for pr
   <source src="{{site.url}}/assets/img/teamflow/presenter-mode.webm" type="video/webm">
   <p>Your browser doesn't support HTML5 video. Here is
      a <a href="{{site.url}}/assets/img/teamflow/presenter-mode.mp4">link to the video</a> instead.</p>
-</video>{:.img-post .mb .mt}
+</video>{:.img-post .mb .mt .img-120 .video-shadow}
 
 ## Breakout rooms
 
@@ -65,7 +65,7 @@ I wanted a continuity between the virtual office and meetings in the ways that t
   <source src="{{site.url}}/assets/img/teamflow/breakout-rooms.webm" type="video/webm">
   <p>Your browser doesn't support HTML5 video. Here is
      a <a href="{{site.url}}/assets/img/teamflow/breakout-rooms.mp4">link to the video</a> instead.</p>
-</video>{:.img-post .mb .mt}
+</video>{:.img-post .mb .mt .img-120 .video-shadow}
 
 
 <!-- ![An example of the virtual office](../assets/img/teamflow/presenter-mode.png){:.post-image .mt .zoom-image } -->

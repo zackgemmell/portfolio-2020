@@ -29,6 +29,10 @@
    -webkit-background-clip: text;
    filter: blur(10px);
 
+   @media (prefers-color-scheme: dark) {
+      filter: blur(10px) brightness(1.5) contrast(0.8);
+   }
+
    @media only screen and (min-width: $breakpointLarge) {
       font-size: 65px;
    }
@@ -61,6 +65,10 @@
    -webkit-background-clip: text;
    filter: blur(10px);
 
+   @media (prefers-color-scheme: dark) {
+      filter: blur(10px) brightness(1.5) contrast(0.8);
+   }
+
    @media only screen and (min-width: $breakpointLarge) {
       font-size: 70px;
    }
@@ -81,6 +89,10 @@
 .intro-loaded {
    opacity: 1 !important;
    filter: blur(0px) !important;
+
+   @media (prefers-color-scheme: dark) {
+      filter: blur(0px) brightness(1.5) contrast(0.8) !important;
+   }
 }
 
 .intro-scroll {
@@ -89,7 +101,7 @@
    height: 44px;
    width: 28px;
    border-width: 1px;
-   border-color: $grey300;
+   border-color: var(--text-secondary);
    border-style: solid;
    border-radius: 100px;
    display: block;
@@ -104,7 +116,7 @@
       border-radius: 4px;
       margin-left: 9px;
       margin-top: 4px;
-      background: $grey150;
+      background: var(--text-muted);
       animation: scrollWheel 2s infinite 3s;
       transition: all $durationShort $bezierEaseOut;
    }
@@ -191,8 +203,8 @@
 }
 
 .tile-work-description-company {
-   background-color: $grey100;
-   color: $grey300;
+   background-color: var(--border-color);
+   color: var(--text-secondary);
    border-radius: 100px;
    display: inline-block;
    padding: 6px 13px;
@@ -209,7 +221,7 @@
 .tile-work-description-title {
    font-weight: 600;
    font-size: 40px;
-   color: $grey400;
+   color: var(--text-primary);
    padding-top: 6px;
    padding-bottom: 12px;
 
@@ -222,7 +234,7 @@
 
 
 .tile-work-description-summary {
-   color: $grey200;
+   color: var(--text-tertiary);
    font-size: 22px;
 
    @media only screen and (max-width: $breakpointMedium) {
@@ -234,7 +246,7 @@
 
 .about-main {
    font-size: 24px;
-   color: $grey400;
+   color: var(--text-primary);
    padding: 0 20px;
 
    >p {
