@@ -97,6 +97,8 @@
     .header-center {
       padding: 0 24px;
       height: 56px;
+      position: relative;
+      overflow: hidden;
     }
   }
 
@@ -107,11 +109,37 @@
 
   .logo {
     font-size: 18px;
+    position: relative;
+    overflow: hidden;
+    height: 28px; // Match the favicon height for proper vertical alignment
+    line-height: 28px;
+    display: flex;
+    align-items: center; // Ensure all elements are vertically centered
 
     .header-favicon {
       width: 28px;
       height: 28px;
       margin-right: 8px;
+      flex-shrink: 0; // Prevent shrinking
+    }
+
+    .header-chevron {
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+      flex-shrink: 0; // Prevent shrinking
+    }
+
+    // Text container for the sliding effect
+    .logo-text {
+      display: inline-block;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateY(0);
+      line-height: 28px; // Match the container height
+      
+      &.slide-up {
+        transform: translateY(-100%);
+      }
     }
   }
 }

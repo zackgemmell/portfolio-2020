@@ -44,14 +44,30 @@ $(document).ready(function () {
       // Show/hide navbar title on post pages
       var storyTitle = $('.story-title');
       var navbarTitle = $('#navbar-title');
+      var logoText = $('.logo-text');
 
       if (storyTitle.length && navbarTitle.length) {
          var titleBottom = storyTitle.offset().top + storyTitle.outerHeight();
+         var isMobile = window.innerWidth <= 696;
 
          if (scrollPosition > titleBottom) {
             navbarTitle.show().addClass('visible');
+            
+            // Add mobile-specific vertical animation
+            if (isMobile) {
+               setTimeout(function() {
+                  logoText.addClass('slide-up');
+                  navbarTitle.addClass('slide-up');
+               }, 50); // Small delay to ensure smooth animation
+            }
          } else {
             navbarTitle.removeClass('visible');
+            
+            // Remove mobile-specific animation classes
+            if (isMobile) {
+               logoText.removeClass('slide-up');
+               navbarTitle.removeClass('slide-up');
+            }
          }
       }
    });
@@ -85,5 +101,22 @@ $(document).ready(function () {
             // window.location.hash = hash;
          });
       } // End if
+   });
+
+   // Handle window resize to adjust mobile animations
+   $(window).on('resize', function() {
+      var navbarTitle = $('#navbar-title');
+      var logoText = $('.logo-text');
+      var isMobile = window.innerWidth <= 696;
+      
+      // Reset animation classes when switching between mobile and desktop
+      if (!isMobile) {
+         navbarTitle.removeClass('slide-up');
+         logoText.removeClass('slide-up');
+      } else if (navbarTitle.hasClass('visible')) {
+         // If we're switching to mobile and navbar is visible, apply mobile animations
+         navbarTitle.addClass('slide-up');
+         logoText.addClass('slide-up');
+      }
    });
 });

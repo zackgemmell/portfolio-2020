@@ -64,6 +64,57 @@
   }
 }
 
+// Mobile specific adjustments for navbar title
+@media (max-width: 696px) {
+  .navbar-title {
+    // Override ALL desktop positioning on mobile
+    position: absolute !important;
+    left: 24px !important;
+    top: 50% !important;
+    right: auto !important; // Override any right positioning
+    transform: translateY(calc(-50% + 32px)) !important; // Start below the logo text area (increased offset)
+    margin-left: 76px !important; // Increased from 72px to 76px (4px more to the right)
+    opacity: 0;
+    visibility: hidden;
+    max-width: calc(100% - 124px) !important; // Adjusted for new margin
+    height: auto !important; // Allow natural height instead of fixed 28px
+    min-height: 32px !important; // Ensure minimum space for text
+    overflow: visible !important; // Allow text to show fully
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease !important;
+    
+    // Reset desktop visible state on mobile - but keep it hidden until animation
+    &.visible {
+      opacity: 0;
+      visibility: visible;
+      transform: translateY(calc(-50% + 32px)) !important; // Keep starting position
+    }
+    
+    // Only show when both visible and slide-up classes are present
+    &.visible.slide-up {
+      opacity: 1;
+      transform: translateY(-50%) !important; // Move to logo text position
+    }
+
+    .navbar-title-main {
+      font-size: 18px !important;
+      font-weight: 600 !important;
+      line-height: 1.1 !important; // Slightly more relaxed line height
+      overflow: visible !important;
+      text-overflow: initial !important; // Remove ellipsis
+      white-space: nowrap !important;
+    }
+    
+    .navbar-title-company {
+      font-size: 12px !important;
+      line-height: 1.2 !important; // More relaxed line height
+      margin-top: 1px !important;
+      overflow: visible !important;
+      text-overflow: initial !important; // Remove ellipsis
+      white-space: nowrap !important;
+    }
+  }
+}
+
 .wrapper-post {
   padding-top: 1em;
 }
