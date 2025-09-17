@@ -20,6 +20,7 @@ $rotationSpeed: 20s;
     --table-header-bg: #f2f2f5;
     --shadow: rgba(0, 0, 0, 0.1);
     --shadow-strong: rgba(0, 0, 0, 0.15);
+    --zoom-overlay-bg: rgba(255, 255, 255, 0.95);
 }
 
 // Dark mode colors
@@ -41,6 +42,7 @@ $rotationSpeed: 20s;
         --table-header-bg: #333333;
         --shadow: rgba(0, 0, 0, 0.3);
         --shadow-strong: rgba(0, 0, 0, 0.4);
+        --zoom-overlay-bg: rgba(0, 0, 0, 0.85);
     }
 }
 

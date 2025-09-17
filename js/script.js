@@ -1,6 +1,21 @@
 
 $(document).ready(function () {
-   mediumZoom('.zoom-image', { margin: 50 })
+   // Function to get the appropriate background color based on color scheme
+   function getZoomBackground() {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      return prefersDark ? 'rgba(0, 0, 0, 0.85)' : 'rgba(255, 255, 255, 0.95)';
+   }
+
+   // Initialize medium-zoom with appropriate background
+   let zoomInstance = mediumZoom('.zoom-image', {
+      margin: 50,
+      background: getZoomBackground()
+   });
+
+   // Listen for color scheme changes and update zoom background
+   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+      zoomInstance.update({ background: getZoomBackground() });
+   });
 
    var introGreeting = $(".intro-greeting");
    var introBio = $(".intro-bio");

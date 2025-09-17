@@ -73,10 +73,10 @@
     top: 50% !important;
     right: auto !important; // Override any right positioning
     transform: translateY(calc(-50% + 32px)) !important; // Start below the logo text area (increased offset)
-    margin-left: 76px !important; // Increased from 72px to 76px (4px more to the right)
+    margin-left: 70px !important; // Adjusted to match tighter logo spacing
     opacity: 0;
     visibility: hidden;
-    max-width: calc(100% - 124px) !important; // Adjusted for new margin
+    max-width: calc(100% - 118px) !important; // Adjusted for new margin (70px + 48px padding/spacing)
     height: auto !important; // Allow natural height instead of fixed 28px
     min-height: 32px !important; // Ensure minimum space for text
     overflow: visible !important; // Allow text to show fully
@@ -144,6 +144,7 @@
 
 .medium-zoom-overlay {
   z-index: 90;
+  background: var(--zoom-overlay-bg) !important;
 }
 
 
