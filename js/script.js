@@ -40,6 +40,20 @@ $(document).ready(function () {
          introScroll.addClass('intro-scroll-loaded');
          header.removeClass('header-scrolled');
       }
+
+      // Show/hide navbar title on post pages
+      var storyTitle = $('.story-title');
+      var navbarTitle = $('#navbar-title');
+
+      if (storyTitle.length && navbarTitle.length) {
+         var titleBottom = storyTitle.offset().top + storyTitle.outerHeight();
+
+         if (scrollPosition > titleBottom) {
+            navbarTitle.fadeIn(300);
+         } else {
+            navbarTitle.fadeOut(300);
+         }
+      }
    });
 
 

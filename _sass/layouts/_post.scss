@@ -1,5 +1,33 @@
 .header-post {
   opacity: 1;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .header-chevron {
+    color: var(--text-secondary);
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .logo:hover .header-chevron {
+    color: var(--text-primary);
+    transform: translateX(-2px);
+  }
+}
+
+.navbar-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .wrapper-post {
