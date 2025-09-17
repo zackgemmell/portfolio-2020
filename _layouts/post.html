@@ -2,21 +2,22 @@
 ---
 <!DOCTYPE html>
 <html lang="en">
-    {% include head.html %}
-    <body>
-        {% include header-post.html %}
-        <!-- {% if page.heroMedia contains ".mp4" %}
+{% include head.html %}
+
+<body>
+    {% include header-post.html %}
+    <!-- {% if page.heroMedia contains ".mp4" %}
             <video id="post-hero" src="{{ page.heroMedia }}" autoplay="true" loop="true"></video>
         {% else %}
             <img id="post-hero" src="{{ page.heroMedia }}" />
         {% endif %} -->
-        <div class="wrapper wrapper-post">
-            <section class="story">
-            
-               <!-- <span class="tile-work-description-company">{{ page.company}}</span> -->
-                <h1 class="story-title">{{ page.title }}</h1>
-                    <p class="metadata">{{ page.company}} • {{ page.date | date: "%B, %Y"}}</p>
-                <!-- <section class="story-section">
+    <div class="wrapper wrapper-post">
+        <section class="story">
+
+            <!-- <span class="tile-work-description-company">{{ page.company}}</span> -->
+            <h1 class="story-title">{{ page.title }}</h1>
+            <p class="metadata">{{ page.company}} • {{ page.date | date: "%B, %Y"}}</p>
+            <!-- <section class="story-section">
                     <h3 class="story-section-label">Date</h3>
                     <p class="story-section-paragraph">{{ page.shippedDate }}</p>
                 </section>
@@ -45,35 +46,51 @@
             <section>
                 <!-- <h3>{{ page.title }} Visuals</h3> -->
                 {{ content }}
-                
+
             </section>
             {% include footer.html %}
+    </div>
+
+    {% include scripts.html %}
+
+    <div id="blur-overlay" style="position:fixed;top:0px;left:0;width:100%;height:16%;pointer-events:none;z-index:999">
+        <div
+            style="position:absolute;inset:0;z-index:1;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 87.5%, rgba(0, 0, 0, 1) 100%);-webkit-mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 87.5%, rgba(0, 0, 0, 1) 100%)">
         </div>
-
-        {% include scripts.html %}
-
-        <div id="blur-overlay" style="position:fixed;bottom:0;left:0;width:100%;height:240px;pointer-events:none;z-index:9999">
-          <div style="position:absolute;inset:0;z-index:1;backdrop-filter:blur(0.0625px);-webkit-backdrop-filter:blur(0.0625px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 12.5%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 0) 37.5%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 12.5%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 0) 37.5%)"></div>
-          <div style="position:absolute;inset:0;z-index:2;backdrop-filter:blur(0.125px);-webkit-backdrop-filter:blur(0.125px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 12.5%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 1) 37.5%, rgba(0, 0, 0, 0) 50%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 12.5%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 1) 37.5%, rgba(0, 0, 0, 0) 50%)"></div>
-          <div style="position:absolute;inset:0;z-index:3;backdrop-filter:blur(0.25px);-webkit-backdrop-filter:blur(0.25px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 1) 37.5%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 62.5%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 1) 37.5%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 62.5%)"></div>
-          <div style="position:absolute;inset:0;z-index:4;backdrop-filter:blur(0.5px);-webkit-backdrop-filter:blur(0.5px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 37.5%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 1) 62.5%, rgba(0, 0, 0, 0) 75%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 37.5%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 1) 62.5%, rgba(0, 0, 0, 0) 75%)"></div>
-          <div style="position:absolute;inset:0;z-index:5;backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 1) 62.5%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 87.5%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 1) 62.5%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 87.5%)"></div>
-          <div style="position:absolute;inset:0;z-index:6;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 62.5%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 1) 87.5%, rgba(0, 0, 0, 0) 100%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 62.5%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 1) 87.5%, rgba(0, 0, 0, 0) 100%)"></div>
-          <div style="position:absolute;inset:0;z-index:7;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 1) 87.5%, rgba(0, 0, 0, 1) 100%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 1) 87.5%, rgba(0, 0, 0, 1) 100%)"></div>
-          <div style="position:absolute;inset:0;z-index:8;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 87.5%, rgba(0, 0, 0, 1) 100%);-webkit-mask-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 87.5%, rgba(0, 0, 0, 1) 100%)"></div>
+        <div
+            style="position:absolute;inset:0;z-index:2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 1) 87.5%, rgba(0, 0, 0, 1) 100%);-webkit-mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 1) 87.5%, rgba(0, 0, 0, 1) 100%)">
         </div>
+        <div
+            style="position:absolute;inset:0;z-index:3;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 62.5%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 1) 87.5%, rgba(0, 0, 0, 0) 100%);-webkit-mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 62.5%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 1) 87.5%, rgba(0, 0, 0, 0) 100%)">
+        </div>
+        <div
+            style="position:absolute;inset:0;z-index:4;backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 1) 62.5%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 87.5%);-webkit-mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 1) 62.5%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 87.5%)">
+        </div>
+        <div
+            style="position:absolute;inset:0;z-index:5;backdrop-filter:blur(0.5px);-webkit-backdrop-filter:blur(0.5px);mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 37.5%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 1) 62.5%, rgba(0, 0, 0, 0) 75%);-webkit-mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 37.5%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 1) 62.5%, rgba(0, 0, 0, 0) 75%)">
+        </div>
+        <div
+            style="position:absolute;inset:0;z-index:6;backdrop-filter:blur(0.25px);-webkit-backdrop-filter:blur(0.25px);mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 1) 37.5%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 62.5%);-webkit-mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 1) 37.5%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 62.5%)">
+        </div>
+        <div
+            style="position:absolute;inset:0;z-index:7;backdrop-filter:blur(0.125px);-webkit-backdrop-filter:blur(0.125px);mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 12.5%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 1) 37.5%, rgba(0, 0, 0, 0) 50%);-webkit-mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 12.5%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 1) 37.5%, rgba(0, 0, 0, 0) 50%)">
+        </div>
+        <div
+            style="position:absolute;inset:0;z-index:8;backdrop-filter:blur(0.0625px);-webkit-backdrop-filter:blur(0.0625px);mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 12.5%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 0) 37.5%);-webkit-mask-image:linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 12.5%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 0) 37.5%)">
+        </div>
+    </div>
 
-        <script>
-          window.addEventListener('scroll', () => {
+    <script>
+        window.addEventListener('scroll', () => {
             const scrollTop = window.scrollY || document.documentElement.scrollTop;
-            const windowHeight = window.innerHeight;
-            const docHeight = document.documentElement.scrollHeight;
             const blurOverlay = document.getElementById('blur-overlay');
 
             if (blurOverlay) {
-              blurOverlay.style.display = (scrollTop + windowHeight >= docHeight - 1) ? 'none' : 'block';
+                // Show blur overlay when scrolled down from the top, hide when at the very top
+                blurOverlay.style.display = (scrollTop > 50) ? 'block' : 'none';
             }
-          });
-        </script>
-    </body>
+        });
+    </script>
+</body>
+
 </html>
