@@ -49,9 +49,9 @@ $(document).ready(function () {
          var titleBottom = storyTitle.offset().top + storyTitle.outerHeight();
 
          if (scrollPosition > titleBottom) {
-            navbarTitle.fadeIn(300);
+            navbarTitle.show().addClass('visible');
          } else {
-            navbarTitle.fadeOut(300);
+            navbarTitle.removeClass('visible');
          }
       }
    });
