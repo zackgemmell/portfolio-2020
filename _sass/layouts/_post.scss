@@ -138,12 +138,12 @@
 }
 
 .medium-zoom-image--opened {
-  z-index: 100;
+  z-index: 1100;
   margin: 0 !important;
 }
 
 .medium-zoom-overlay {
-  z-index: 90;
+  z-index: 1050;
   background: var(--zoom-overlay-bg) !important;
 }
 
