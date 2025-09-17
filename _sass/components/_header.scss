@@ -81,12 +81,6 @@
   }
 }
 
-.header-post .logo {
-  &:hover {
-    color: var(--accent-color);
-  }
-}
-
 // Responsive adjustments for mobile
 @media (max-width: $breakpointSmall) {
   .header {
