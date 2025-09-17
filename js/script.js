@@ -52,17 +52,17 @@ $(document).ready(function () {
 
          if (scrollPosition > titleBottom) {
             navbarTitle.show().addClass('visible');
-            
+
             // Add mobile-specific vertical animation
             if (isMobile) {
-               setTimeout(function() {
+               setTimeout(function () {
                   logoText.addClass('slide-up');
                   navbarTitle.addClass('slide-up');
                }, 50); // Small delay to ensure smooth animation
             }
          } else {
             navbarTitle.removeClass('visible');
-            
+
             // Remove mobile-specific animation classes
             if (isMobile) {
                logoText.removeClass('slide-up');
@@ -104,11 +104,11 @@ $(document).ready(function () {
    });
 
    // Handle window resize to adjust mobile animations
-   $(window).on('resize', function() {
+   $(window).on('resize', function () {
       var navbarTitle = $('#navbar-title');
       var logoText = $('.logo-text');
       var isMobile = window.innerWidth <= 696;
-      
+
       // Reset animation classes when switching between mobile and desktop
       if (!isMobile) {
          navbarTitle.removeClass('slide-up');
