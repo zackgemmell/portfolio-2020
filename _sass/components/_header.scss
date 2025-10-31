@@ -67,17 +67,58 @@
   transition: color 0.3s ease;
   display: flex;
   align-items: center;
+  padding: 12px;
+  margin: -12px;
+
+  .header-chevron {
+    width: 16px;
+    margin-right: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease, margin-right 0.3s ease;
+  }
 
   .header-favicon {
     width: 32px;
     height: 32px;
     margin-right: 8px;
     opacity: 0.9;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
 
-  &:hover .header-favicon {
-    opacity: 1;
+  // Only apply shift on project pages (with chevron)
+  &:has(.header-chevron) {
+    .header-favicon {
+      transform: translateX(-24px);
+    }
+
+    .logo-text {
+      transform: translateX(-24px);
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      .header-chevron {
+        width: 16px;
+        opacity: 1;
+        margin-right: 4px;
+      }
+
+      .header-favicon {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .logo-text {
+        transform: translateX(0);
+      }
+    }
+  }
+
+  // Home page hover (no chevron)
+  &:not(:has(.header-chevron)):hover {
+    .header-favicon {
+      opacity: 1;
+    }
   }
 }
 
@@ -109,30 +150,65 @@
     line-height: 28px;
     display: flex;
     align-items: center; // Ensure all elements are vertically centered
+    padding: 12px;
+    margin: -12px;
+
+    .header-chevron {
+      width: 16px;
+      height: 16px;
+      margin-right: 0;
+      flex-shrink: 0; // Prevent shrinking
+      opacity: 0;
+      transition: opacity 0.3s ease, margin-right 0.3s ease;
+    }
 
     .header-favicon {
       width: 28px;
       height: 28px;
       margin-right: 4px;
       flex-shrink: 0; // Prevent shrinking
-    }
-
-    .header-chevron {
-      width: 16px;
-      height: 16px;
-      margin-right: 2px;
-      flex-shrink: 0; // Prevent shrinking
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
     // Text container for the sliding effect
     .logo-text {
       display: inline-block;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      transform: translateY(0);
       line-height: 28px; // Match the container height
+    }
 
-      &.slide-up {
-        transform: translateY(-100%);
+    // Only apply shift on project pages (with chevron)
+    &:has(.header-chevron) {
+      .header-favicon {
+        transform: translateX(-20px);
+      }
+
+      .logo-text {
+        transform: translateX(-20px);
+        transition: transform 0.3s ease;
+      }
+
+      &:hover {
+        .header-chevron {
+          width: 16px;
+          opacity: 1;
+          margin-right: 2px;
+        }
+
+        .header-favicon {
+          opacity: 1;
+          transform: translateX(0);
+        }
+
+        .logo-text {
+          transform: translateX(0);
+        }
+      }
+    }
+
+    // Home page hover (no chevron)
+    &:not(:has(.header-chevron)):hover {
+      .header-favicon {
+        opacity: 1;
       }
     }
   }

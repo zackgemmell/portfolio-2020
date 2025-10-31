@@ -15,8 +15,6 @@ companyLink: https://teamflowhq.com
 
 ---
 
-## Context
-
 Founded during the COVID-19 pandemic, Teamflow was created to help teams transition to remote work by offering a virtual space for daily collaboration and spontaneous interactions. The virtual office experience gave co-workers the ability to socialize and collaborate at will.
 
 ![An example of the virtual office]({{site.url}}/assets/img/teamflow/virtual-office.png){: .post-image .img-120 .mt .zoom-image }

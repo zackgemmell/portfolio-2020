@@ -16,7 +16,10 @@
 
             <!-- <span class="tile-work-description-company">{{ page.company}}</span> -->
             <h1 class="story-title">{{ page.title }}</h1>
-            <p class="metadata">{{ page.company}} • {{ page.date | date: "%B, %Y"}}</p>
+            {% assign words = content | number_of_words %}
+            {% assign read_time = words | divided_by: 200 %}
+            {% if read_time == 0 %}{% assign read_time = 1 %}{% endif %}
+            <p class="metadata">{{ page.company}} • {{ page.date | date: "%B, %Y"}} • {{ read_time }} min read</p>
             <!-- <section class="story-section">
                     <h3 class="story-section-label">Date</h3>
                     <p class="story-section-paragraph">{{ page.shippedDate }}</p>
