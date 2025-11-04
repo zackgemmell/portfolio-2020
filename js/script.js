@@ -76,7 +76,7 @@ $(document).ready(function () {
                }, 50); // Small delay to ensure smooth animation
             }
          } else {
-            navbarTitle.removeClass('visible');
+            navbarTitle.removeClass('visible').hide();
 
             // Remove mobile-specific animation classes
             if (isMobile) {
