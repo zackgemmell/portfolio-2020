@@ -11,13 +11,13 @@ title: Copy Vault
 summary: Lightweight clipboard history app
 thumbnail: /images/thumbnails/cv-thumbnail.png
 thumbnailDesc: Copy Vault
-companyLink: https://appstoreconnect
+companyLink: https://apps.apple.com/us/app/copy-vault/id6753828474
 
 ---
 
 Copy Vault is a lightweight clipboard history manager I built to explore the latest macOS and iOS developer features. The app runs natively on both platforms, capturing every clipboard item and providing quick access to your copy history.
 
-**The app is coming soon to the App Store.**
+**[Download Copy Vault from the App Store](https://apps.apple.com/us/app/copy-vault/id6753828474)**
 
 ![Guardrails and safety features]({{site.url}}/assets/img/copyvault/app.png){: .post-image .img-120 .mt .zoom-image }
 
