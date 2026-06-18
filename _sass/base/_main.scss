@@ -56,6 +56,19 @@ li {
   padding: 0 20px;
 }
 
+// Progressive blur strip that sits under the floating header on scroll.
+// Shared by the home and project layouts via _includes/scroll-blur.html.
+.scroll-blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 16%;
+  pointer-events: none;
+  z-index: 999;
+  display: none;
+}
+
 h1,
 h2,
 h3,

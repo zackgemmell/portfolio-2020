@@ -4,5 +4,5 @@
 
 layout: home
 title: Zack Gemmell
-summary: Founding Designer at StockApp. Previously Founding Designer at Lindy.
+summary: Currently at Loancrate. Previously founding designer at Lindy.
 ---

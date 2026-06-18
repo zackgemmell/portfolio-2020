@@ -4,7 +4,7 @@ title:  "Arch"
 date:   2020-11-08 21:51:25 -0500
 categories: work
 permalink: /styles/
-published: true
+published: false
 
 # Home
 thumbnail: /images/thumbnails/sl-thumbnail.png
