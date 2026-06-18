@@ -20,15 +20,15 @@ heroMedia: /assets/img/raken/checklist-demo.mp4
 
 [Raken](https://rakenapp.com) is a tool for field-office collaboration in the construction industry. Raken has four established product offerings: Daily Reporting, Production Tracking, Time Cards, and Safety Management.
 
-Beginning in February 2020 I worked with a small team --- one researcher, one product manager, and another product designer --- to produce a new feature that eventually came to be known as [Checklists](https://www.rakenapp.com/daily-reports).
+Beginning in February 2020 I worked with a small team (one researcher, one product manager, and another product designer) to build a new feature that came to be known as [Checklists](https://www.rakenapp.com/daily-reports).
 
-<mark>Our objective was to build a customizable form feature that would suite the needs of enterprise safety managers in order to promote Raken as a robust safety solution.</mark>
+<mark>Our goal was a customizable form feature that suited the needs of enterprise safety managers and made Raken a serious safety tool.</mark>
 
-## UX Research
+## Where surveys fell short
 
-As with any design process, we began by conducting research — qualitative surveys of our users, lab studies in our Carlsbad office, and competitor analysis.
+Like any project, we started with research: qualitative surveys of our users, lab studies in our Carlsbad office, and competitor analysis.
 
-One of the sub-features of [Daily Reports](https://www.rakenapp.com/daily-reports) is called Surveys. Built as a simple way for workers to answer a set of yes-no questions; it was quickly adopted by our small business market but our mid-market and enterprise clients had more specialized needs.
+One of the sub-features of [Daily Reports](https://www.rakenapp.com/daily-reports) is called Surveys. It started as a simple way for workers to answer a set of yes-no questions. Small businesses adopted it quickly, but our mid-market and enterprise clients had more specialized needs.
 
 <!-- ![Original survey within a daily report]({{site.url}}/assets/img/raken/survey.png){: .post-image .img-120 .mt .zoom-image}
 
@@ -57,6 +57,6 @@ We conducted dozens of user interviews, spoke with our sales and customer suppor
 
 ![Project tools on iOS]({{site.url}}/assets/img/raken/checklist-mobile.png){: .img-50 .mt .mb .zoom-image}
 
-## Results
+## How it landed
 
-In October 2020 we began rolling out the feature to great success. Not only did we see customers use checklists frequently—and qualitative research indicated it was a much better experience—but we also had the chance to ship the first modern web interface using Raken's new product language. Helping shape the way for future Raken web tools.
+We started rolling Checklists out in October 2020, and it landed well. Customers used it often, and our research showed it was a clear improvement over the old surveys. It was also the first thing we shipped on Raken's new web product language, which set the direction for the web tools that came after.
