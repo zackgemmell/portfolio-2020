@@ -11,6 +11,9 @@ summary: Building a foundation for the future of Raken.
 thumbnail: /images/thumbnails/ia-thumbnail.png
 thumbnailDesc: Architecting For Growth
 companyLink: https://rakenapp.com
+role: Product Designer
+heroMedia: /assets/img/raken/information-architecture.mp4
+heroCaption: Consolidating fragmented project navigation into a single menu.
 
 ---
 
@@ -36,13 +39,6 @@ All of this highlighted the fundamental problem with how Raken’s information a
 {: .post-paragraph-embedded-last}
 
 <mark>We asked: what would happen if we consolidated the project feature navigation into a single menu?</mark>
-
-<video autoplay muted playsinline loop width="100%">
-  <source src="{{site.url}}/assets/img/raken/information-architecture.mp4" type="video/mp4">
-  <source src="{{site.url}}/assets/img/raken/information-architecture.webm" type="video/webm">
-  <p>Your browser doesn't support HTML5 video. Here is
-     a <a href="{{site.url}}/assets/img/raken/information-architecture.mp4">link to the video</a> instead.</p>
-</video>{:.img-post .mb .mt}
 
 Due to the nature of the application, there was a need to distinguish between Company level and Project level features. This duality presented an opportunity to organize features according to whether or not the user is inside a project.
 {: .post-paragraph-embedded-last}

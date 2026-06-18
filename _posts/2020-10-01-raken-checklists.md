@@ -12,6 +12,9 @@ summary: Creating a new feature to expand Raken's safety offering.
 thumbnail: /images/thumbnails/checklists-thumbnail.png
 thumbnailDesc: Raken Checklists
 companyLink: https://rakenapp.com
+role: Product Designer
+timeline: 8 months
+heroMedia: /assets/img/raken/checklist-demo.mp4
 
 ---
 

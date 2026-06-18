@@ -12,15 +12,13 @@ summary: Combining virtual offices with meeting spaces.
 thumbnail: /images/thumbnails/tf-thumbnail.png
 thumbnailDesc: Remote Co-working
 companyLink: https://teamflowhq.com
+role: Product Designer
+heroMedia: /assets/img/teamflow/virtual-office.png
+heroCaption: The virtual office experience.
 
 ---
 
 Founded during the COVID-19 pandemic, Teamflow was created to help teams transition to remote work by offering a virtual space for daily collaboration and spontaneous interactions. The virtual office experience gave co-workers the ability to socialize and collaborate at will.
-
-![An example of the virtual office]({{site.url}}/assets/img/teamflow/virtual-office.png){: .post-image .img-120 .mt .zoom-image }
-
-The virtual office experience
-{: .post-caption}
 
 ## The Problem
 

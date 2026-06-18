@@ -1,0 +1,33 @@
+{% if page.previous or page.next %}
+<nav class="post-nav" aria-label="More projects">
+    {% if page.previous %}
+    <a class="post-nav-link post-nav-prev" href="{{ site.baseurl }}{{ page.previous.url }}">
+        {% if page.previous.thumbnail %}
+        <img class="post-nav-thumb" src="{{ site.baseurl }}{{ page.previous.thumbnail }}" alt="" loading="lazy">
+        {% endif %}
+        <span class="post-nav-text">
+            <span class="post-nav-label">← Previous</span>
+            <span class="post-nav-title">{{ page.previous.title }}</span>
+            <span class="post-nav-company">{{ page.previous.company }}</span>
+        </span>
+    </a>
+    {% else %}
+    <span class="post-nav-link post-nav-empty" aria-hidden="true"></span>
+    {% endif %}
+
+    {% if page.next %}
+    <a class="post-nav-link post-nav-next" href="{{ site.baseurl }}{{ page.next.url }}">
+        <span class="post-nav-text">
+            <span class="post-nav-label">Next →</span>
+            <span class="post-nav-title">{{ page.next.title }}</span>
+            <span class="post-nav-company">{{ page.next.company }}</span>
+        </span>
+        {% if page.next.thumbnail %}
+        <img class="post-nav-thumb" src="{{ site.baseurl }}{{ page.next.thumbnail }}" alt="" loading="lazy">
+        {% endif %}
+    </a>
+    {% else %}
+    <span class="post-nav-link post-nav-empty" aria-hidden="true"></span>
+    {% endif %}
+</nav>
+{% endif %}

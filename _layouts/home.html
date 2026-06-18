@@ -14,8 +14,10 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
         <div class="wrapper-intro">
             <section class="intro">
                 <h1 class="intro-greeting">Hi, I'm Zack.</h1>
-                <span class="intro-bio">
-                    Fullstack product designer with {{ 'now' | date: '%Y' | minus: 2012 }} years of experience.</span>
+                <span class="intro-bio">A founding product designer who designs and builds products end to end.</span>
+                <p class="intro-meta">Currently at <a href="https://loancrate.com" target="_blank"
+                        rel="noopener">Loancrate</a>. Previously founding designer at <a
+                        href="https://lindy.ai" target="_blank" rel="noopener">Lindy</a>.</p>
             </section>
             <div class="intro-scroll">
                 <div></div>
@@ -49,22 +51,24 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
             <h2 class="home-section-title">About</h2>
             <section class="about-main">
                 <p>
-                    I am passionate about web products and have extensive experience across mobile and desktop too. I'm
-                    interested in working closely with product and engineering leaders to produce quality user
-                    experiences.
+                    I'm a product designer with a builder's bias. Over the last decade I've been a founding designer
+                    at startups like Lindy, I'm currently designing at <a href="https://loancrate.com" target="_blank" rel="noopener">Loancrate</a>, and along the way I've shipped my own
+                    apps — designing and coding them end to end. I care most about the small details that make software
+                    feel fast, honest, and obvious to use.
                 </p>
                 <p>
-                    When I'm not working, I enjoy surfing and building things.
+                    I like working closely with founders and engineers, moving quickly from a rough idea to something
+                    real in front of users. When I'm not working, I'm usually surfing or building something small.
                 </p>
                 <p>
                     The best way to reach me is on
-                    <a href="https://www.linkedin.com/in/zackgemmell" target="_blank">
-                        LinkedIn</a>.
+                    <a href="https://www.linkedin.com/in/zackgemmell" target="_blank" rel="noopener">LinkedIn</a>,
+                    or by <a href="mailto:zack.gemmell@gmail.com">email</a>.
                 </p>
                 <p>
-                    If you like this portfolio, feel free to
-                    <a href="https://github.com/zackgemmell/portfolio-2020" target="_blank">
-                        fork it on GitHub</a>.
+                    If you like this site, you can
+                    <a href="https://github.com/zackgemmell/portfolio-2020" target="_blank" rel="noopener">find the
+                        source on GitHub</a>.
                 </p>
             </section>
         </section>
@@ -83,11 +87,10 @@ summary: Zack Gemmell is a product designer living and working in San Diego, Cal
         let currentCategory = 'work';
 
         function getProjectCountByCategory(category) {
-            // Since posts use both 'category' and 'categories', we need to count both
-            // Based on manual count: work = 10, personal = 3
+            // Counts are derived from published posts at build time, not hardcoded.
             const categoryCounts = {
-                'work': 10,
-                'personal': 3
+                'work': {{ site.posts | where: 'categories', 'work' | size }},
+                'personal': {{ site.posts | where: 'categories', 'personal' | size }}
             };
 
             return categoryCounts[category] || 0;
