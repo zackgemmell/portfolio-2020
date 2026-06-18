@@ -15,36 +15,28 @@ companyLink: https://teamflowhq.com
 
 ---
 
-Teamflow was founded in August 2020, in response to the COVID-19 pandemic. The company raised $50M to develop a comprehensive virtual office product with tools akin to Microsoft Office, designed for remote teams. Teamflow envisioned combining features like chat, document sharing, and video conferencing into a single platform to help teams collaborate efficiently in a fully remote environment.
+Teamflow started in August 2020, right as the pandemic sent everyone home. The company raised $50M to build a full virtual office for remote teams, something closer to Microsoft Office than to Zoom: chat, document sharing, and video all living in one place.
 
-At the time, the product had around 1,000 users and was equipped with a basic virtual office interface, offering written chat and ad-hoc meetings (voice calls). However, it lacked critical features such as offline chat, scheduled meetings, and file collaboration (Word, Excel, etc.).
+By the time I arrived the product was real but early. Around 1,000 people were using a basic virtual office with written chat and ad-hoc voice calls. It was missing a lot of what teams need to run their day: offline chat, scheduled meetings, and real file collaboration like Word and Excel.
 
+I joined in November 2021, about fifteen months in. My job was to fold the essential work tools into Teamflow (Slack-style chat, Zoom-style meetings, shared documents) and turn it into a single place to do remote work.
 
-I joined TF in November 2021, about 15 months after the company's inception. My task was to integrate all the essential work tools—such as Slack-like chat, Zoom-like meetings, and shared documents—into TF, making it a one-stop solution for remote work.
+## What I worked on first
 
+My first quarter went into two things. One was designing the chat and meeting experience itself, something that could stand up next to Slack and Zoom rather than feel like a lesser copy. The other was research. I talked to more than twenty people who used Teamflow and Slack to understand what they actually needed from a virtual office, and kept investors in the loop as I went.
 
+## What the research told me
 
-During my first quarter, I focused on two main areas:
+The answer wasn't what we were hoping for. People weren't going to leave Slack and Zoom unless Teamflow did the same things at least as well. They liked the prototype, the layout and the look landed, but they couldn't point to a reason to switch. There was no must-have in it. Investors came back with the same read: the business case needed more thought than it had gotten.
 
-Conceptualizing Chat and Meeting Functions: I aimed to design a seamless, intuitive chat and meeting interface that could compete with popular tools like Slack and Zoom.
-User Research and Investor Updates: I conducted user research with over 20 TF and Slack users to understand their pain points and expectations from a virtual office solution.
-Key Findings from User Research: Users were reluctant to switch from popular tools like Slack and Zoom unless TF could offer similar functionalities.
-Users appreciated the layout and design of the prototype but expressed skepticism about the necessity of switching platforms.
-The initial concept lacked a compelling reason for users to migrate to TF.
-Feedback from investors echoed this sentiment, highlighting that the business idea needed to be more thoroughly thought through.
+## Why it stopped
 
+The project went on hold for two reasons. The concept wasn't winning people over, because asking a team to abandon tools they already rely on is a tall order without a clear payoff. And the timing turned against us. As people drifted back to offices, demand for a virtual office cooled and our growth slowed with it.
 
-Ultimately, the project was put on hold due to several factors:
+## What I took away
 
-User Feedback: The core concept wasn’t resonating with users as they were unwilling to switch from established tools like Slack and Zoom.
-Market Stagnation: As more employees returned to physical offices, the demand for virtual office solutions began to decline, contributing to a slowdown in TF’s user base.
+I'd been skeptical that we could out-Slack Slack and out-Zoom Zoom from the start, but skepticism isn't evidence. I still had to go get the research to find out whether my gut was right, and that's the part I'd repeat: hold your doubts, then test them honestly instead of arguing from them.
 
-## Lessons Learned
-I had reservations about the feasibility of competing with dominant tools like Slack and Zoom from the start. However, I still needed to gather user feedback to substantiate my skepticism. This experience reinforced the importance of balancing initial skepticism with a willingness to explore ideas fully.
+Coming in as a new hire, I also had to deliver on promises that were made before I got there, even when the underlying plan felt shaky. That tension, between the design I believed in and commitments the business had already made, was the hardest part of the job.
 
-**Investor Expectations:** As a new hire, I also had to navigate the pressures of delivering on promises made to investors, even when the task seemed flawed. This highlighted the tension between design vision and business commitments.
-
-**Focus on Specialization:** A key takeaway was the realization that, for a 20-person startup, it would have been more promising to build a specialized tool that integrated with big players like Microsoft Teams, rather than trying to replicate their features.
-
-## Conclusion
-Although the project didn’t move forward, it provided valuable insights into the importance of understanding user needs, the competitive landscape, and the risks of trying to outcompete well-established platforms without offering distinctive, must-have features. For small startups, finding a niche and focusing on integration with established tools may be a more successful path than trying to recreate them from scratch.
+The bigger lesson was about focus. A twenty-person startup probably shouldn't try to rebuild Slack, Zoom, and Office all at once. The better bet would have been one sharp, specialized tool that plugged into what teams already used, like Microsoft Teams, instead of trying to replace all of it. For a small team, finding a niche and integrating beats recreating the giants from scratch.

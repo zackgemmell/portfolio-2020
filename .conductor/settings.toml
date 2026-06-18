@@ -1,0 +1,12 @@
+"$schema" = "https://conductor.build/schemas/settings.repo.schema.json"
+
+[scripts]
+# Jekyll site managed with Bundler (Gemfile + tracked .bundle/config, which vendors gems into ./vendor/bundle).
+# Conductor runs setup before run in the same shell environment, so the gems installed here are the ones run uses.
+setup = "bundle install"
+# Local preview server. Each workspace gets its own port so previews can run side by side.
+run = "bundle exec jekyll serve --port $CONDUCTOR_PORT"
+# Remove generated build artifacts before archiving. Only touches gitignored output, never source.
+archive = "rm -rf _site .jekyll-cache .jekyll-metadata .sass-cache"
+# Safe to run multiple workspaces at once: distinct ports, separate _site builds, no shared state.
+run_mode = "concurrent"

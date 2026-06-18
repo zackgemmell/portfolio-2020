@@ -18,13 +18,13 @@ heroCaption: Copy Vault living in the macOS menu bar.
 
 ---
 
-Copy Vault is a lightweight clipboard history manager I built to get hands-on with the latest macOS and iOS developer tools — particularly the new liquid glass design system. Rather than read through release notes, I wanted to ship something small that I'd actually use every day. It runs natively on both platforms, quietly capturing everything you copy and giving you fast access to your history.
+Copy Vault is a lightweight clipboard history manager I built to get hands-on with the latest macOS and iOS developer tools, particularly the new liquid glass design system. Rather than read through release notes, I wanted to ship something small that I'd actually use every day. It runs natively on both platforms, quietly capturing everything you copy and giving you fast access to your history.
 
 Give it a try on the **[App Store](https://apps.apple.com/us/app/copy-vault/id6753828474)**.
 
 ## How it works
 
-Copy Vault sits in the menu bar and watches the system clipboard. Anything you copy — text, links, images — gets saved to a searchable history that syncs across your devices. When you need something from earlier, you pull it up and grab it. Everything stays local; nothing is sent anywhere.
+Copy Vault sits in the menu bar and watches the system clipboard. Anything you copy (text, links, images) gets saved to a searchable history that syncs across your devices. When you need something from earlier, you pull it up and grab it. Everything stays local; nothing is sent anywhere.
 
 I built it in SwiftUI on a shared codebase, with platform-specific adjustments where macOS and iOS needed to feel different, and CoreData handling local persistence.
 
