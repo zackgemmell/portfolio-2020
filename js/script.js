@@ -17,18 +17,16 @@ $(document).ready(function () {
       zoomInstance.update({ background: getZoomBackground() });
    });
 
-   var introGreeting = $(".intro-greeting");
-   var introBio = $(".intro-bio");
+   var introLede = $(".intro-lede");
    var header = $(".header");
    var introScroll = $(".intro-scroll");
 
    setTimeout(function () {
-      introGreeting.addClass('intro-loaded');
+      introLede.addClass('intro-loaded');
    }, 300)
 
-   setTimeout(function () {
-      introBio.addClass('intro-loaded');
-   }, 900)
+   // GitHub-style contribution graph beneath the hero.
+   renderContributions('zackgemmell');
 
    // Header animation only on home page
    if ($('body').attr('id') === 'home') {
@@ -135,3 +133,91 @@ $(document).ready(function () {
       }
    });
 });
+
+// Renders a GitHub-style contribution heatmap into #contrib-graph.
+// Pulls real data from a public contributions proxy; on any failure it hides
+// the module rather than showing fabricated activity.
+function renderContributions(username) {
+   var graph = document.getElementById('contrib-graph');
+   var wrap = document.getElementById('contrib');
+   var countEl = document.getElementById('contrib-count');
+   if (!graph || !wrap) return;
+
+   // The hero text animates in first (see .intro-loaded); hold the graph back
+   // until that has landed so the two reveal in sequence on page load.
+   var startTime = Date.now();
+   var revealDelay = 650;
+
+   var url = 'https://github-contributions-api.jogruber.de/v4/' + username + '?y=last';
+
+   fetch(url)
+      .then(function (res) {
+         if (!res.ok) throw new Error('bad status');
+         return res.json();
+      })
+      .then(function (data) {
+         var days = (data && data.contributions) || [];
+         if (!days.length) throw new Error('no data');
+
+         var frag = document.createDocumentFragment();
+
+         // Pad the leading week so columns align to weekdays (Sunday = 0).
+         var firstDay = new Date(days[0].date + 'T00:00:00').getDay();
+         for (var p = 0; p < firstDay; p++) {
+            frag.appendChild(document.createElement('span')).className = 'contrib-cell';
+         }
+
+         days.forEach(function (d) {
+            var cell = document.createElement('span');
+            cell.className = 'contrib-cell';
+            if (d.level > 0) cell.setAttribute('data-level', d.level);
+            cell.title = d.count + ' contributions on ' + d.date;
+            frag.appendChild(cell);
+         });
+
+         graph.appendChild(frag);
+
+         // Month labels across the top, one grid cell per week column.
+         var monthsEl = document.getElementById('contrib-months');
+         if (monthsEl) {
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+               'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            var columns = Math.ceil((firstDay + days.length) / 7);
+            var mFrag = document.createDocumentFragment();
+            var lastMonth = -1;
+            var lastLabelCol = -99;
+            for (var c = 0; c < columns; c++) {
+               var label = document.createElement('span');
+               label.className = 'contrib-month';
+               var idx = c * 7 - firstDay; // date at the top of this column
+               if (idx >= 0 && idx < days.length) {
+                  var m = new Date(days[idx].date + 'T00:00:00').getMonth();
+                  // Label the first column of a new month, but keep labels spaced out.
+                  if (m !== lastMonth && c - lastLabelCol >= 3 && c < columns - 1) {
+                     label.textContent = months[m];
+                     lastLabelCol = c;
+                  }
+                  lastMonth = m;
+               }
+               mFrag.appendChild(label);
+            }
+            monthsEl.appendChild(mFrag);
+         }
+
+         var total = (data.total && data.total.lastYear) ||
+            days.reduce(function (sum, d) { return sum + d.count; }, 0);
+         if (countEl) {
+            countEl.textContent = total.toLocaleString() + ' contributions in the last year';
+         }
+
+         // Reveal only after the hero text has animated in. If the fetch took
+         // longer than the delay, show as soon as the data is ready.
+         var wait = Math.max(0, revealDelay - (Date.now() - startTime));
+         setTimeout(function () {
+            wrap.classList.add('contrib-visible');
+         }, wait);
+      })
+      .catch(function () {
+         wrap.style.display = 'none';
+      });
+}

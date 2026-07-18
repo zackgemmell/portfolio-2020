@@ -21,6 +21,13 @@ $rotationSpeed: 20s;
     --shadow: rgba(0, 0, 0, 0.1);
     --shadow-strong: rgba(0, 0, 0, 0.15);
     --zoom-overlay-bg: rgba(255, 255, 255, 0.95);
+
+    // Contribution graph (GitHub-style greens)
+    --contrib-l0: #ebedf0;
+    --contrib-l1: #9be9a8;
+    --contrib-l2: #40c463;
+    --contrib-l3: #30a14e;
+    --contrib-l4: #216e39;
 }
 
 // Dark mode colors
@@ -43,6 +50,13 @@ $rotationSpeed: 20s;
         --shadow: rgba(0, 0, 0, 0.3);
         --shadow-strong: rgba(0, 0, 0, 0.4);
         --zoom-overlay-bg: rgba(0, 0, 0, 0.85);
+
+        // Contribution graph (dark)
+        --contrib-l0: #2a2a2a;
+        --contrib-l1: #0e4429;
+        --contrib-l2: #006d32;
+        --contrib-l3: #26a641;
+        --contrib-l4: #39d353;
     }
 }
 
