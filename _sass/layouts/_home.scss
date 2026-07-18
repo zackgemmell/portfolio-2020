@@ -137,13 +137,17 @@ $contribGap: 3px;
 .contrib-graph {
    display: grid;
    grid-auto-flow: column;
-   grid-template-rows: repeat(7, $contribCell);
+   // Rows size to the cells; each cell's height follows its width (aspect-ratio)
+   // so squares stay square as the flexible columns shrink on narrow screens.
+   grid-template-rows: repeat(7, auto);
    grid-auto-columns: minmax(0, 1fr);
    gap: $contribGap;
 
-   // Let each cell stretch to fill its flexible column track.
+   // Let each cell stretch to fill its flexible column track and stay square.
    .contrib-cell {
       width: auto;
+      height: auto;
+      aspect-ratio: 1;
    }
 }
 
@@ -180,15 +184,11 @@ $contribGap: 3px;
    }
 }
 
-// Tighten the grid on narrow screens; columns still stretch to fill the width.
+// Tighten the grid on narrow screens; columns still stretch to fill the width
+// and cells keep their 1:1 aspect ratio (set above) so they stay square.
 @media only screen and (max-width: $breakpointSmall) {
-   $contribCellSm: 7px;
-
    .contrib-months { font-size: 10px; gap: 2px; }
-   .contrib-graph {
-      grid-template-rows: repeat(7, $contribCellSm);
-      gap: 2px;
-   }
+   .contrib-graph { gap: 2px; }
    .contrib-footer { font-size: 11px; gap: 10px; }
 }
 
