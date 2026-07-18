@@ -1,116 +1,193 @@
 .wrapper-intro {
    width: 100%;
-   min-height: 52vh;
+   height: 100vh;
    display: flex;
    align-items: center;
    position: relative;
-   padding-top: 96px;
+
+   // Align the hero with the navbar on narrower viewports. The header sits 20px
+   // in from each edge (12px on mobile) and adds 32px (24px) of inner padding,
+   // while .wrapper only pads 20px. These offsets close that gap so the hero copy
+   // lines up with "Zack Gemmell" in the nav instead of hugging the edge.
+   @media only screen and (max-width: $breakpointMedium) {
+      padding: 0 32px;
+   }
 
    @media only screen and (max-width: $breakpointSmall) {
-      min-height: 58vh;
-      padding-top: 80px;
+      padding: 0 16px;
    }
 }
 
 .intro {
    margin: 0 auto;
    text-align: left;
+   width: 100%;
+   position: relative;
 }
 
-.intro-greeting {
-   display: block;
-   opacity: 0;
-   font-weight: 600;
-   font-size: 30px;
+// Flowing hero sentence: dark lead, muted continuation, inline media.
+.intro-lede {
+   margin: 0 auto;
+   font-weight: 500;
+   font-size: 40px;
    line-height: 1.2;
-   transition: all 0.8s ease;
-   color: var(--text-secondary);
-   margin: 0 0 12px;
-   filter: blur(10px);
-
-   @media only screen and (max-width: $breakpointSmall) {
-      font-size: 24px;
-   }
-}
-
-.intro-bio {
-   display: block;
-   opacity: 0;
-   padding: 0 0 18px 0;
-   font-weight: 600;
-   font-size: 46px;
-   line-height: 1.1;
    letter-spacing: -0.02em;
-   transition: all 0.8s ease;
-   color: var(--text-primary);
-   max-width: 760px;
+   color: var(--text-muted);
+   max-width: 600px;
+
+   opacity: 0;
+   transform: translateY(12px);
    filter: blur(10px);
+   transition: opacity 0.9s ease, transform 0.9s ease, filter 0.9s ease;
 
    @media only screen and (max-width: $breakpointLarge) {
-      font-size: 42px;
+      font-size: 38px;
    }
 
    @media only screen and (max-width: $breakpointMedium) {
-      font-size: 36px;
+      font-size: 32px;
    }
 
    @media only screen and (max-width: $breakpointSmall) {
-      font-size: 30px;
+      font-size: 27px;
+      line-height: 1.24;
    }
 }
 
 .intro-loaded {
    opacity: 1 !important;
+   transform: translateY(0) !important;
    filter: blur(0px) !important;
 }
 
-.intro-meta {
-   display: block;
-   font-size: 22px;
-   font-weight: 400;
-   line-height: 1.4;
+// Near-black lead words ("Hi, I'm ... Zack.")
+.lede-lead {
+   color: var(--text-primary);
+}
+
+// Softer body copy.
+.lede-dim {
    color: var(--text-muted);
-   margin-top: 8px;
-   max-width: 640px;
-   opacity: 0;
-   animation: introMetaFade 0.8s ease 1.2s forwards;
+}
 
-   a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      border-bottom: 1px solid var(--border-color);
-      transition: color 0.3s ease, border-color 0.3s ease;
-   }
+// Inline company link, reads as one word within the sentence.
+.lede-chip {
+   color: var(--text-primary);
+   text-decoration: none;
+   white-space: nowrap;
+   transition: color $durationShort $bezierEaseOut;
 
-   a:hover {
-      color: var(--text-primary);
-      border-color: var(--text-muted);
-   }
-
-   @media only screen and (max-width: $breakpointMedium) {
-      font-size: 18px;
+   &:hover {
+      color: var(--accent-color);
    }
 }
 
-@keyframes introMetaFade {
-   from {
-      opacity: 0;
-      transform: translateY(8px);
-   }
+// GitHub-style contribution graph beneath the hero.
+// The grid stretches to fill the same 600px column as the hero text so the
+// two edges line up; cells flex (minmax(0, 1fr)) rather than a fixed width.
+$contribCell: 8px;
+$contribGap: 3px;
 
-   to {
+.contrib {
+   margin: 48px auto 0;
+   width: 600px;
+   max-width: 100%;
+   opacity: 0;
+   transform: translateY(8px);
+   filter: blur(8px);
+   transition: opacity 0.9s ease, transform 0.9s ease, filter 0.9s ease;
+
+   &.contrib-visible {
       opacity: 1;
       transform: translateY(0);
+      filter: blur(0);
    }
+
+   @media only screen and (max-width: $breakpointSmall) {
+      margin-top: 36px;
+   }
+}
+
+.contrib-months {
+   display: grid;
+   grid-auto-flow: column;
+   grid-auto-columns: minmax(0, 1fr);
+   gap: $contribGap;
+   margin-bottom: 6px;
+   font-size: 10px;
+   line-height: 1;
+   color: var(--text-muted);
+}
+
+.contrib-month {
+   white-space: nowrap;
+   overflow: visible;
+}
+
+.contrib-graph {
+   display: grid;
+   grid-auto-flow: column;
+   grid-template-rows: repeat(7, $contribCell);
+   grid-auto-columns: minmax(0, 1fr);
+   gap: $contribGap;
+
+   // Let each cell stretch to fill its flexible column track.
+   .contrib-cell {
+      width: auto;
+   }
+}
+
+.contrib-cell {
+   width: $contribCell;
+   height: $contribCell;
+   border-radius: 2px;
+   background: var(--contrib-l0);
+
+   &[data-level="1"] { background: var(--contrib-l1); }
+   &[data-level="2"] { background: var(--contrib-l2); }
+   &[data-level="3"] { background: var(--contrib-l3); }
+   &[data-level="4"] { background: var(--contrib-l4); }
+}
+
+.contrib-footer {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 16px;
+   margin-top: 12px;
+   font-size: 11px;
+   font-weight: 400;
+   color: var(--text-muted);
+}
+
+.contrib-legend {
+   display: inline-flex;
+   align-items: center;
+   gap: 3px;
+
+   .contrib-cell {
+      margin: 0 1px;
+   }
+}
+
+// Tighten the grid on narrow screens; columns still stretch to fill the width.
+@media only screen and (max-width: $breakpointSmall) {
+   $contribCellSm: 7px;
+
+   .contrib-months { font-size: 10px; gap: 2px; }
+   .contrib-graph {
+      grid-template-rows: repeat(7, $contribCellSm);
+      gap: 2px;
+   }
+   .contrib-footer { font-size: 11px; gap: 10px; }
 }
 
 .intro-scroll {
-   position: fixed;
+   position: absolute;
+   bottom: 4.8em;
    right: 2em;
-   bottom: 2em;
    height: 44px;
    width: 28px;
-   z-index: 900;
    border-width: 1px;
    border-color: var(--text-secondary);
    border-style: solid;
