@@ -1,6 +1,8 @@
 .wrapper-intro {
    width: 100%;
-   height: 100vh;
+   // min-height (not a fixed height) so the hero grows to fit its content on
+   // short viewports instead of clipping the contribution graph below the fold.
+   min-height: 100vh;
    display: flex;
    align-items: center;
    position: relative;
@@ -14,7 +16,9 @@
    }
 
    @media only screen and (max-width: $breakpointSmall) {
-      padding: 0 16px;
+      // Clear the fixed header and leave a little room beneath so the hero +
+      // graph stay fully visible even when centring can't fit them in 100vh.
+      padding: 96px 16px 48px;
    }
 }
 
@@ -22,6 +26,9 @@
    margin: 0 auto;
    text-align: left;
    width: 100%;
+   // Allow this flex item to shrink below its content's intrinsic width so the
+   // fixed-width contribution grid inside can't force horizontal overflow.
+   min-width: 0;
    position: relative;
 }
 
@@ -90,8 +97,11 @@ $contribGap: 3px;
 
 .contrib {
    margin: 48px auto 0;
-   width: 600px;
-   max-width: 100%;
+   // Fluid up to 600px, never wider than the parent. Paired with min-width: 0
+   // this lets the grid shrink to fit narrow screens instead of overflowing.
+   width: 100%;
+   max-width: 600px;
+   min-width: 0;
    opacity: 0;
    transform: translateY(8px);
    filter: blur(8px);
