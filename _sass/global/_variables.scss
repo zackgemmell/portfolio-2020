@@ -28,6 +28,15 @@ $rotationSpeed: 20s;
     --contrib-l2: #40c463;
     --contrib-l3: #30a14e;
     --contrib-l4: #216e39;
+
+    // Grayscale versions of the levels, used for the simulated "past" cells that
+    // bleed off the left edge (l0 doubles as the empty "future" cells). The ramp
+    // mirrors the greens' visual weight so the past reads as real data, just
+    // desaturated — g1 sits clearly above l0 since it's the most common level.
+    --contrib-g1: #c8ccd2;
+    --contrib-g2: #a2a7b0;
+    --contrib-g3: #797f89;
+    --contrib-g4: #565b64;
 }
 
 // Dark mode colors
@@ -57,6 +66,12 @@ $rotationSpeed: 20s;
         --contrib-l2: #006d32;
         --contrib-l3: #26a641;
         --contrib-l4: #39d353;
+
+        // Grayscale "past" levels (dark).
+        --contrib-g1: #3f3f3f;
+        --contrib-g2: #565656;
+        --contrib-g3: #6e6e6e;
+        --contrib-g4: #8a8a8a;
     }
 }
 

@@ -11,7 +11,10 @@
 
 body {
   height: 100%;
-  overflow: auto;
+  overflow-y: auto;
+  // The home hero's contribution grid breaks out to 100vw (full-bleed); clip the
+  // horizontal axis so that can't introduce a page-level sideways scrollbar.
+  overflow-x: hidden;
   transition: all $durationLong ease, background-color 0.3s ease, color 0.3s ease;
   font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif;
   background-color: var(--bg-color);
