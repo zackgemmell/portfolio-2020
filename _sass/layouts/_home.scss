@@ -43,9 +43,17 @@
    max-width: 600px;
 
    opacity: 0;
-   transform: translateY(12px);
+   transform: translate3d(0, 12px, 0);
    filter: blur(10px);
    transition: opacity 0.9s ease, transform 0.9s ease, filter 0.9s ease;
+
+   // Keep the text on its own GPU layer through the whole transition (and at
+   // rest) so it doesn't re-rasterise / snap to the pixel grid the instant the
+   // blur clears and the transform lands. That re-rasterisation is what reads
+   // as a "jump" at the end of the fade-in.
+   will-change: opacity, transform, filter;
+   backface-visibility: hidden;
+   -webkit-backface-visibility: hidden;
 
    @media only screen and (max-width: $breakpointLarge) {
       font-size: 38px;
@@ -63,8 +71,10 @@
 
 .intro-loaded {
    opacity: 1 !important;
-   transform: translateY(0) !important;
-   filter: blur(0px) !important;
+   // translate3d (not translateY(0)) so the layer stays promoted at rest and
+   // the browser doesn't demote + repaint the text when the transition ends.
+   transform: translate3d(0, 0, 0) !important;
+   filter: blur(0) !important;
 }
 
 // Near-black lead words ("Hi, I'm ... Zack.")
@@ -103,13 +113,18 @@ $contribGap: 3px;
    max-width: 600px;
    min-width: 0;
    opacity: 0;
-   transform: translateY(8px);
+   transform: translate3d(0, 8px, 0);
    filter: blur(8px);
    transition: opacity 0.9s ease, transform 0.9s ease, filter 0.9s ease;
+   // Same layer-stability fix as .intro-lede: stay composited so the grid
+   // doesn't snap when the transform lands.
+   will-change: opacity, transform, filter;
+   backface-visibility: hidden;
+   -webkit-backface-visibility: hidden;
 
    &.contrib-visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: translate3d(0, 0, 0);
       filter: blur(0);
    }
 
@@ -118,11 +133,31 @@ $contribGap: 3px;
    }
 }
 
+// The grid breaks out of the 600px hero column to span the full viewport, so the
+// cells continue off both edges of the screen. The real year stays centred (it
+// lines up with the hero text above); JS fills simulated grayscale "past" cells
+// to the left and empty gray "future" cells to the right, then this mask fades
+// the whole field out at the screen edges so it dissolves instead of hard-cutting.
+.contrib-bleed {
+   position: relative;
+   left: 50%;
+   right: 50%;
+   width: 100vw;
+   margin-left: -50vw;
+   margin-right: -50vw;
+   overflow: hidden;
+
+   $fade: linear-gradient(to right,
+      transparent 0%, #000 14%, #000 86%, transparent 100%);
+   -webkit-mask-image: $fade;
+   mask-image: $fade;
+}
+
 .contrib-months {
+   // Track geometry (columns / gap / centring) is set inline by JS so it matches
+   // the graph below it exactly; only the type styling lives here.
    display: grid;
    grid-auto-flow: column;
-   grid-auto-columns: minmax(0, 1fr);
-   gap: $contribGap;
    margin-bottom: 6px;
    font-size: 10px;
    line-height: 1;
@@ -135,32 +170,56 @@ $contribGap: 3px;
 }
 
 .contrib-graph {
+   // Same as months: rows / columns / gap / justify are applied inline by JS so
+   // the real block keeps a fixed cell size and the field can overflow the screen.
    display: grid;
    grid-auto-flow: column;
-   // Rows size to the cells; each cell's height follows its width (aspect-ratio)
-   // so squares stay square as the flexible columns shrink on narrow screens.
-   grid-template-rows: repeat(7, auto);
-   grid-auto-columns: minmax(0, 1fr);
-   gap: $contribGap;
 
-   // Let each cell stretch to fill its flexible column track and stay square.
    .contrib-cell {
       width: auto;
       height: auto;
-      aspect-ratio: 1;
    }
 }
 
 .contrib-cell {
    width: $contribCell;
    height: $contribCell;
-   border-radius: 2px;
-   background: var(--contrib-l0);
+   // Radius scales with the cell size (set on .contrib-graph by JS as --cell-radius)
+   // so small cells on narrow screens don't round into circles; the static legend
+   // swatches sit outside the graph and fall back to the fixed 2px.
+   border-radius: var(--cell-radius, 2px);
+   // Use the background-color longhand (not the `background` shorthand) so the
+   // colour change actually tweens: transitioning background-color while setting
+   // the value via the shorthand-with-a-var() doesn't reliably interpolate, so
+   // the cells would otherwise snap gray -> green instead of fading.
+   background-color: var(--contrib-l0);
+   // Cells first render gray (matching the skeleton), then fade to their green
+   // shade once the data lands. A longer ease-out makes each box's colour change
+   // glide in; the per-cell transition-delay (set in JS) cascades them as a wave.
+   transition: background-color 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
 
-   &[data-level="1"] { background: var(--contrib-l1); }
-   &[data-level="2"] { background: var(--contrib-l2); }
-   &[data-level="3"] { background: var(--contrib-l3); }
-   &[data-level="4"] { background: var(--contrib-l4); }
+   &[data-level="1"] { background-color: var(--contrib-l1); }
+   &[data-level="2"] { background-color: var(--contrib-l2); }
+   &[data-level="3"] { background-color: var(--contrib-l3); }
+   &[data-level="4"] { background-color: var(--contrib-l4); }
+
+   // Simulated "past" cells: same levels, but rendered in grayscale so the real
+   // year stays the only coloured block. (data-gray="0" / no attr keeps l0.)
+   &[data-gray="1"] { background-color: var(--contrib-g1); }
+   &[data-gray="2"] { background-color: var(--contrib-g2); }
+   &[data-gray="3"] { background-color: var(--contrib-g3); }
+   &[data-gray="4"] { background-color: var(--contrib-g4); }
+}
+
+@keyframes contribPulse {
+   0%, 100% { opacity: 1; }
+   50% { opacity: 0.45; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+   // !important so this beats the per-swatch :nth-child stagger (higher
+   // specificity, later in source); the swatches cross-fade together instead.
+   .contrib-legend-visible .contrib-legend .contrib-cell { transition-delay: 0s !important; }
 }
 
 .contrib-footer {
@@ -174,22 +233,65 @@ $contribGap: 3px;
    color: var(--text-muted);
 }
 
+// Skeleton bar shown in place of the summary count until the total loads. It
+// breathes in step with the grid skeleton, then the real text replaces it.
+.contrib-count-loading {
+   display: inline-block;
+   width: 190px;
+   max-width: 60%;
+   height: 0.9em;
+   border-radius: 3px;
+   background: var(--contrib-l0);
+   animation: contribPulse 1.4s ease-in-out infinite;
+
+   @media only screen and (max-width: $breakpointSmall) {
+      width: 150px;
+   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+   .contrib-count-loading { animation: none; }
+}
+
 .contrib-legend {
    display: inline-flex;
    align-items: center;
    gap: 3px;
 
    .contrib-cell {
+      // Match the graph's square size exactly (--cell-size is set on .contrib by
+      // JS); falls back to the fixed cell size before JS runs.
+      width: var(--cell-size, #{$contribCell});
+      height: var(--cell-size, #{$contribCell});
       margin: 0 1px;
+      // Hold every legend swatch gray until the grid has finished animating in.
+      // This higher-specificity rule overrides the base data-level colours; JS
+      // adds .contrib-legend-visible on the .contrib wrap to release them, and
+      // they fade in via the base .contrib-cell background-color transition.
+      background-color: var(--contrib-l0);
    }
 }
 
-// Tighten the grid on narrow screens; columns still stretch to fill the width
-// and cells keep their 1:1 aspect ratio (set above) so they stay square.
+// Grid cascade is done: reveal the legend swatch colours as a short sweep.
+.contrib-legend-visible .contrib-legend .contrib-cell {
+   &[data-level="1"] { background-color: var(--contrib-l1); }
+   &[data-level="2"] { background-color: var(--contrib-l2); }
+   &[data-level="3"] { background-color: var(--contrib-l3); }
+   &[data-level="4"] { background-color: var(--contrib-l4); }
+
+   // Left-to-right stagger so the five swatches animate in one after another.
+   &:nth-child(2) { transition-delay: 0.07s; }
+   &:nth-child(3) { transition-delay: 0.14s; }
+   &:nth-child(4) { transition-delay: 0.21s; }
+   &:nth-child(5) { transition-delay: 0.28s; }
+}
+
+// The grid's cell size and gap are computed in JS (see renderContributions) so
+// the field can bleed full-width at any viewport; only the footer type is tuned
+// here for narrow screens.
 @media only screen and (max-width: $breakpointSmall) {
-   .contrib-months { font-size: 10px; gap: 2px; }
-   .contrib-graph { gap: 2px; }
-   .contrib-footer { font-size: 11px; gap: 10px; }
+   .contrib-months { font-size: 9px; }
+   .contrib-footer { font-size: 9px; gap: 8px; }
 }
 
 .intro-scroll {
