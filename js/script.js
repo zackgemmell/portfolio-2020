@@ -222,6 +222,8 @@ function renderContributions(username) {
    var days = null;          // real contribution data once fetched
    var revealDone = false;
    var pendingPaint = null;  // field colouring deferred until the reveal finishes
+   var hasPainted = false;   // true once the field has been coloured at least once
+   var resolved = false;     // true once the fetch has settled (data or failure)
 
    // Builds (or rebuilds) the whole full-bleed field from the current `days`.
    // animate=true runs the green cascade; animate=false paints instantly (resize).
@@ -261,6 +263,12 @@ function renderContributions(username) {
       // normalised by startCol so the wave enters at the left screen edge instead
       // of after the off-screen columns silently play out.
       var doCascade = animate && !reduceMotion;
+      // The past only cascades on the very first reveal. Once the field has been
+      // painted, later rebuilds (real data arriving after the reveal on a slow
+      // connection, or a resize) paint the past settled at creation time —
+      // otherwise the grayscale fades in a second time and the past appears to
+      // animate through twice.
+      var animatePast = doCascade && !hasPainted;
       var COL_STEP = 0.016, ROW_STEP = 0.03;
       var totalWidth = (2 * g.side + REAL_COLS) * g.pitch - g.gap;
       var startCol = Math.max(0, Math.floor((totalWidth - window.innerWidth) / 2 / g.pitch));
@@ -271,19 +279,31 @@ function renderContributions(username) {
          return d;
       }
 
-      // LEFT: past — simulated grayscale data, held stable via simCache. The
-      // shade is applied later in paint(), together with (and the same way as)
-      // the green cascade: both wait until the hero reveal animation on .contrib
-      // has finished. Colouring cells while that ancestor opacity/blur animation
-      // is running gets dropped by the compositor, leaving them stuck on l0.
-      var grayFills = [];
+      // A cell either cascades in — its shade applied later in paint() so the
+      // background-color transition runs as a wave — or is painted settled at
+      // creation, rendering in its final colour with no transition. Cascading
+      // shades wait for paint() because colouring a cell while the hero reveal's
+      // opacity/blur animation on the .contrib ancestor is still running gets
+      // dropped by the compositor, leaving it stuck on l0.
+      var deferredFills = []; // [cell, attr, level] coloured after the reveal flush
+      function fill(cell, attr, level, animated, globalCol, row) {
+         if (level <= 0) return;
+         if (animated) {
+            cell.style.transitionDelay = cascadeDelay(globalCol, row) + 's';
+            deferredFills.push([cell, attr, level]);
+         } else {
+            cell.setAttribute(attr, level);
+         }
+      }
+
+      // LEFT: past — simulated grayscale data, held stable via simCache. Nothing
+      // is coloured until the fetch has resolved: the field stays an empty l0
+      // skeleton during load, then the whole graph (grayscale past + green year)
+      // cascades in as a single wave once all the data is in.
       simExtendTo(g.side * 7);
       for (var p = 0; p < g.side * 7; p++) {
          var pc = newCell();
-         if (simCache[p] > 0) {
-            if (doCascade) pc.style.transitionDelay = cascadeDelay(Math.floor(p / 7), p % 7) + 's';
-            grayFills.push([pc, simCache[p]]);
-         }
+         if (resolved) fill(pc, 'data-gray', simCache[p], animatePast, Math.floor(p / 7), p % 7);
       }
 
       // CENTRE: the real year (gray placeholders; coloured green below).
@@ -342,7 +362,6 @@ function renderContributions(username) {
       // Map the real year onto the centre cells (weekday rows, Sunday = 0). Its
       // columns sit after the past's, so the wave flows straight on from the
       // grayscale into the green (global column = side + column within the year).
-      var greenFills = [];
       if (days) {
          var fd = new Date(days[0].date + 'T00:00:00').getDay();
 
@@ -350,7 +369,7 @@ function renderContributions(username) {
          // of activity. Fill it with simulated activity (up to that first active
          // day) so the year reads as full from the start instead of leaving a gap.
          // Unlike the past, these cells sit inside the real block, so they're
-         // coloured green (via greenFills) to blend with the real data — the
+         // coloured green (via data-level) to blend with the real data — the
          // grayscale ends at the block's left edge. They keep the same
          // column-major walk as the past (global index = side*7 + slot).
          var firstActive = -1;
@@ -360,15 +379,8 @@ function renderContributions(username) {
          var firstActiveSlot = firstActive < 0 ? REAL_CELLS : fd + firstActive;
          simExtendTo(g.side * 7 + firstActiveSlot);
          for (var s0 = 0; s0 < firstActiveSlot; s0++) {
-            var glvl = simCache[g.side * 7 + s0];
-            if (glvl > 0) {
-               var lc = realCells[s0];
-               if (doCascade) {
-                  lc.style.transitionDelay =
-                     cascadeDelay(g.side + Math.floor(s0 / 7), s0 % 7) + 's';
-               }
-               greenFills.push([lc, glvl]);
-            }
+            fill(realCells[s0], 'data-level', simCache[g.side * 7 + s0], doCascade,
+               g.side + Math.floor(s0 / 7), s0 % 7);
          }
 
          days.forEach(function (d, i) {
@@ -376,27 +388,19 @@ function renderContributions(username) {
             if (slot >= REAL_CELLS) return;
             var cell = realCells[slot];
             cell.title = d.count + ' contributions on ' + d.date;
-            if (d.level > 0) {
-               if (doCascade) {
-                  cell.style.transitionDelay =
-                     cascadeDelay(g.side + Math.floor(slot / 7), slot % 7) + 's';
-               }
-               greenFills.push([cell, d.level]);
-            }
+            fill(cell, 'data-level', d.level, doCascade,
+               g.side + Math.floor(slot / 7), slot % 7);
          });
       }
 
-      // Colour the whole field in one pass: the grayscale past and the green
-      // year both transition from the l0 base. A single style flush first commits
-      // that base so the background-color transitions resolve; without it (or if
-      // this runs mid-reveal) the cells stay stuck on l0.
+      // Colour the deferred (cascading) cells in one pass, all transitioning
+      // from the l0 base. A single style flush first commits that base so the
+      // background-color transitions resolve; without it (or if this runs
+      // mid-reveal) the cells stay stuck on l0.
       function paint() {
          void graph.offsetWidth;
-         for (var i = 0; i < grayFills.length; i++) {
-            grayFills[i][0].setAttribute('data-gray', grayFills[i][1]);
-         }
-         for (var j = 0; j < greenFills.length; j++) {
-            greenFills[j][0].setAttribute('data-level', greenFills[j][1]);
+         for (var i = 0; i < deferredFills.length; i++) {
+            deferredFills[i][0].setAttribute(deferredFills[i][1], deferredFills[i][2]);
          }
          // Release the legend swatches as the tail of the cascade fades in.
          if (days) {
@@ -404,6 +408,9 @@ function renderContributions(username) {
                wrap.classList.add('contrib-legend-visible');
             }, maxDelay * 1000);
          }
+         // Only count a paint that actually coloured the field, so a pre-resolution
+         // paint (empty skeleton) doesn't suppress the real cascade later.
+         if (resolved) hasPainted = true;
       }
 
       // Run once the reveal has finished; if it's already done (data arrived
@@ -412,14 +419,15 @@ function renderContributions(username) {
       else pendingPaint = paint;
    }
 
-   // Show the gray/grayscale field immediately so the hero has shape while the
-   // real data loads; match it with a skeleton bar in place of the count.
+   // Lay out an empty l0 skeleton so the hero reserves its shape while the real
+   // data loads (nothing is coloured until the fetch resolves); match it with a
+   // skeleton bar in place of the count.
    build(true);
    if (countEl) countEl.classList.add('contrib-count-loading');
 
    // The hero text animates in first (see .intro-loaded); reveal the grid in
-   // sequence so the two land together, then let the green cascade run once the
-   // reveal has finished (or immediately, if the data is already in by then).
+   // sequence so the two land together, then let the field cascade run once both
+   // the reveal has finished and the data has loaded (whichever is later).
    var REVEAL_DELAY = 650;
    var REVEAL_DURATION = 900; // keep in sync with .contrib transition in _home.scss
    setTimeout(function () {
@@ -432,8 +440,16 @@ function renderContributions(username) {
 
    // Rebuild the field on resize so it keeps reaching the screen edges; the
    // simulated pattern and the real year stay put (simCache + cached `days`).
+   // Only width affects the geometry, so ignore height-only changes: on mobile,
+   // scrolling shows/hides the URL bar, which fires `resize` with a new
+   // innerHeight. Rebuilding there wipes and repaints every cell, so the
+   // background-color transition replays and the grid visibly flashes
+   // gray -> green while scrolling.
    var resizeTimer = null;
+   var lastWidth = window.innerWidth;
    window.addEventListener('resize', function () {
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
       if (resizeTimer) clearTimeout(resizeTimer);
       resizeTimer = setTimeout(function () { build(false); }, 200);
    });
@@ -449,10 +465,11 @@ function renderContributions(username) {
          var fetched = (data && data.contributions) || [];
          if (!fetched.length) throw new Error('no data');
          days = fetched;
+         resolved = true;
 
-         // Rebuild with the real year in place. Geometry and the simulated past
-         // are unchanged (deterministic + cached), so only the centre gains its
-         // green cascade — the surrounding field doesn't shift or reshuffle.
+         // All data is in — build the whole field and cascade it in as one wave
+         // (grayscale past + green year). If the hero reveal hasn't finished yet
+         // the cascade waits for it (pendingPaint); otherwise it runs now.
          build(true);
 
          var total = (data.total && data.total.lastYear) ||
@@ -463,8 +480,11 @@ function renderContributions(username) {
          }
       })
       .catch(function () {
-         // Keep the grayscale field on screen (it still reads as intentional
-         // texture); just drop the loading bar rather than leaving it pulsing.
+         // No real data, but still cascade in the grayscale field so the hero
+         // has its texture (it reads as intentional); just drop the loading bar
+         // rather than leaving it pulsing.
+         resolved = true;
+         build(true);
          if (countEl) countEl.classList.remove('contrib-count-loading');
       });
 }
