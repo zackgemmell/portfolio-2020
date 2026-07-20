@@ -164,6 +164,32 @@ $contribGap: 3px;
    color: var(--text-muted);
 }
 
+// The month labels, summary count and legend all wait for the field's cascade to
+// finish, then fade up together. JS adds .contrib-details-visible on the .contrib
+// wrap once the last cell has animated in (see renderContributions).
+.contrib-months,
+.contrib-count,
+.contrib-legend {
+   opacity: 0;
+   transform: translateY(4px);
+   transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.contrib-details-visible {
+   .contrib-months,
+   .contrib-count,
+   .contrib-legend {
+      opacity: 1;
+      transform: none;
+   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+   .contrib-months,
+   .contrib-count,
+   .contrib-legend { transition: none; }
+}
+
 .contrib-month {
    white-space: nowrap;
    overflow: visible;
@@ -211,17 +237,6 @@ $contribGap: 3px;
    &[data-gray="4"] { background-color: var(--contrib-g4); }
 }
 
-@keyframes contribPulse {
-   0%, 100% { opacity: 1; }
-   50% { opacity: 0.45; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-   // !important so this beats the per-swatch :nth-child stagger (higher
-   // specificity, later in source); the swatches cross-fade together instead.
-   .contrib-legend-visible .contrib-legend .contrib-cell { transition-delay: 0s !important; }
-}
-
 .contrib-footer {
    display: flex;
    align-items: center;
@@ -233,26 +248,6 @@ $contribGap: 3px;
    color: var(--text-muted);
 }
 
-// Skeleton bar shown in place of the summary count until the total loads. It
-// breathes in step with the grid skeleton, then the real text replaces it.
-.contrib-count-loading {
-   display: inline-block;
-   width: 190px;
-   max-width: 60%;
-   height: 0.9em;
-   border-radius: 3px;
-   background: var(--contrib-l0);
-   animation: contribPulse 1.4s ease-in-out infinite;
-
-   @media only screen and (max-width: $breakpointSmall) {
-      width: 150px;
-   }
-}
-
-@media (prefers-reduced-motion: reduce) {
-   .contrib-count-loading { animation: none; }
-}
-
 .contrib-legend {
    display: inline-flex;
    align-items: center;
@@ -260,30 +255,13 @@ $contribGap: 3px;
 
    .contrib-cell {
       // Match the graph's square size exactly (--cell-size is set on .contrib by
-      // JS); falls back to the fixed cell size before JS runs.
+      // JS); falls back to the fixed cell size before JS runs. The swatches show
+      // their level colours from the start; the whole legend just fades in with
+      // the rest of the footer detail once the field has cascaded.
       width: var(--cell-size, #{$contribCell});
       height: var(--cell-size, #{$contribCell});
       margin: 0 1px;
-      // Hold every legend swatch gray until the grid has finished animating in.
-      // This higher-specificity rule overrides the base data-level colours; JS
-      // adds .contrib-legend-visible on the .contrib wrap to release them, and
-      // they fade in via the base .contrib-cell background-color transition.
-      background-color: var(--contrib-l0);
    }
-}
-
-// Grid cascade is done: reveal the legend swatch colours as a short sweep.
-.contrib-legend-visible .contrib-legend .contrib-cell {
-   &[data-level="1"] { background-color: var(--contrib-l1); }
-   &[data-level="2"] { background-color: var(--contrib-l2); }
-   &[data-level="3"] { background-color: var(--contrib-l3); }
-   &[data-level="4"] { background-color: var(--contrib-l4); }
-
-   // Left-to-right stagger so the five swatches animate in one after another.
-   &:nth-child(2) { transition-delay: 0.07s; }
-   &:nth-child(3) { transition-delay: 0.14s; }
-   &:nth-child(4) { transition-delay: 0.21s; }
-   &:nth-child(5) { transition-delay: 0.28s; }
 }
 
 // The grid's cell size and gap are computed in JS (see renderContributions) so
