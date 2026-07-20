@@ -106,7 +106,7 @@ $contribCell: 8px;
 $contribGap: 3px;
 
 .contrib {
-   margin: 48px auto 0;
+   margin: 80px auto 0;
    // Fluid up to 600px, never wider than the parent. Paired with min-width: 0
    // this lets the grid shrink to fit narrow screens instead of overflowing.
    width: 100%;
@@ -129,7 +129,7 @@ $contribGap: 3px;
    }
 
    @media only screen and (max-width: $breakpointSmall) {
-      margin-top: 36px;
+      margin-top: 56px;
    }
 }
 
