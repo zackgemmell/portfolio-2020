@@ -336,9 +336,11 @@ function renderContributions(username) {
          var fd = new Date(days[0].date + 'T00:00:00').getDay();
 
          // The real year usually opens with an empty stretch before the first day
-         // of activity. Continue the grayscale "past" through it (up to that first
-         // active day) so the simulated history flows seamlessly into the real
-         // data instead of leaving a gap. These leading cells keep the same
+         // of activity. Fill it with simulated activity (up to that first active
+         // day) so the year reads as full from the start instead of leaving a gap.
+         // Unlike the past, these cells sit inside the real block, so they're
+         // coloured green (via greenFills) to blend with the real data — the
+         // grayscale ends at the block's left edge. They keep the same
          // column-major walk as the past (global index = side*7 + slot).
          var firstActive = -1;
          for (var fi = 0; fi < days.length; fi++) {
@@ -354,7 +356,7 @@ function renderContributions(username) {
                   lc.style.transitionDelay =
                      cascadeDelay(g.side + Math.floor(s0 / 7), s0 % 7) + 's';
                }
-               grayFills.push([lc, glvl]);
+               greenFills.push([lc, glvl]);
             }
          }
 
