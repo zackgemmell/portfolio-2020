@@ -164,6 +164,17 @@ function renderContributions(username) {
    var DOW = [0.3, 1.0, 1.05, 1.05, 1.0, 0.85, 0.28]; // Sun..Sat weekday bias
    var simCache = [];
    var simIntensity = 0.5; // current week's activity level (random walk)
+   // Seeded PRNG (mulberry32) so the simulated past is identical on every load
+   // instead of reshuffling. The fixed seed makes simCache[i] deterministic, so
+   // the same viewport always renders the same pattern. Change the seed to pick a
+   // different (but still stable) history.
+   var simSeed = 0x5eed1234 | 0;
+   function simRand() {
+      simSeed = (simSeed + 0x6D2B79F5) | 0;
+      var t = Math.imul(simSeed ^ (simSeed >>> 15), 1 | simSeed);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+   }
    function simExtendTo(n) {
       while (simCache.length < n) {
          var row = simCache.length % 7; // 0 = Sunday (top row)
@@ -173,20 +184,20 @@ function renderContributions(username) {
             // into long dead zones — the visible window is only ~40 weeks, so it
             // needs to stay lively. Rare resets give the odd empty week (a gap) or
             // busy burst for variety.
-            simIntensity += (0.52 - simIntensity) * 0.2 + (Math.random() - 0.5) * 0.42;
+            simIntensity += (0.52 - simIntensity) * 0.2 + (simRand() - 0.5) * 0.42;
             if (simIntensity < 0.05) simIntensity = 0.05;
             else if (simIntensity > 0.95) simIntensity = 0.95;
-            var r = Math.random();
-            if (r < 0.06) simIntensity = Math.random() * 0.1;
-            else if (r < 0.11) simIntensity = 0.7 + Math.random() * 0.25;
+            var r = simRand();
+            if (r < 0.06) simIntensity = simRand() * 0.1;
+            else if (r < 0.11) simIntensity = 0.7 + simRand() * 0.25;
          }
          var a = simIntensity * DOW[row]; // this day's likelihood of activity
          var lvl = 0;
          // A day off even in a busy week (the * 0.9) keeps busy stretches from
          // filling in solid; the noisy magnitude keeps them mostly mid-level with
          // only the occasional darkest cell, the way real activity reads.
-         if (Math.random() < a * 0.9) {
-            var m = a * (0.4 + Math.random() * 0.9);
+         if (simRand() < a * 0.9) {
+            var m = a * (0.4 + simRand() * 0.9);
             lvl = m < 0.4 ? 1 : m < 0.72 ? 2 : m < 1.02 ? 3 : 4;
          }
          simCache.push(lvl);
