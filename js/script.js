@@ -402,10 +402,11 @@ function renderContributions(username) {
          for (var i = 0; i < deferredFills.length; i++) {
             deferredFills[i][0].setAttribute(deferredFills[i][1], deferredFills[i][2]);
          }
-         // Release the legend swatches as the tail of the cascade fades in.
+         // Once the field's cascade has finished, fade in the supporting detail
+         // (month labels, summary count, legend) together as a single unit.
          if (days) {
             setTimeout(function () {
-               wrap.classList.add('contrib-legend-visible');
+               wrap.classList.add('contrib-details-visible');
             }, maxDelay * 1000);
          }
          // Only count a paint that actually coloured the field, so a pre-resolution
@@ -420,10 +421,9 @@ function renderContributions(username) {
    }
 
    // Lay out an empty l0 skeleton so the hero reserves its shape while the real
-   // data loads (nothing is coloured until the fetch resolves); match it with a
-   // skeleton bar in place of the count.
+   // data loads (nothing is coloured until the fetch resolves). The month labels,
+   // summary count and legend stay hidden until the field has cascaded in.
    build(true);
-   if (countEl) countEl.classList.add('contrib-count-loading');
 
    // The hero text animates in first (see .intro-loaded); reveal the grid in
    // sequence so the two land together, then let the field cascade run once both
@@ -475,16 +475,14 @@ function renderContributions(username) {
          var total = (data.total && data.total.lastYear) ||
             days.reduce(function (sum, d) { return sum + d.count; }, 0);
          if (countEl) {
-            countEl.classList.remove('contrib-count-loading');
             countEl.textContent = total.toLocaleString() + ' contributions in the last year';
          }
       })
       .catch(function () {
          // No real data, but still cascade in the grayscale field so the hero
-         // has its texture (it reads as intentional); just drop the loading bar
-         // rather than leaving it pulsing.
+         // has its texture (it reads as intentional). With no year loaded there's
+         // no count or month labels to reveal, so they simply stay hidden.
          resolved = true;
          build(true);
-         if (countEl) countEl.classList.remove('contrib-count-loading');
       });
 }
