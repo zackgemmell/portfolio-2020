@@ -220,25 +220,41 @@ function renderContributions(username) {
    }
 
    var days = null;          // real contribution data once fetched
-   var revealDone = false;
-   var pendingPaint = null;  // field colouring deferred until the reveal finishes
-   var hasPainted = false;   // true once the field has been coloured at least once
+   var curGeo = null;        // geometry from the most recent layout (for the wave)
+   var pastCells = [];       // left "past" cells, column-major from the left edge
+   var realCells = [];       // centre real-year cells, column-major
    var resolved = false;     // true once the fetch has settled (data or failure)
+   var hasColored = false;   // true once the field's colours have been applied
 
-   // Builds (or rebuilds) the whole full-bleed field from the current `days`.
-   // animate=true runs the green cascade; animate=false paints instantly (resize).
-   function build(animate) {
+   // Grid-reveal state. The empty gray grid animates in first (row by row,
+   // cascading upwards); only once it's settled AND the data has loaded do the
+   // colours wash in as a second, diagonal wave.
+   var gridRevealed = false;
+
+   // Two independent, staggered entrances — each with its own delay custom
+   // property so they never clobber each other:
+   //   Phase 1 (--row-delay):  opacity, a row of cells at a time, bottom-up.
+   //   Phase 2 (--wave-delay): background-color, a left-to-right diagonal wave.
+   var ROW_REVEAL_STEP = 0.08;            // s between each row of the grid reveal
+   var GRID_FADE = 420;                   // ms each row takes to fade in
+   var COL_STEP = 0.016, ROW_STEP = 0.03; // colour-wave per-column / per-row stagger
+
+   // Builds (or rebuilds) the empty full-bleed grid for the current geometry.
+   // Cells start hidden (CSS opacity 0) so Phase 1 can cascade them in; once the
+   // reveal has finished, later rebuilds (resize) create them settled/visible.
+   function layout() {
       var g = geometry();
+      curGeo = g;
 
       graph.style.gridTemplateRows = 'repeat(7, ' + g.cell + 'px)';
       graph.style.gridAutoColumns = g.cell + 'px';
       graph.style.gap = g.gap + 'px';
       graph.style.justifyContent = 'center';
       graph.style.width = '100%';
-      // Publish the cell geometry on the .contrib wrap (an ancestor of both the
-      // graph and the footer legend) so the legend swatches always match the
-      // graph squares. The radius scales with the cell size so the small cells on
-      // narrow screens stay squares — a fixed radius turns a ~4px cell into a circle.
+      // Publish the cell geometry on the .contrib wrap (an ancestor of the graph)
+      // so the CSS can size and round the cells to match. The radius scales with
+      // the cell size so the small cells on narrow screens stay squares — a fixed
+      // radius turns a ~4px cell into a circle.
       wrap.style.setProperty('--cell-size', g.cell + 'px');
       wrap.style.setProperty('--cell-radius', Math.max(1, Math.round(g.cell * 0.2)) + 'px');
       if (monthsEl) {
@@ -248,130 +264,103 @@ function renderContributions(username) {
          monthsEl.style.width = '100%';
       }
 
+      // Cells fade in a row at a time, cascading UPWARDS: the bottom row (row 6,
+      // Saturday) leads and the top row (row 0, Sunday) lands last. The grid is
+      // laid out column-major, so the per-row delay has to be set per cell here
+      // (CSS can't target a "row" across the column flow). After the reveal has
+      // finished, cells are built already-visible so a resize doesn't replay it.
       var frag = document.createDocumentFragment();
-      function newCell() {
+      pastCells = [];
+      realCells = [];
+      function newCell(row) {
          var c = document.createElement('span');
          c.className = 'contrib-cell';
+         c.style.setProperty('--row-delay',
+            (gridRevealed ? 0 : (6 - row) * ROW_REVEAL_STEP) + 's');
          frag.appendChild(c);
          return c;
       }
 
+      // LEFT: past — simulated grayscale (coloured later, in the data wave).
+      simExtendTo(g.side * 7);
+      for (var p = 0; p < g.side * 7; p++) pastCells.push(newCell(p % 7));
+
+      // CENTRE: the real year (coloured later).
+      for (var r = 0; r < REAL_CELLS; r++) realCells.push(newCell(r % 7));
+
+      // RIGHT: future — empty gray cells.
+      for (var f = 0; f < g.side * 7; f++) newCell(f % 7);
+
+      graph.innerHTML = '';
+      graph.appendChild(frag);
+
+      // If the row cascade is already done, these fresh cells must appear settled
+      // (visible, no opacity transition) rather than cascading a second time.
+      if (gridRevealed) {
+         graph.classList.remove('contrib-grid-in');
+         graph.classList.add('contrib-grid-static');
+      }
+
+      // Colour straight away if the fetch has settled and the grid's in place;
+      // otherwise finishGridReveal()/the fetch will call paint() when ready.
+      if (resolved && gridRevealed) paint(false);
+   }
+
+   // Colours the field from `days`: the grayscale past always, then (if a year
+   // loaded) the green real year and the month labels. animate=true runs the
+   // diagonal wave (first reveal); animate=false paints settled (resize). Cells
+   // were built by layout() and persist, so data arriving never disturbs the
+   // grid reveal already in flight.
+   function paint(animate) {
+      var g = curGeo || geometry();
+      var doCascade = animate && !reduceMotion;
+      // The past only cascades on the very first colouring. Later paints (resize)
+      // render it settled, otherwise the grayscale fades in a second time.
+      var animatePast = doCascade && !hasColored;
+
       // One continuous left-to-right diagonal wave sweeps the whole grid — the
       // grayscale past first, then the green year — so it reads as a single
-      // cascade. Each cell's delay comes from its GLOBAL column (past columns
-      // come before the year's) plus a per-row offset for the diagonal. It's
-      // normalised by startCol so the wave enters at the left screen edge instead
-      // of after the off-screen columns silently play out.
-      var doCascade = animate && !reduceMotion;
-      // The past only cascades on the very first reveal. Once the field has been
-      // painted, later rebuilds (real data arriving after the reveal on a slow
-      // connection, or a resize) paint the past settled at creation time —
-      // otherwise the grayscale fades in a second time and the past appears to
-      // animate through twice.
-      var animatePast = doCascade && !hasPainted;
-      var COL_STEP = 0.016, ROW_STEP = 0.03;
+      // cascade. Each cell's delay comes from its GLOBAL column plus a per-row
+      // offset, normalised by startCol so the wave enters at the left screen edge.
       var totalWidth = (2 * g.side + REAL_COLS) * g.pitch - g.gap;
       var startCol = Math.max(0, Math.floor((totalWidth - window.innerWidth) / 2 / g.pitch));
-      var maxDelay = 0; // longest per-cell cascade delay, in seconds
-      function cascadeDelay(globalCol, row) {
+      var maxDelay = 0; // longest per-cell wave delay, in seconds
+      function waveDelay(globalCol, row) {
          var d = Math.max(0, globalCol - startCol) * COL_STEP + row * ROW_STEP;
          if (d > maxDelay) maxDelay = d;
          return d;
       }
 
-      // A cell either cascades in — its shade applied later in paint() so the
-      // background-color transition runs as a wave — or is painted settled at
-      // creation, rendering in its final colour with no transition. Cascading
-      // shades wait for paint() because colouring a cell while the hero reveal's
-      // opacity/blur animation on the .contrib ancestor is still running gets
-      // dropped by the compositor, leaving it stuck on l0.
-      var deferredFills = []; // [cell, attr, level] coloured after the reveal flush
+      // A cell either cascades in — its shade applied after a style flush so the
+      // background-color transition runs as a wave — or is painted settled with
+      // no delay. Cascading shades wait for the flush below because colouring a
+      // cell while an ancestor animation is still running can drop the transition.
+      var deferredFills = [];
       function fill(cell, attr, level, animated, globalCol, row) {
          if (level <= 0) return;
          if (animated) {
-            cell.style.transitionDelay = cascadeDelay(globalCol, row) + 's';
+            cell.style.setProperty('--wave-delay', waveDelay(globalCol, row) + 's');
             deferredFills.push([cell, attr, level]);
          } else {
+            cell.style.setProperty('--wave-delay', '0s');
             cell.setAttribute(attr, level);
          }
       }
 
-      // LEFT: past — simulated grayscale data, held stable via simCache. Nothing
-      // is coloured until the fetch has resolved: the field stays an empty l0
-      // skeleton during load, then the whole graph (grayscale past + green year)
-      // cascades in as a single wave once all the data is in.
-      simExtendTo(g.side * 7);
-      for (var p = 0; p < g.side * 7; p++) {
-         var pc = newCell();
-         if (resolved) fill(pc, 'data-gray', simCache[p], animatePast, Math.floor(p / 7), p % 7);
+      // LEFT: past grayscale — always coloured (independent of the fetch), so a
+      // failed year still leaves the field its intended texture.
+      for (var pi = 0; pi < pastCells.length; pi++) {
+         fill(pastCells[pi], 'data-gray', simCache[pi], animatePast, Math.floor(pi / 7), pi % 7);
       }
 
-      // CENTRE: the real year (gray placeholders; coloured green below).
-      var realCells = [];
-      for (var r = 0; r < REAL_CELLS; r++) realCells.push(newCell());
-
-      // RIGHT: future — empty gray cells.
-      for (var f = 0; f < g.side * 7; f++) newCell();
-
-      graph.innerHTML = '';
-      graph.appendChild(frag);
-
-      // Months: an empty label per side column, real labels over the centre, so
-      // the row shares the graph's column geometry and stays perfectly aligned.
-      if (monthsEl) {
-         var mFrag = document.createDocumentFragment();
-         function addMonth(text) {
-            var m = document.createElement('span');
-            m.className = 'contrib-month';
-            if (text) m.textContent = text;
-            mFrag.appendChild(m);
-         }
-         for (var ls = 0; ls < g.side; ls++) addMonth('');
-         var firstDay = days ? new Date(days[0].date + 'T00:00:00').getDay() : 0;
-         var lastLabelCol = -99;
-         for (var c = 0; c < REAL_COLS; c++) {
-            var text = '';
-            if (days) {
-               // Label a column with a month when that week contains the 1st of
-               // the month — the column where the month truly begins. Keying off
-               // the 1st (rather than the first column to merely enter a new
-               // month) skips the leading/trailing partial months that don't
-               // contain a 1st, so a Jul->Jul year reads Aug ... Jul cleanly
-               // instead of dropping August against the leading partial July.
-               var top = c * 7 - firstDay; // day index at the top of this column
-               for (var k = 0; k < 7; k++) {
-                  var di = top + k;
-                  if (di < 0 || di >= days.length) continue;
-                  var dt = new Date(days[di].date + 'T00:00:00');
-                  if (dt.getDate() === 1) {
-                     if (c - lastLabelCol >= 3 && c < REAL_COLS - 1) {
-                        text = MONTHS[dt.getMonth()];
-                        lastLabelCol = c;
-                     }
-                     break;
-                  }
-               }
-            }
-            addMonth(text);
-         }
-         for (var rs = 0; rs < g.side; rs++) addMonth('');
-         monthsEl.innerHTML = '';
-         monthsEl.appendChild(mFrag);
-      }
-
-      // Map the real year onto the centre cells (weekday rows, Sunday = 0). Its
-      // columns sit after the past's, so the wave flows straight on from the
-      // grayscale into the green (global column = side + column within the year).
+      // CENTRE: the real year (weekday rows, Sunday = 0). Its columns sit after
+      // the past's, so the wave flows straight on from grayscale into green.
       if (days) {
          var fd = new Date(days[0].date + 'T00:00:00').getDay();
 
          // The real year usually opens with an empty stretch before the first day
-         // of activity. Fill it with simulated activity (up to that first active
-         // day) so the year reads as full from the start instead of leaving a gap.
-         // Unlike the past, these cells sit inside the real block, so they're
-         // coloured green (via data-level) to blend with the real data — the
-         // grayscale ends at the block's left edge. They keep the same
-         // column-major walk as the past (global index = side*7 + slot).
+         // of activity. Fill it with simulated activity (coloured green so it
+         // blends with the real data) so the year reads as full from the start.
          var firstActive = -1;
          for (var fi = 0; fi < days.length; fi++) {
             if (days[fi].level > 0) { firstActive = fi; break; }
@@ -391,67 +380,122 @@ function renderContributions(username) {
             fill(cell, 'data-level', d.level, doCascade,
                g.side + Math.floor(slot / 7), slot % 7);
          });
+
+         paintMonths(g);
       }
 
-      // Colour the deferred (cascading) cells in one pass, all transitioning
-      // from the l0 base. A single style flush first commits that base so the
-      // background-color transitions resolve; without it (or if this runs
-      // mid-reveal) the cells stay stuck on l0.
-      function paint() {
-         void graph.offsetWidth;
-         for (var i = 0; i < deferredFills.length; i++) {
-            deferredFills[i][0].setAttribute(deferredFills[i][1], deferredFills[i][2]);
-         }
-         // Once the field's cascade has finished, fade in the supporting detail
-         // (month labels, summary count, legend) together as a single unit.
-         if (days) {
-            setTimeout(function () {
-               wrap.classList.add('contrib-details-visible');
-            }, maxDelay * 1000);
-         }
-         // Only count a paint that actually coloured the field, so a pre-resolution
-         // paint (empty skeleton) doesn't suppress the real cascade later.
-         if (resolved) hasPainted = true;
+      // Commit the l0 base with one style flush, then apply the deferred shades so
+      // their background-color transitions all resolve as a wave from l0.
+      void graph.offsetWidth;
+      for (var di = 0; di < deferredFills.length; di++) {
+         deferredFills[di][0].setAttribute(deferredFills[di][1], deferredFills[di][2]);
       }
 
-      // Run once the reveal has finished; if it's already done (data arrived
-      // late, or a resize rebuild), paint straight away.
-      if (revealDone) paint();
-      else pendingPaint = paint;
+      // Once the wave has finished, fade in the supporting detail (month labels,
+      // summary count) together — but only when a year actually loaded.
+      if (days) {
+         setTimeout(function () {
+            wrap.classList.add('contrib-details-visible');
+         }, maxDelay * 1000);
+      }
+
+      hasColored = true;
    }
 
-   // Lay out an empty l0 skeleton so the hero reserves its shape while the real
-   // data loads (nothing is coloured until the fetch resolves). The month labels,
-   // summary count and legend stay hidden until the field has cascaded in.
-   build(true);
+   // Month labels: an empty slot per side column, real labels over the centre, so
+   // the row shares the graph's column geometry and stays perfectly aligned.
+   function paintMonths(g) {
+      if (!monthsEl || !days) return;
+      var mFrag = document.createDocumentFragment();
+      function addMonth(text) {
+         var m = document.createElement('span');
+         m.className = 'contrib-month';
+         if (text) m.textContent = text;
+         mFrag.appendChild(m);
+      }
+      for (var ls = 0; ls < g.side; ls++) addMonth('');
+      var firstDay = new Date(days[0].date + 'T00:00:00').getDay();
+      var lastLabelCol = -99;
+      for (var c = 0; c < REAL_COLS; c++) {
+         var text = '';
+         // Label a column with a month when that week contains the 1st of the
+         // month — the column where the month truly begins. Keying off the 1st
+         // (rather than the first column to merely enter a new month) skips the
+         // leading/trailing partial months that don't contain a 1st, so a
+         // Jul->Jul year reads Aug ... Jul cleanly.
+         var top = c * 7 - firstDay; // day index at the top of this column
+         for (var k = 0; k < 7; k++) {
+            var di = top + k;
+            if (di < 0 || di >= days.length) continue;
+            var dt = new Date(days[di].date + 'T00:00:00');
+            if (dt.getDate() === 1) {
+               if (c - lastLabelCol >= 3 && c < REAL_COLS - 1) {
+                  text = MONTHS[dt.getMonth()];
+                  lastLabelCol = c;
+               }
+               break;
+            }
+         }
+         addMonth(text);
+      }
+      for (var rs = 0; rs < g.side; rs++) addMonth('');
+      monthsEl.innerHTML = '';
+      monthsEl.appendChild(mFrag);
+   }
 
-   // The hero text animates in first (see .intro-loaded); reveal the grid in
-   // sequence so the two land together, then let the field cascade run once both
-   // the reveal has finished and the data has loaded (whichever is later).
+   // Lay out the empty l0 skeleton so the hero reserves its shape while the data
+   // loads and the grid reveal runs. Nothing is coloured until the data lands;
+   // the month labels and summary count stay hidden until the wave runs.
+   layout();
+
+   // The hero text animates in first (see .intro-loaded). After a matching beat,
+   // reveal the .contrib block and cascade the empty gray grid in row by row
+   // (bottom-up). Only once THAT has settled — and the data has loaded — do the
+   // colours wash in (paint), so the grid is always fully in place first.
    var REVEAL_DELAY = 650;
-   var REVEAL_DURATION = 900; // keep in sync with .contrib transition in _home.scss
+   var REVEAL_DURATION = 550; // keep in sync with .contrib transition in _home.scss
+   var GRID_REVEAL_TIME = 6 * ROW_REVEAL_STEP * 1000 + GRID_FADE; // last row lands
+
+   function finishGridReveal() {
+      if (gridRevealed) return;
+      gridRevealed = true;
+      // Grid's in place; if the fetch has settled, wash the colours in now.
+      if (resolved) paint(true);
+   }
+
    setTimeout(function () {
       wrap.classList.add('contrib-visible');
+      if (reduceMotion) {
+         // No cascade: show the grid at once, then let the colours follow.
+         graph.classList.add('contrib-grid-static');
+         finishGridReveal();
+      } else {
+         // Commit the opacity:0 base before the class flips it to 1 so every
+         // row's fade actually runs from its --row-delay.
+         void graph.offsetWidth;
+         graph.classList.add('contrib-grid-in');
+      }
    }, REVEAL_DELAY);
-   setTimeout(function () {
-      revealDone = true;
-      if (pendingPaint) { pendingPaint(); pendingPaint = null; }
-   }, REVEAL_DELAY + REVEAL_DURATION);
+
+   // The grid reveal and the container's blur/fade both start at REVEAL_DELAY;
+   // wait for the longer of the two to settle before colouring — colouring while
+   // the .contrib ancestor is still animating opacity/blur gets dropped by the
+   // compositor, leaving cells stuck on l0.
+   setTimeout(finishGridReveal,
+      REVEAL_DELAY + Math.max(REVEAL_DURATION, GRID_REVEAL_TIME));
 
    // Rebuild the field on resize so it keeps reaching the screen edges; the
    // simulated pattern and the real year stay put (simCache + cached `days`).
    // Only width affects the geometry, so ignore height-only changes: on mobile,
    // scrolling shows/hides the URL bar, which fires `resize` with a new
-   // innerHeight. Rebuilding there wipes and repaints every cell, so the
-   // background-color transition replays and the grid visibly flashes
-   // gray -> green while scrolling.
+   // innerHeight, and a rebuild there would replay the colour transition.
    var resizeTimer = null;
    var lastWidth = window.innerWidth;
    window.addEventListener('resize', function () {
       if (window.innerWidth === lastWidth) return;
       lastWidth = window.innerWidth;
       if (resizeTimer) clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(function () { build(false); }, 200);
+      resizeTimer = setTimeout(function () { layout(); }, 200);
    });
 
    var url = 'https://github-contributions-api.jogruber.de/v4/' + username + '?y=last';
@@ -467,22 +511,21 @@ function renderContributions(username) {
          days = fetched;
          resolved = true;
 
-         // All data is in — build the whole field and cascade it in as one wave
-         // (grayscale past + green year). If the hero reveal hasn't finished yet
-         // the cascade waits for it (pendingPaint); otherwise it runs now.
-         build(true);
-
          var total = (data.total && data.total.lastYear) ||
             days.reduce(function (sum, d) { return sum + d.count; }, 0);
          if (countEl) {
             countEl.textContent = total.toLocaleString() + ' contributions in the last year';
          }
+
+         // Colour now only if the grid reveal has already settled; otherwise
+         // finishGridReveal() paints once the grid is in place.
+         if (gridRevealed) paint(true);
       })
       .catch(function () {
-         // No real data, but still cascade in the grayscale field so the hero
-         // has its texture (it reads as intentional). With no year loaded there's
-         // no count or month labels to reveal, so they simply stay hidden.
+         // No real data: leave the grid its empty gray texture, then still run the
+         // grayscale-past wave so the field reads as intentional. With no year
+         // loaded there's no count or month labels to reveal.
          resolved = true;
-         build(true);
+         if (gridRevealed) paint(true);
       });
 }
