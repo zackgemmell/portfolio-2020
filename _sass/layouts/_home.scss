@@ -115,7 +115,10 @@ $contribGap: 3px;
    opacity: 0;
    transform: translate3d(0, 8px, 0);
    filter: blur(8px);
-   transition: opacity 0.9s ease, transform 0.9s ease, filter 0.9s ease;
+   // Shorter than the cell reveal so the block's blur clears early and the
+   // row-by-row grid cascade underneath reads crisply (keep REVEAL_DURATION in
+   // script.js in sync with this duration).
+   transition: opacity 0.55s ease, transform 0.55s ease, filter 0.55s ease;
    // Same layer-stability fix as .intro-lede: stay composited so the grid
    // doesn't snap when the transform lands.
    will-change: opacity, transform, filter;
@@ -162,14 +165,20 @@ $contribGap: 3px;
    font-size: 10px;
    line-height: 1;
    color: var(--text-muted);
+   // Reserve one line of height even while the row is empty (the labels aren't
+   // populated until the data loads). Without this the row is 0px tall during the
+   // grid reveal, then the labels appear when the colour wave starts and grow the
+   // row — which, in the vertically-centred hero column, hops the hero text up and
+   // shoves the graph down. line-height is 1, so 1em is exactly one label line and
+   // tracks the font-size at every breakpoint.
+   min-height: 1em;
 }
 
 // The month labels, summary count and legend all wait for the field's cascade to
 // finish, then fade up together. JS adds .contrib-details-visible on the .contrib
 // wrap once the last cell has animated in (see renderContributions).
 .contrib-months,
-.contrib-count,
-.contrib-legend {
+.contrib-count {
    opacity: 0;
    transform: translateY(4px);
    transition: opacity 0.6s ease, transform 0.6s ease;
@@ -177,8 +186,7 @@ $contribGap: 3px;
 
 .contrib-details-visible {
    .contrib-months,
-   .contrib-count,
-   .contrib-legend {
+   .contrib-count {
       opacity: 1;
       transform: none;
    }
@@ -186,8 +194,7 @@ $contribGap: 3px;
 
 @media (prefers-reduced-motion: reduce) {
    .contrib-months,
-   .contrib-count,
-   .contrib-legend { transition: none; }
+   .contrib-count { transition: none; }
 }
 
 .contrib-month {
@@ -201,6 +208,15 @@ $contribGap: 3px;
    display: grid;
    grid-auto-flow: column;
 
+   // Reserve the grid's height in CSS before JS populates the cells. The hero and
+   // graph share one flex column that's vertically centred in the viewport, so if
+   // the graph height jumped from 0 to full when the cells land, the whole column
+   // re-centres and the hero text visibly hops up on first load. This mirrors the
+   // geometry() math in script.js — 7 rows of `cell` + 6 gaps, where
+   // cell = (colWidth - 52*gap) / 53 and colWidth = min(hero column, 600) — so the
+   // reserved box matches what JS renders to within ~1px across all widths.
+   min-height: calc((min(100vw - 72px, 600px) - 156px) / 53 * 7 + 18px);
+
    .contrib-cell {
       width: auto;
       height: auto;
@@ -211,18 +227,14 @@ $contribGap: 3px;
    width: $contribCell;
    height: $contribCell;
    // Radius scales with the cell size (set on .contrib-graph by JS as --cell-radius)
-   // so small cells on narrow screens don't round into circles; the static legend
-   // swatches sit outside the graph and fall back to the fixed 2px.
+   // so small cells on narrow screens don't round into circles; falls back to 2px
+   // before JS runs.
    border-radius: var(--cell-radius, 2px);
    // Use the background-color longhand (not the `background` shorthand) so the
    // colour change actually tweens: transitioning background-color while setting
    // the value via the shorthand-with-a-var() doesn't reliably interpolate, so
    // the cells would otherwise snap gray -> green instead of fading.
    background-color: var(--contrib-l0);
-   // Cells first render gray (matching the skeleton), then fade to their green
-   // shade once the data lands. A longer ease-out makes each box's colour change
-   // glide in; the per-cell transition-delay (set in JS) cascades them as a wave.
-   transition: background-color 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
 
    &[data-level="1"] { background-color: var(--contrib-l1); }
    &[data-level="2"] { background-color: var(--contrib-l2); }
@@ -237,10 +249,46 @@ $contribGap: 3px;
    &[data-gray="4"] { background-color: var(--contrib-g4); }
 }
 
+// Only the cells IN THE GRAPH animate in; the static legend swatches in the
+// footer are also .contrib-cell, so scope the reveal here rather than on the base
+// class (otherwise the swatches would be stuck invisible at opacity 0). Two
+// staggered entrances, each with its own JS-set delay so they don't clash:
+//   Phase 1 (opacity, --row-delay):  the empty gray grid fades in a row at a
+//           time, bottom-up (see .contrib-grid-in below).
+//   Phase 2 (background-color, --wave-delay): once the grid's in place and the
+//           data has loaded, the shades wash in as a left-to-right diagonal wave.
+.contrib-graph .contrib-cell {
+   opacity: 0;
+   transition:
+      opacity 0.42s ease var(--row-delay, 0s),
+      background-color 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) var(--wave-delay, 0s);
+}
+
+// Phase 1: the empty gray grid cascades in row by row, bottom-up. JS sets each
+// cell's --row-delay from its row (the bottom row leads) and flips this class on
+// the .contrib-graph, so every cell fades from opacity 0 to 1 on its row's beat.
+.contrib-grid-in .contrib-cell { opacity: 1; }
+
+// Cells rebuilt after the reveal (late data / resize) must appear settled — show
+// them at once, with no opacity transition, so the row cascade never replays.
+.contrib-grid-static .contrib-cell {
+   opacity: 1;
+   transition: background-color 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) var(--wave-delay, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+   .contrib-graph .contrib-cell,
+   .contrib-grid-in .contrib-cell,
+   .contrib-grid-static .contrib-cell {
+      opacity: 1;
+      transition: none;
+   }
+}
+
 .contrib-footer {
    display: flex;
    align-items: center;
-   justify-content: space-between;
+   justify-content: flex-start;
    gap: 16px;
    margin-top: 12px;
    font-size: 11px;
@@ -248,19 +296,16 @@ $contribGap: 3px;
    color: var(--text-muted);
 }
 
-.contrib-legend {
-   display: inline-flex;
-   align-items: center;
-   gap: 3px;
+// The count reads as plain muted copy but links to the GitHub profile; it stays
+// gray and only darkens to the primary text colour on hover, so it doesn't
+// announce itself as a loud link.
+a.contrib-count {
+   color: var(--text-muted);
+   text-decoration: none;
+   transition: color $durationShort $bezierEaseOut;
 
-   .contrib-cell {
-      // Match the graph's square size exactly (--cell-size is set on .contrib by
-      // JS); falls back to the fixed cell size before JS runs. The swatches show
-      // their level colours from the start; the whole legend just fades in with
-      // the rest of the footer detail once the field has cascaded.
-      width: var(--cell-size, #{$contribCell});
-      height: var(--cell-size, #{$contribCell});
-      margin: 0 1px;
+   &:hover {
+      color: var(--text-primary);
    }
 }
 
@@ -515,6 +560,28 @@ $contribGap: 3px;
 
 }
 
+
+.about-roles {
+   font-size: 24px;
+   color: var(--text-muted);
+   padding: 0 20px;
+   margin-bottom: $spaceSmall;
+
+   @media only screen and (max-width: $breakpointLarge) {
+      font-size: 18px;
+   }
+}
+
+.about-role-chip {
+   color: var(--text-primary);
+   text-decoration: none;
+   white-space: nowrap;
+   transition: color $durationShort $bezierEaseOut;
+
+   &:hover {
+      color: var(--accent-color);
+   }
+}
 
 .about-main {
    font-size: 24px;
