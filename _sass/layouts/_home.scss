@@ -4,7 +4,9 @@
    // short viewports instead of clipping the contribution graph below the fold.
    min-height: 100vh;
    display: flex;
-   align-items: center;
+   // Stretch the intro to fill the viewport height so its internal flex spacers
+   // (below) can push the contribution graph to the exact vertical centre.
+   align-items: stretch;
    position: relative;
 
    // Align the hero with the navbar on narrower viewports. The header sits 20px
@@ -30,11 +32,44 @@
    // fixed-width contribution grid inside can't force horizontal overflow.
    min-width: 0;
    position: relative;
+
+   // Column layout: an equal-weight spacer above the graph (holding the lede)
+   // and below it (holding the roles line). Because both spacers grow equally,
+   // the fixed-height graph between them lands at the vertical centre of the
+   // viewport, with the text hugging it from above and below.
+   display: flex;
+   flex-direction: column;
+}
+
+// Upper spacer: grows to fill free space and bottom-aligns the lede so the
+// greeting sits directly above the centred graph, not pinned to the top edge.
+.intro-top {
+   flex: 1 1 0;
+   min-height: 0;
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-end;
+   // NOTE: the lede -> graph gap lives on .intro-lede's margin-bottom, NOT as
+   // padding here. Padding on a flex:1 spacer is added on top of the equal
+   // free-space split, so it would make this spacer taller than .intro-bottom
+   // and shove the graph below centre. A margin on the child stays inside the
+   // spacer's content box and keeps both spacers equal, so the graph stays
+   // centred.
+}
+
+// Lower spacer: grows to match the upper one, keeping the graph centred. Its
+// content (the roles line) top-aligns so it sits just beneath the graph.
+.intro-bottom {
+   flex: 1 1 0;
+   min-height: 0;
 }
 
 // Flowing hero sentence: dark lead, muted continuation, inline media.
 .intro-lede {
-   margin: 0 auto;
+   // Bottom margin is the gap to the graph below (mirrors .intro-roles' top
+   // margin). It lives here rather than as padding on .intro-top so it doesn't
+   // unbalance the equal flex spacers that centre the graph.
+   margin: 0 auto 80px;
    font-weight: 500;
    font-size: 40px;
    line-height: 1.2;
@@ -66,6 +101,7 @@
    @media only screen and (max-width: $breakpointSmall) {
       font-size: 27px;
       line-height: 1.24;
+      margin-bottom: 56px;
    }
 }
 
@@ -106,7 +142,9 @@ $contribCell: 8px;
 $contribGap: 3px;
 
 .contrib {
-   margin: 80px auto 0;
+   // No top margin: the .intro-top spacer above owns the gap to the lede, and
+   // this block stays a fixed-height centre anchor between the two spacers.
+   margin: 0 auto;
    // Fluid up to 600px, never wider than the parent. Paired with min-width: 0
    // this lets the grid shrink to fit narrow screens instead of overflowing.
    width: 100%;
@@ -129,10 +167,6 @@ $contribGap: 3px;
       opacity: 1;
       transform: translate3d(0, 0, 0);
       filter: blur(0);
-   }
-
-   @media only screen and (max-width: $breakpointSmall) {
-      margin-top: 56px;
    }
 }
 
@@ -164,7 +198,7 @@ $contribGap: 3px;
    margin-bottom: 6px;
    font-size: 10px;
    line-height: 1;
-   color: var(--text-muted);
+   color: var(--text-faint);
    // Reserve one line of height even while the row is empty (the labels aren't
    // populated until the data loads). Without this the row is 0px tall during the
    // grid reveal, then the labels appear when the colour wave starts and grow the
@@ -174,32 +208,55 @@ $contribGap: 3px;
    min-height: 1em;
 }
 
-// The month labels, summary count and legend all wait for the field's cascade to
-// finish, then fade up together. JS adds .contrib-details-visible on the .contrib
-// wrap once the last cell has animated in (see renderContributions).
-.contrib-months,
-.contrib-count {
+// The summary count waits for the field's cascade to finish, then fades up out of
+// a blur like the hero text. JS adds .contrib-details-visible on the .contrib wrap
+// once the last cell has animated in (see renderContributions). The selector is
+// a.contrib-count (not just .contrib-count) so this transition isn't overridden by
+// the more specific a.contrib-count colour rule below — otherwise the count snaps
+// in with no animation. The colour transition is folded in here for the same reason.
+a.contrib-count {
    opacity: 0;
-   transform: translateY(4px);
-   transition: opacity 0.6s ease, transform 0.6s ease;
+   transform: translate3d(0, 4px, 0);
+   filter: blur(8px);
+   transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease,
+      color $durationShort $bezierEaseOut;
 }
 
-.contrib-details-visible {
-   .contrib-months,
-   .contrib-count {
-      opacity: 1;
-      transform: none;
-   }
+.contrib-details-visible a.contrib-count {
+   opacity: 1;
+   transform: translate3d(0, 0, 0);
+   filter: blur(0);
 }
 
-@media (prefers-reduced-motion: reduce) {
-   .contrib-months,
-   .contrib-count { transition: none; }
-}
-
+// The month labels come in WITH the real data, not after it: JS adds
+// .contrib-months-in on the months row on the same frame the cell colour wave
+// starts, and each label's --month-delay matches the wave delay of the column
+// beneath it — so the labels sweep in left-to-right out of a blur in lockstep
+// with the green cells below (echoing the hero text's blurred entrance).
 .contrib-month {
    white-space: nowrap;
    overflow: visible;
+   // Spans rebuilt after the reveal (resize) are created while the parent already
+   // has .contrib-months-in, so they render settled with no transition.
+   opacity: 0;
+   transform: translate3d(0, 4px, 0);
+   filter: blur(8px);
+   transition: opacity 0.6s ease var(--month-delay, 0s),
+      transform 0.6s ease var(--month-delay, 0s),
+      filter 0.6s ease var(--month-delay, 0s);
+}
+
+.contrib-months-in .contrib-month {
+   opacity: 1;
+   transform: translate3d(0, 0, 0);
+   filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+   // a.contrib-count (not .contrib-count) so this matches the specificity of the
+   // entrance rule above and actually turns its transition off.
+   a.contrib-count,
+   .contrib-month { transition: none; }
 }
 
 .contrib-graph {
@@ -254,7 +311,7 @@ $contribGap: 3px;
 // class (otherwise the swatches would be stuck invisible at opacity 0). Two
 // staggered entrances, each with its own JS-set delay so they don't clash:
 //   Phase 1 (opacity, --row-delay):  the empty gray grid fades in a row at a
-//           time, bottom-up (see .contrib-grid-in below).
+//           time, top-down (see .contrib-grid-in below).
 //   Phase 2 (background-color, --wave-delay): once the grid's in place and the
 //           data has loaded, the shades wash in as a left-to-right diagonal wave.
 .contrib-graph .contrib-cell {
@@ -264,8 +321,8 @@ $contribGap: 3px;
       background-color 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) var(--wave-delay, 0s);
 }
 
-// Phase 1: the empty gray grid cascades in row by row, bottom-up. JS sets each
-// cell's --row-delay from its row (the bottom row leads) and flips this class on
+// Phase 1: the empty gray grid cascades in row by row, top-down. JS sets each
+// cell's --row-delay from its row (the top row leads) and flips this class on
 // the .contrib-graph, so every cell fades from opacity 0 to 1 on its row's beat.
 .contrib-grid-in .contrib-cell { opacity: 1; }
 
@@ -298,11 +355,12 @@ $contribGap: 3px;
 
 // The count reads as plain muted copy but links to the GitHub profile; it stays
 // gray and only darkens to the primary text colour on hover, so it doesn't
-// announce itself as a loud link.
+// announce itself as a loud link. (The transition — including colour — lives on
+// the a.contrib-count entrance rule above; declaring it again here would override
+// that and clobber the fade-in, so it's intentionally omitted.)
 a.contrib-count {
-   color: var(--text-muted);
+   color: var(--text-faint);
    text-decoration: none;
-   transition: color $durationShort $bezierEaseOut;
 
    &:hover {
       color: var(--text-primary);
@@ -561,14 +619,47 @@ a.contrib-count {
 }
 
 
-.about-roles {
-   font-size: 24px;
+// Sits under the contribution graph in the hero, sharing the same 600px column
+// (and left edge) as the lede above and the graph footer, rather than spanning
+// the full-bleed grid width.
+.intro-roles {
+   // Mirror the lede -> graph gap (.intro-top padding-bottom) beneath the graph
+   // so the roles line is spaced equally from the graph as the graph is from
+   // the lede above it.
+   margin: 80px auto 0;
+   width: 100%;
+   max-width: 600px;
+   min-width: 0;
+   font-size: 17px;
+   line-height: 1.4;
    color: var(--text-muted);
-   padding: 0 20px;
-   margin-bottom: $spaceSmall;
 
-   @media only screen and (max-width: $breakpointLarge) {
-      font-size: 18px;
+   // Last beat of the hero entrance: fades up after the lede and the graph
+   // (JS adds .intro-roles-loaded ~1150ms in, once the graph is already in).
+   // Mirrors the lede's fade/blur so the whole hero shares one motion language.
+   opacity: 0;
+   transform: translate3d(0, 12px, 0);
+   filter: blur(10px);
+   transition: opacity 0.9s ease, transform 0.9s ease, filter 0.9s ease;
+   will-change: opacity, transform, filter;
+   backface-visibility: hidden;
+   -webkit-backface-visibility: hidden;
+
+   @media only screen and (max-width: $breakpointSmall) {
+      margin-top: 56px;
+      font-size: 15px;
+   }
+}
+
+.intro-roles-loaded {
+   opacity: 1 !important;
+   transform: translate3d(0, 0, 0) !important;
+   filter: blur(0) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+   .intro-roles {
+      transition: none;
    }
 }
 

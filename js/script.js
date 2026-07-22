@@ -18,12 +18,20 @@ $(document).ready(function () {
    });
 
    var introLede = $(".intro-lede");
+   var introRoles = $(".intro-roles");
    var header = $(".header");
    var introScroll = $(".intro-scroll");
 
+   // Staggered hero entrance: the lede leads, the contribution graph follows
+   // (its own reveal kicks off at REVEAL_DELAY = 650ms in renderContributions),
+   // and the roles line lands last so the sequence reads text -> graph -> roles.
    setTimeout(function () {
       introLede.addClass('intro-loaded');
    }, 300)
+
+   setTimeout(function () {
+      introRoles.addClass('intro-roles-loaded');
+   }, 1150)
 
    // GitHub-style contribution graph beneath the hero.
    renderContributions('zackgemmell');
@@ -158,9 +166,16 @@ function renderContributions(username) {
    // reads as flat salt-and-pepper), it mimics how real contribution history
    // looks: each week has a drifting "intensity" so activity comes in busy and
    // quiet streaks (with occasional near-empty weeks for gaps/vacations and the
-   // odd burst), and weekdays are busier than weekends. simCache holds the level
-   // per past cell in column-major order from the left (oldest -> newest), so the
-   // walk stays coherent as it's extended and the pattern is stable across rebuilds.
+   // odd burst), and weekdays are busier than weekends. simCache is one coherent,
+   // append-only walk that every simulated region indexes into (see PAST_OFFSET),
+   // so the same viewport always renders the same pattern across rebuilds.
+   //
+   // The head of the walk, simCache[0 .. PAST_OFFSET), is reserved for the real
+   // year's leading fill (the fake-green weeks before the first real activity).
+   // The past grayscale walk starts at PAST_OFFSET. Reserving a fixed head keeps
+   // both regions' indices independent of the viewport width, so neither shifts
+   // when a resize changes how many past columns are on screen.
+   var PAST_OFFSET = REAL_CELLS;
    var DOW = [0.3, 1.0, 1.05, 1.05, 1.0, 0.85, 0.28]; // Sun..Sat weekday bias
    var simCache = [];
    var simIntensity = 0.5; // current week's activity level (random walk)
@@ -227,7 +242,7 @@ function renderContributions(username) {
    var hasColored = false;   // true once the field's colours have been applied
 
    // Grid-reveal state. The empty gray grid animates in first (row by row,
-   // cascading upwards); only once it's settled AND the data has loaded do the
+   // cascading downwards); only once it's settled AND the data has loaded do the
    // colours wash in as a second, diagonal wave.
    var gridRevealed = false;
 
@@ -264,8 +279,8 @@ function renderContributions(username) {
          monthsEl.style.width = '100%';
       }
 
-      // Cells fade in a row at a time, cascading UPWARDS: the bottom row (row 6,
-      // Saturday) leads and the top row (row 0, Sunday) lands last. The grid is
+      // Cells fade in a row at a time, cascading DOWNWARDS: the top row (row 0,
+      // Sunday) leads and the bottom row (row 6, Saturday) lands last. The grid is
       // laid out column-major, so the per-row delay has to be set per cell here
       // (CSS can't target a "row" across the column flow). After the reveal has
       // finished, cells are built already-visible so a resize doesn't replay it.
@@ -276,13 +291,13 @@ function renderContributions(username) {
          var c = document.createElement('span');
          c.className = 'contrib-cell';
          c.style.setProperty('--row-delay',
-            (gridRevealed ? 0 : (6 - row) * ROW_REVEAL_STEP) + 's');
+            (gridRevealed ? 0 : row * ROW_REVEAL_STEP) + 's');
          frag.appendChild(c);
          return c;
       }
 
       // LEFT: past — simulated grayscale (coloured later, in the data wave).
-      simExtendTo(g.side * 7);
+      simExtendTo(PAST_OFFSET + g.side * 7);
       for (var p = 0; p < g.side * 7; p++) pastCells.push(newCell(p % 7));
 
       // CENTRE: the real year (coloured later).
@@ -348,9 +363,19 @@ function renderContributions(username) {
       }
 
       // LEFT: past grayscale — always coloured (independent of the fetch), so a
-      // failed year still leaves the field its intended texture.
+      // failed year still leaves the field its intended texture. The walk is
+      // anchored to the RIGHT edge (the column touching the real block): the
+      // column nearest the year is simCache[PAST_OFFSET..], and each column
+      // further left steps deeper into the walk. Because the real block is
+      // centred, a resize only adds/removes columns on the far (off-screen) left,
+      // so every visible past cell keeps its value instead of reshuffling.
+      simExtendTo(PAST_OFFSET + g.side * 7);
       for (var pi = 0; pi < pastCells.length; pi++) {
-         fill(pastCells[pi], 'data-gray', simCache[pi], animatePast, Math.floor(pi / 7), pi % 7);
+         var pCol = Math.floor(pi / 7);         // DOM column, left -> right
+         var pRow = pi % 7;
+         var simCol = (g.side - 1) - pCol;       // 0 = column adjacent to the year
+         fill(pastCells[pi], 'data-gray', simCache[PAST_OFFSET + simCol * 7 + pRow],
+            animatePast, pCol, pRow);
       }
 
       // CENTRE: the real year (weekday rows, Sunday = 0). Its columns sit after
@@ -366,9 +391,11 @@ function renderContributions(username) {
             if (days[fi].level > 0) { firstActive = fi; break; }
          }
          var firstActiveSlot = firstActive < 0 ? REAL_CELLS : fd + firstActive;
-         simExtendTo(g.side * 7 + firstActiveSlot);
+         // Fill from the reserved head of the walk (simCache[0..PAST_OFFSET)) so
+         // these fake-green weeks stay identical across resizes — firstActiveSlot
+         // is bounded by REAL_CELLS === PAST_OFFSET, so the range always fits.
          for (var s0 = 0; s0 < firstActiveSlot; s0++) {
-            fill(realCells[s0], 'data-level', simCache[g.side * 7 + s0], doCascade,
+            fill(realCells[s0], 'data-level', simCache[s0], doCascade,
                g.side + Math.floor(s0 / 7), s0 % 7);
          }
 
@@ -381,7 +408,7 @@ function renderContributions(username) {
                g.side + Math.floor(slot / 7), slot % 7);
          });
 
-         paintMonths(g);
+         paintMonths(g, startCol);
       }
 
       // Commit the l0 base with one style flush, then apply the deferred shades so
@@ -391,8 +418,15 @@ function renderContributions(username) {
          deferredFills[di][0].setAttribute(deferredFills[di][1], deferredFills[di][2]);
       }
 
-      // Once the wave has finished, fade in the supporting detail (month labels,
-      // summary count) together — but only when a year actually loaded.
+      // Reveal the month labels on the same frame the cell wave starts (after the
+      // same flush, so both transitions share one t0). Their per-column
+      // --month-delay matches the columns beneath, so the labels sweep in together
+      // with the real data. Spans rebuilt on resize are created with this class
+      // already present, so they render settled without replaying.
+      if (days && monthsEl) monthsEl.classList.add('contrib-months-in');
+
+      // Once the wave has finished, fade in the summary count — but only when a
+      // year actually loaded.
       if (days) {
          setTimeout(function () {
             wrap.classList.add('contrib-details-visible');
@@ -404,13 +438,20 @@ function renderContributions(username) {
 
    // Month labels: an empty slot per side column, real labels over the centre, so
    // the row shares the graph's column geometry and stays perfectly aligned.
-   function paintMonths(g) {
+   function paintMonths(g, startCol) {
       if (!monthsEl || !days) return;
       var mFrag = document.createDocumentFragment();
-      function addMonth(text) {
+      // Labels ride the same left-to-right wave as the cells beneath: each label's
+      // --month-delay is the wave delay of the column it sits above (top row,
+      // matching waveDelay(g.side + c, 0)), so the months arrive together with the
+      // real data instead of after it (see .contrib-month in _home.scss).
+      function addMonth(text, delay) {
          var m = document.createElement('span');
          m.className = 'contrib-month';
-         if (text) m.textContent = text;
+         if (text) {
+            m.textContent = text;
+            m.style.setProperty('--month-delay', delay + 's');
+         }
          mFrag.appendChild(m);
       }
       for (var ls = 0; ls < g.side; ls++) addMonth('');
@@ -436,7 +477,7 @@ function renderContributions(username) {
                break;
             }
          }
-         addMonth(text);
+         addMonth(text, Math.max(0, (g.side + c) - startCol) * COL_STEP);
       }
       for (var rs = 0; rs < g.side; rs++) addMonth('');
       monthsEl.innerHTML = '';
