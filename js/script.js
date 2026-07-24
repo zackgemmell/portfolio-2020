@@ -196,7 +196,7 @@ function renderContributions(username) {
          if (row === 0) {
             // New week: drift the intensity, but mean-revert toward a healthy
             // baseline so it oscillates (busy/quiet streaks) instead of wandering
-            // into long dead zones — the visible window is only ~40 weeks, so it
+            // into long dead zones - the visible window is only ~40 weeks, so it
             // needs to stay lively. Rare resets give the odd empty week (a gap) or
             // busy burst for variety.
             simIntensity += (0.52 - simIntensity) * 0.2 + (simRand() - 0.5) * 0.42;
@@ -246,7 +246,7 @@ function renderContributions(username) {
    // colours wash in as a second, diagonal wave.
    var gridRevealed = false;
 
-   // Two independent, staggered entrances — each with its own delay custom
+   // Two independent, staggered entrances - each with its own delay custom
    // property so they never clobber each other:
    //   Phase 1 (--row-delay):  opacity, a row of cells at a time, bottom-up.
    //   Phase 2 (--wave-delay): background-color, a left-to-right diagonal wave.
@@ -268,7 +268,7 @@ function renderContributions(username) {
       graph.style.width = '100%';
       // Publish the cell geometry on the .contrib wrap (an ancestor of the graph)
       // so the CSS can size and round the cells to match. The radius scales with
-      // the cell size so the small cells on narrow screens stay squares — a fixed
+      // the cell size so the small cells on narrow screens stay squares - a fixed
       // radius turns a ~4px cell into a circle.
       wrap.style.setProperty('--cell-size', g.cell + 'px');
       wrap.style.setProperty('--cell-radius', Math.max(1, Math.round(g.cell * 0.2)) + 'px');
@@ -296,14 +296,14 @@ function renderContributions(username) {
          return c;
       }
 
-      // LEFT: past — simulated grayscale (coloured later, in the data wave).
+      // LEFT: past - simulated grayscale (coloured later, in the data wave).
       simExtendTo(PAST_OFFSET + g.side * 7);
       for (var p = 0; p < g.side * 7; p++) pastCells.push(newCell(p % 7));
 
       // CENTRE: the real year (coloured later).
       for (var r = 0; r < REAL_CELLS; r++) realCells.push(newCell(r % 7));
 
-      // RIGHT: future — empty gray cells.
+      // RIGHT: future - empty gray cells.
       for (var f = 0; f < g.side * 7; f++) newCell(f % 7);
 
       graph.innerHTML = '';
@@ -333,8 +333,8 @@ function renderContributions(username) {
       // render it settled, otherwise the grayscale fades in a second time.
       var animatePast = doCascade && !hasColored;
 
-      // One continuous left-to-right diagonal wave sweeps the whole grid — the
-      // grayscale past first, then the green year — so it reads as a single
+      // One continuous left-to-right diagonal wave sweeps the whole grid - the
+      // grayscale past first, then the green year - so it reads as a single
       // cascade. Each cell's delay comes from its GLOBAL column plus a per-row
       // offset, normalised by startCol so the wave enters at the left screen edge.
       var totalWidth = (2 * g.side + REAL_COLS) * g.pitch - g.gap;
@@ -346,8 +346,8 @@ function renderContributions(username) {
          return d;
       }
 
-      // A cell either cascades in — its shade applied after a style flush so the
-      // background-color transition runs as a wave — or is painted settled with
+      // A cell either cascades in - its shade applied after a style flush so the
+      // background-color transition runs as a wave - or is painted settled with
       // no delay. Cascading shades wait for the flush below because colouring a
       // cell while an ancestor animation is still running can drop the transition.
       var deferredFills = [];
@@ -362,7 +362,7 @@ function renderContributions(username) {
          }
       }
 
-      // LEFT: past grayscale — always coloured (independent of the fetch), so a
+      // LEFT: past grayscale - always coloured (independent of the fetch), so a
       // failed year still leaves the field its intended texture. The walk is
       // anchored to the RIGHT edge (the column touching the real block): the
       // column nearest the year is simCache[PAST_OFFSET..], and each column
@@ -392,7 +392,7 @@ function renderContributions(username) {
          }
          var firstActiveSlot = firstActive < 0 ? REAL_CELLS : fd + firstActive;
          // Fill from the reserved head of the walk (simCache[0..PAST_OFFSET)) so
-         // these fake-green weeks stay identical across resizes — firstActiveSlot
+         // these fake-green weeks stay identical across resizes - firstActiveSlot
          // is bounded by REAL_CELLS === PAST_OFFSET, so the range always fits.
          for (var s0 = 0; s0 < firstActiveSlot; s0++) {
             fill(realCells[s0], 'data-level', simCache[s0], doCascade,
@@ -425,7 +425,7 @@ function renderContributions(username) {
       // already present, so they render settled without replaying.
       if (days && monthsEl) monthsEl.classList.add('contrib-months-in');
 
-      // Once the wave has finished, fade in the summary count — but only when a
+      // Once the wave has finished, fade in the summary count - but only when a
       // year actually loaded.
       if (days) {
          setTimeout(function () {
@@ -460,7 +460,7 @@ function renderContributions(username) {
       for (var c = 0; c < REAL_COLS; c++) {
          var text = '';
          // Label a column with a month when that week contains the 1st of the
-         // month — the column where the month truly begins. Keying off the 1st
+         // month - the column where the month truly begins. Keying off the 1st
          // (rather than the first column to merely enter a new month) skips the
          // leading/trailing partial months that don't contain a 1st, so a
          // Jul->Jul year reads Aug ... Jul cleanly.
@@ -491,7 +491,7 @@ function renderContributions(username) {
 
    // The hero text animates in first (see .intro-loaded). After a matching beat,
    // reveal the .contrib block and cascade the empty gray grid in row by row
-   // (bottom-up). Only once THAT has settled — and the data has loaded — do the
+   // (bottom-up). Only once THAT has settled - and the data has loaded - do the
    // colours wash in (paint), so the grid is always fully in place first.
    var REVEAL_DELAY = 650;
    var REVEAL_DURATION = 550; // keep in sync with .contrib transition in _home.scss
@@ -519,7 +519,7 @@ function renderContributions(username) {
    }, REVEAL_DELAY);
 
    // The grid reveal and the container's blur/fade both start at REVEAL_DELAY;
-   // wait for the longer of the two to settle before colouring — colouring while
+   // wait for the longer of the two to settle before colouring - colouring while
    // the .contrib ancestor is still animating opacity/blur gets dropped by the
    // compositor, leaving cells stuck on l0.
    setTimeout(finishGridReveal,
