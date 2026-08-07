@@ -370,10 +370,19 @@ function renderContributions(username) {
       // centred, a resize only adds/removes columns on the far (off-screen) left,
       // so every visible past cell keeps its value instead of reshuffling.
       simExtendTo(PAST_OFFSET + g.side * 7);
+      // Over the last BLEND_COLS columns before the year, the grayscale melts into
+      // green so there's no hard seam: the column touching the year is fully green
+      // (blend 1) and the tint eases back to plain gray (blend 0) further left. A
+      // smoothstep keeps the ramp gentle at both ends. CSS mixes each gray shade
+      // toward its green twin by this factor (see [data-gray] in _home.scss).
+      var BLEND_COLS = 14;
       for (var pi = 0; pi < pastCells.length; pi++) {
          var pCol = Math.floor(pi / 7);         // DOM column, left -> right
          var pRow = pi % 7;
          var simCol = (g.side - 1) - pCol;       // 0 = column adjacent to the year
+         var t = 1 - simCol / BLEND_COLS;        // linear ramp, 1 at the year edge
+         if (t < 0) t = 0;
+         pastCells[pi].style.setProperty('--blend', t * t * (3 - 2 * t));
          fill(pastCells[pi], 'data-gray', simCache[PAST_OFFSET + simCol * 7 + pRow],
             animatePast, pCol, pRow);
       }
