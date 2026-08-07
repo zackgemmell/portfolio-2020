@@ -298,12 +298,17 @@ a.contrib-count {
    &[data-level="3"] { background-color: var(--contrib-l3); }
    &[data-level="4"] { background-color: var(--contrib-l4); }
 
-   // Simulated "past" cells: same levels, but rendered in grayscale so the real
-   // year stays the only coloured block. (data-gray="0" / no attr keeps l0.)
-   &[data-gray="1"] { background-color: var(--contrib-g1); }
-   &[data-gray="2"] { background-color: var(--contrib-g2); }
-   &[data-gray="3"] { background-color: var(--contrib-g3); }
-   &[data-gray="4"] { background-color: var(--contrib-g4); }
+   // Simulated "past" cells: same levels, rendered in grayscale that melts into
+   // the green year rather than butting against it with a hard seam. Each cell
+   // carries a --blend (0 = full gray, 1 = full green) set by JS from how close
+   // its column sits to the real block; the columns touching the year read fully
+   // green and the tint fades back to plain grayscale further left. color-mix
+   // keeps this theme-aware (both endpoints are CSS vars) and lets the wave still
+   // tween background-color from l0. (data-gray="0" / no attr keeps l0.)
+   &[data-gray="1"] { background-color: color-mix(in srgb, var(--contrib-g1), var(--contrib-l1) calc(var(--blend, 0) * 100%)); }
+   &[data-gray="2"] { background-color: color-mix(in srgb, var(--contrib-g2), var(--contrib-l2) calc(var(--blend, 0) * 100%)); }
+   &[data-gray="3"] { background-color: color-mix(in srgb, var(--contrib-g3), var(--contrib-l3) calc(var(--blend, 0) * 100%)); }
+   &[data-gray="4"] { background-color: color-mix(in srgb, var(--contrib-g4), var(--contrib-l4) calc(var(--blend, 0) * 100%)); }
 }
 
 // Only the cells IN THE GRAPH animate in; the static legend swatches in the
