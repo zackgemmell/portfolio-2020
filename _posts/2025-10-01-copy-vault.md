@@ -3,7 +3,7 @@ layout: post
 category: personal
 type: Regular
 permalink: /copy-vault/
-published: true
+published: false
 
 # Home
 company: Personal
