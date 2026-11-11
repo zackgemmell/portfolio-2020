@@ -14,10 +14,12 @@ $rotationSpeed: 20s;
     --accent-color: #6b6bff;
     --highlight-bg: #fff7c1;
     --card-bg: #ffffff;
-    --header-bg: rgba(255, 255, 255, 0.7);
-    --header-bg-scrolled: rgba(255, 255, 255, 0.8);
-    --header-border: rgba(255, 255, 255, 0.2);
-    --header-border-scrolled: rgba(255, 255, 255, 0.3);
+    // White navbar, kept mostly opaque so it stays white over the gray page.
+    --header-bg: rgba(255, 255, 255, 0.9);
+    --header-bg-scrolled: rgba(255, 255, 255, 0.95);
+    // Visible hairline outline, shown in every scroll state (incl. at the top).
+    --header-border: rgba(0, 0, 0, 0.1);
+    --header-border-scrolled: rgba(0, 0, 0, 0.1);
     --table-header-bg: #f2f2f5;
     --shadow: rgba(0, 0, 0, 0.1);
     --shadow-strong: rgba(0, 0, 0, 0.15);
@@ -53,10 +55,13 @@ $rotationSpeed: 20s;
         --accent-color: #7d7dff;
         --highlight-bg: #4a4a2a;
         --card-bg: #2d2d2d;
-        --header-bg: rgba(26, 26, 26, 0.7);
-        --header-bg-scrolled: rgba(26, 26, 26, 0.8);
-        --header-border: rgba(255, 255, 255, 0.0);
-        --header-border-scrolled: rgba(255, 255, 255, 0.15);
+        // Navbar a step lighter than the #1a1a1a page, kept mostly opaque so it
+        // holds that lighter gray over dark content behind it.
+        --header-bg: rgba(46, 46, 46, 0.9);
+        --header-bg-scrolled: rgba(52, 52, 52, 0.95);
+        // Visible hairline outline, shown in every scroll state (incl. at the top).
+        --header-border: rgba(255, 255, 255, 0.14);
+        --header-border-scrolled: rgba(255, 255, 255, 0.14);
         --table-header-bg: #333333;
         --shadow: rgba(0, 0, 0, 0.3);
         --shadow-strong: rgba(0, 0, 0, 0.4);

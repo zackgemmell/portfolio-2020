@@ -438,13 +438,13 @@ a.contrib-count {
 }
 
 .home-section-title {
-   font-size: 48px;
+   font-size: 34px;
    font-weight: 600;
    margin-bottom: 20px;
    padding-left: 20px;
 
    @media only screen and (max-width: $breakpointMedium) {
-      font-size: 38px;
+      font-size: 30px;
    }
 }
 
@@ -460,7 +460,7 @@ a.contrib-count {
    border: none;
    color: #999;
    padding: 0;
-   font-size: 48px;
+   font-size: 34px;
    font-weight: 600;
    cursor: pointer;
    transition: all $durationMedium $bezierEaseOut;
@@ -482,7 +482,7 @@ a.contrib-count {
    }
 
    @media only screen and (max-width: $breakpointMedium) {
-      font-size: 38px;
+      font-size: 30px;
    }
 }
 
@@ -564,14 +564,17 @@ a.contrib-count {
 
 .tile-work-thumbnail {
    display: block;
-   width: 270px;
-   height: 270px;
-   border-radius: 24px;
+   // Scaled down for the narrower 600px tile so the preview sits in better
+   // balance with the title/summary beside it instead of dominating the row.
+   width: 180px;
+   height: 180px;
+   border-radius: 20px;
+   flex-shrink: 0;
 
    @media only screen and (max-width: $breakpointMedium) {
-      width: 170px;
-      height: 170px;
-      border-radius: 24px;
+      width: 150px;
+      height: 150px;
+      border-radius: 18px;
    }
 
    @media only screen and (max-width: $breakpointSmall) {
@@ -596,27 +599,27 @@ a.contrib-count {
    color: var(--text-secondary);
    border-radius: 100px;
    display: inline-block;
-   padding: 6px 13px;
+   padding: 5px 12px;
    margin-bottom: 7px;
-   font-size: 18px;
+   font-size: 15px;
    font-weight: 400;
 
    @media only screen and (max-width: $breakpointMedium) {
-      font-size: 14px;
+      font-size: 13px;
       padding: 4px 10px;
    }
 }
 
 .tile-work-description-title {
    font-weight: 600;
-   font-size: 40px;
+   font-size: 26px;
    color: var(--text-primary);
    padding-top: 6px;
-   padding-bottom: 12px;
+   padding-bottom: 10px;
 
    // margin-bottom: 18px;
    @media only screen and (max-width: $breakpointMedium) {
-      font-size: 30px;
+      font-size: 22px;
    }
 }
 
@@ -624,10 +627,11 @@ a.contrib-count {
 
 .tile-work-description-summary {
    color: var(--text-tertiary);
-   font-size: 22px;
+   font-size: 17px;
+   line-height: 1.5;
 
    @media only screen and (max-width: $breakpointMedium) {
-      font-size: 20px;
+      font-size: 16px;
    }
 
 }

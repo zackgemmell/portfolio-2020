@@ -11,7 +11,9 @@
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--header-border);
-  border-radius: 24px;
+  // Full pill: radius larger than half the bar's height so the ends are always
+  // fully rounded (not a rounded rectangle), regardless of height/width.
+  border-radius: 100px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0);
   transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease, background 0.3s ease, border 0.3s ease;
 
@@ -122,12 +124,95 @@
   }
 }
 
+// Home navbar: a compact pill that hugs its content and floats centered at the
+// top, mirroring the reference site (annaukolovadesign.com). The shared .header
+// base still owns the float, blur, entrance animation and scroll states; these
+// rules swap its full-width, space-between layout for an inline content-width
+// pill with an avatar + name on the left, a divider, muted nav links, and a
+// Contact call-to-action rendered as an outlined pill.
+.header-home {
+  // Hug the content instead of spanning the full column; the base's
+  // translateX(-50%) keeps the shrunk pill centered.
+  width: auto;
+  max-width: calc(100% - 40px);
+
+  .header-center {
+    justify-content: flex-start;
+    gap: 18px;
+    // Equal 6px inset on both sides so the avatar's gap to the left edge and the
+    // Connect button's gap to the right edge each match their ~6px gap to the
+    // top/bottom edges — even breathing room all the way around the pill.
+    padding: 0 6px;
+    // Matches the reference pill height: a 32px avatar with ~6px of breathing
+    // room above and below (32 + 6 + 6 = 44), which also lands the Connect
+    // button at nearly the same height as the avatar for a balanced bar.
+    height: 44px;
+  }
+
+  .logo {
+    font-size: 16px;
+
+    .header-favicon {
+      width: 32px;
+      height: 32px;
+      // Circular avatar to match the reference's profile photo.
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+  }
+
+  .header-nav {
+    gap: 22px;
+
+    > a {
+      font-size: 16px;
+      font-weight: 400;
+      // Nav links read as muted gray; the name (logo) stays dark and bold.
+      color: var(--text-muted);
+      // Spacing comes from the flex gap, not per-link margins.
+      margin-left: 0;
+
+      &:hover {
+        color: var(--text-primary);
+      }
+    }
+
+    // Contact as a distinct outlined pill button.
+    > a.header-cta {
+      color: var(--text-primary);
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 100px;
+      // ~30px tall to sit just inside the 44px bar, matching the avatar's height.
+      padding: 6px 18px;
+      line-height: 1.1;
+      font-weight: 500;
+      transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease,
+        transform 0.2s ease;
+
+      &:hover {
+        color: var(--text-primary);
+        border-color: var(--text-faint);
+        transform: translateY(-1px);
+      }
+    }
+  }
+}
+
+// Vertical hairline separating the name from the nav links.
+.header-divider {
+  flex: 0 0 auto;
+  width: 1px;
+  height: 20px;
+  background: var(--border-color);
+}
+
 // Responsive adjustments for mobile
 @media (max-width: $breakpointSmall) {
   .header {
     top: 12px;
     width: calc(100% - 24px);
-    border-radius: 20px;
+    border-radius: 100px;
 
     .header-center {
       padding: 0 24px;
@@ -217,6 +302,47 @@
       .header-favicon {
         opacity: 1;
       }
+    }
+  }
+}
+
+// Home navbar on mobile: there isn't room for the full inline nav, so the pill
+// goes full-width (base behavior) and collapses to avatar + name on the left
+// with the Contact call-to-action on the right. The Work/About links and the
+// divider are hidden — both are single-page anchor jumps, so scrolling covers
+// them — keeping the bar clean the way the reference does on small screens.
+@media (max-width: $breakpointSmall) {
+  .header-home {
+    .header-center {
+      justify-content: space-between;
+      gap: 0;
+      // Even 6px inset on both sides, matching the vertical gaps (as on desktop).
+      padding: 0 6px;
+      // Same compact height as desktop (30px avatar + ~7px top/bottom).
+      height: 44px;
+    }
+
+    .logo {
+      font-size: 15px;
+
+      .header-favicon {
+        width: 30px;
+        height: 30px;
+        margin-right: 8px;
+      }
+    }
+
+    .header-divider {
+      display: none;
+    }
+
+    .header-nav > a:not(.header-cta) {
+      display: none;
+    }
+
+    .header-nav > a.header-cta {
+      font-size: 15px;
+      padding: 6px 16px;
     }
   }
 }
