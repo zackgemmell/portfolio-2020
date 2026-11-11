@@ -54,7 +54,10 @@ li {
 }
 
 .wrapper {
-  max-width: 860px;
+  // 640px = the hero's 600px content column + the 20px padding on each side,
+  // so every section and blog post shares the same 600px measure as the first
+  // section of the home page.
+  max-width: 640px;
   margin: 0 auto;
   padding: 0 20px;
 }

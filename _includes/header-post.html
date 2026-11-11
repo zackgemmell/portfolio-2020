@@ -1,18 +1,6 @@
-<header class="header header-post">
-    <div class="header-center">
-        <a href="{{site.url}}{{site.baseurl}}" class="logo">
-            <svg class="header-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-            </svg>
-            <img src="/assets/img/favicon.png" alt="Logo" class="header-favicon">
-            <span class="logo-text">Zack Gemmell</span>
-        </a>
-        <div class="navbar-title" id="navbar-title">
-            <div class="navbar-title-main">{{ page.title }}</div>
-            <div class="navbar-title-company">{{ page.company }}</div>
-        </div>
-    </div>
-</header>
+{% comment %}
+  Posts use the exact same navbar as the home page (see header.html). The spacer
+  below reserves room beneath the floating pill so the article clears it.
+{% endcomment %}
+{% include header.html %}
 <div class="header-empty"></div>

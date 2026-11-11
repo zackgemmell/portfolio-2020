@@ -17,6 +17,100 @@ $(document).ready(function () {
       zoomInstance.update({ background: getZoomBackground() });
    });
 
+   // Video lightbox: expand inline post videos the same way medium-zoom
+   // expands images. medium-zoom only supports <img>, so we mirror its
+   // behaviour (scale/translate the element to the viewport centre over a
+   // dimmed overlay) for <video> elements in the post body.
+   (function initVideoZoom() {
+      var MARGIN = 50; // matches the medium-zoom config above
+      var videos = document.querySelectorAll('.story-body video, .story-hero video');
+      if (!videos.length) return;
+
+      var overlay = null;
+      var current = null;
+      var scrollStart = 0;
+
+      function openZoom(video) {
+         if (current) return;
+         current = video;
+
+         overlay = document.createElement('div');
+         overlay.className = 'video-zoom-overlay';
+         overlay.style.background = getZoomBackground();
+         document.body.appendChild(overlay);
+         // Force a reflow so the opacity transition runs from 0.
+         overlay.getBoundingClientRect();
+         overlay.classList.add('video-zoom-overlay--visible');
+
+         video.classList.add('video-zoom--opened');
+
+         var rect = video.getBoundingClientRect();
+         var availW = document.documentElement.clientWidth - MARGIN * 2;
+         var availH = document.documentElement.clientHeight - MARGIN * 2;
+         var naturalW = video.videoWidth || availW;
+         var naturalH = video.videoHeight || availH;
+         // Same scale logic medium-zoom uses: fit the viewport but never
+         // upscale past the media's native resolution.
+         var scale = Math.min(
+            Math.min(naturalW, availW) / rect.width,
+            Math.min(naturalH, availH) / rect.height
+         );
+         // With transform-origin at the centre, translating by the gap
+         // between the element centre and the viewport centre lands it
+         // dead centre regardless of the scale factor.
+         var translateX = document.documentElement.clientWidth / 2 - (rect.left + rect.width / 2);
+         var translateY = document.documentElement.clientHeight / 2 - (rect.top + rect.height / 2);
+         video.style.transform = 'translate(' + translateX + 'px, ' + translateY + 'px) scale(' + scale + ')';
+
+         scrollStart = window.pageYOffset || document.documentElement.scrollTop || 0;
+         overlay.addEventListener('click', closeZoom);
+         document.addEventListener('keydown', onKeydown);
+         window.addEventListener('scroll', onScroll, { passive: true });
+         window.addEventListener('resize', closeZoom);
+      }
+
+      function closeZoom() {
+         if (!current) return;
+         var video = current;
+         current = null;
+
+         video.style.transform = '';
+         if (overlay) overlay.classList.remove('video-zoom-overlay--visible');
+
+         document.removeEventListener('keydown', onKeydown);
+         window.removeEventListener('scroll', onScroll);
+         window.removeEventListener('resize', closeZoom);
+
+         var captured = overlay;
+         overlay = null;
+         video.addEventListener('transitionend', function cleanup() {
+            video.removeEventListener('transitionend', cleanup);
+            video.classList.remove('video-zoom--opened');
+            if (captured && captured.parentNode) captured.parentNode.removeChild(captured);
+         });
+      }
+
+      function onKeydown(event) {
+         if (event.key === 'Escape') closeZoom();
+      }
+
+      function onScroll() {
+         var pos = window.pageYOffset || document.documentElement.scrollTop || 0;
+         if (Math.abs(pos - scrollStart) > 40) closeZoom();
+      }
+
+      videos.forEach(function (video) {
+         video.classList.add('video-zoomable');
+         video.addEventListener('click', function () {
+            if (current === video) {
+               closeZoom();
+            } else {
+               openZoom(video);
+            }
+         });
+      });
+   })();
+
    var introLede = $(".intro-lede");
    var introRoles = $(".intro-roles");
    var header = $(".header");
@@ -97,8 +191,10 @@ $(document).ready(function () {
    // Add smooth scrolling to all links
    $("#header-home > a").on('click', function (event) {
 
-      // Make sure this.hash has a value before overriding default behavior
-      if (this.hash !== "") {
+      // Only hijack for a smooth scroll when the target section exists on THIS
+      // page (the home page). On a post, #projects / #about don't exist, so we
+      // let the browser follow the link to the home page's section instead.
+      if (this.hash !== "" && $(this.hash).length) {
          // Prevent default anchor click behavior
          event.preventDefault();
 

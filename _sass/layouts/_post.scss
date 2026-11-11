@@ -1,119 +1,6 @@
-.header-post {
-  opacity: 1;
-
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .header-chevron {
-    color: var(--text-secondary);
-    transition: color 0.2s ease, transform 0.2s ease;
-  }
-
-  .logo:hover .header-chevron {
-    color: var(--text-primary);
-    transform: translateX(-2px);
-  }
-}
-
-.navbar-title {
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--text-primary);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
-
-  &.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .navbar-title-main {
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--text-primary);
-    line-height: 1.2;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 100%;
-  }
-
-  .navbar-title-company {
-    font-size: 12px;
-    font-weight: 400;
-    color: var(--text-secondary);
-    line-height: 1;
-    margin-top: 2px;
-    opacity: 0.7;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 100%;
-  }
-}
-
-// Mobile specific adjustments for navbar title
-@media (max-width: 696px) {
-  .navbar-title {
-    // Override ALL desktop positioning on mobile
-    position: absolute !important;
-    left: 40px !important;
-    top: 50% !important;
-    right: auto !important; // Override any right positioning
-    transform: translateY(calc(-50% + 32px)) !important; // Start below the logo text area (increased offset)
-    margin-left: 28px !important; // Align with visual logo-text position (16px chevron + 32px favicon - 20px translateX = 28px)
-    opacity: 0;
-    visibility: hidden;
-    display: none; // Initial state hidden for jQuery .show() compatibility
-    max-width: calc(100% - 92px) !important; // Adjusted for new margin (28px + 40px left + 24px padding)
-    height: auto !important; // Allow natural height instead of fixed 28px
-    min-height: 32px !important; // Ensure minimum space for text
-    overflow: visible !important; // Allow text to show fully
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease !important;
-
-    // Reset desktop visible state on mobile - but keep it hidden until animation
-    &.visible {
-      opacity: 0;
-      visibility: visible;
-      transform: translateY(calc(-50% + 32px)) !important; // Keep starting position
-    }
-
-    // Only show when both visible and slide-up classes are present
-    &.visible.slide-up {
-      opacity: 1;
-      transform: translateY(-50%) !important; // Move to logo text position
-    }
-
-    .navbar-title-main {
-      font-size: 18px !important;
-      font-weight: 600 !important;
-      line-height: 1.1 !important; // Slightly more relaxed line height
-      overflow: visible !important;
-      text-overflow: initial !important; // Remove ellipsis
-      white-space: nowrap !important;
-    }
-
-    .navbar-title-company {
-      font-size: 12px !important;
-      line-height: 1.2 !important; // More relaxed line height
-      margin-top: 1px !important;
-      overflow: visible !important;
-      text-overflow: initial !important; // Remove ellipsis
-      white-space: nowrap !important;
-    }
-  }
-}
+// The post navbar is now the shared home navbar (see _includes/header.html and
+// _includes/header-post.html); its styles live in components/_header.scss. Posts
+// keep only the spacer below that reserves room beneath the floating pill.
 
 .wrapper-post {
   padding-top: 1em;
@@ -145,6 +32,32 @@
 .medium-zoom-overlay {
   z-index: 1050;
   background: var(--zoom-overlay-bg) !important;
+}
+
+// Click-to-expand for inline post videos, mirroring medium-zoom for images.
+.video-zoomable {
+  cursor: zoom-in;
+}
+
+.video-zoom-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  cursor: zoom-out;
+  opacity: 0;
+  transition: opacity 0.3s;
+
+  &--visible {
+    opacity: 1;
+  }
+}
+
+.video-zoom--opened {
+  position: relative;
+  z-index: 1100;
+  cursor: zoom-out;
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0.2, 1);
+  will-change: transform;
 }
 
 

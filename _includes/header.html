@@ -1,12 +1,15 @@
-<header class="header header-post">
+<header class="header header-home">
     <div class="header-center">
-        <a href="#home" class="logo">
-            <img src="/assets/img/favicon.png" alt="Logo" class="header-favicon">
-            Zack Gemmell
+        <a href="{{ site.baseurl }}/#home" class="logo">
+            <img src="/assets/img/avatar.png" alt="Logo" class="header-favicon">
+            <span class="logo-text">Zack Gemmell</span>
         </a>
+        <span class="header-divider" aria-hidden="true"></span>
         <nav id="header-home" class="header-nav">
-            <a href="#projects">Work</a>
-            <a href="#about">About</a>
+            <a href="{{ site.baseurl }}/#projects">Work</a>
+            <a href="{{ site.baseurl }}/#about">About</a>
+            <a href="https://www.linkedin.com/in/zackgemmell" target="_blank" rel="noopener"
+                class="header-cta">Connect</a>
         </nav>
     </div>
 </header>
